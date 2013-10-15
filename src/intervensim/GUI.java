@@ -7,6 +7,7 @@ package intervensim;
 import com.sun.xml.internal.ws.api.message.Message;
 import java.awt.Color;
 import javax.swing.ImageIcon;
+import javax.swing.KeyStroke;
 
 /**
  *
@@ -179,9 +180,11 @@ public class GUI extends javax.swing.JFrame {
         jMenuFichier.setText("Fichier");
 
         jItemImporter.setText("Importer une simulation");
+        jItemImporter.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I,java.awt.Event.CTRL_MASK));
         jMenuFichier.add(jItemImporter);
 
         jItemSauvegarder.setText("Sauvegarder une simulation");
+        jItemSauvegarder.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S,java.awt.Event.CTRL_MASK));
         jMenuFichier.add(jItemSauvegarder);
 
         jItemQuitter.setText("Quitter");
@@ -191,6 +194,7 @@ public class GUI extends javax.swing.JFrame {
                 jItemQuitterActionPerformed(evt);
             }
         });
+        jItemQuitter.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q,java.awt.Event.CTRL_MASK));
         jMenuFichier.add(jItemQuitter);
 
         jMenuBar.add(jMenuFichier);
@@ -206,6 +210,7 @@ public class GUI extends javax.swing.JFrame {
 
         jCbAfficherGrille.setSelected(true);
         jCbAfficherGrille.setText("Affichier la grille");
+        jCbAfficherGrille.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G,java.awt.Event.CTRL_MASK));
         jMenuOptions.add(jCbAfficherGrille);
 
         jItemOptionAvance.setText("Options avancés");
@@ -214,14 +219,21 @@ public class GUI extends javax.swing.JFrame {
                 jItemOptionAvanceActionPerformed(evt);
             }
         });
+        jItemOptionAvance.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O,java.awt.Event.CTRL_MASK));
         jMenuOptions.add(jItemOptionAvance);
 
         jMenuBar.add(jMenuOptions);
 
         jMenuAide.setText("Aide");
+
+        //jMenuAide.setMnemonic(KeyEvent.VK_A);
+
         jMenuBar.add(jMenuAide);
 
         jMenuPropos.setText("À propos");
+
+        //jMenuPropos.setMnemonic(KeyEvent.VK_P);
+
         jMenuBar.add(jMenuPropos);
 
         setJMenuBar(jMenuBar);
@@ -231,6 +243,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void jItemQuitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jItemQuitterActionPerformed
         // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_jItemQuitterActionPerformed
 
     private void jItemOptionAvanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jItemOptionAvanceActionPerformed
@@ -253,12 +266,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         // TODO add your handling code here:
-        switch(evt.getKeyCode())
-        {
-                case 1: ;
-                
-                break;
-        }
+  
     }//GEN-LAST:event_formKeyPressed
 
     /**
@@ -287,7 +295,7 @@ public class GUI extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-       
+
        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
