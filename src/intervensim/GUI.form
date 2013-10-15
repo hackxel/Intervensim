@@ -91,7 +91,7 @@
             <Property name="text" type="java.lang.String" value="&#xc0; propos"/>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_LayoutCodePost" type="java.lang.String" value="jMenuPropos.setMnemonic(KeyEvent.VK_F);"/>
+            <AuxValue name="JavaCodeGenerator_LayoutCodePost" type="java.lang.String" value="//jMenuPropos.setMnemonic(KeyEvent.VK_F);"/>
           </AuxValues>
         </Menu>
       </SubComponents>
