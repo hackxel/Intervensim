@@ -82,9 +82,16 @@
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="0" green="0" red="0" type="rgb"/>
     </Property>
+    <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+      <Color id="Curseur par d&#xe9;faut"/>
+    </Property>
+    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[800, 600]"/>
+    </Property>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[800, 600]"/>
     </Property>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar"/>
@@ -128,6 +135,7 @@
     <Component class="javax.swing.JSlider" name="jSlidZoom">
       <Properties>
         <Property name="majorTickSpacing" type="int" value="10"/>
+        <Property name="minimum" type="int" value="1"/>
         <Property name="minorTickSpacing" type="int" value="2"/>
       </Properties>
       <Events>
@@ -147,7 +155,7 @@
         <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jSlidVitesseStateChanged"/>
       </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePre" type="java.lang.String" value="jSlidVitesse.setValue(1);"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePre" type="java.lang.String" value="jSlidVitesse.setValue(0);"/>
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -178,10 +186,10 @@
     <Component class="javax.swing.JButton" name="jBtnDemarer">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
+          <Color blue="cc" green="cc" red="cc" type="rgb"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/image/media-playback-start-icone-7919-32.png"/>
+          <Image iconType="3" name="/image/Media-Controls-Play-icon.png"/>
         </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[50, 50]"/>
@@ -196,10 +204,10 @@
     <Component class="javax.swing.JButton" name="jBtnPause">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
+          <Color blue="cc" green="cc" red="cc" type="rgb"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/image/media-pause-playback-icone-9550-32.png"/>
+          <Image iconType="3" name="/image/Media-Controls-Pause-icon.png"/>
         </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[50, 50]"/>
@@ -217,10 +225,10 @@
     <Component class="javax.swing.JButton" name="jBtnStop">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
+          <Color blue="cc" green="cc" red="cc" type="rgb"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/image/stop-reading-media-icone-7296-32.png"/>
+          <Image iconType="3" name="/image/Media-Controls-Stop-icon.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value=""/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -239,7 +247,7 @@
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/image/1381540538_hospital.png"/>
+          <Image iconType="3" name="/image/Medicine-Ambulance-icon.png"/>
         </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[50, 50]"/>
@@ -257,7 +265,7 @@
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/image/1381540442_monotone_location_pin_marker.png"/>
+          <Image iconType="3" name="/image/Charts-Mind-map-icon.png"/>
         </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[50, 50]"/>
@@ -275,7 +283,7 @@
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/image/1381540479_road.png"/>
+          <Image iconType="3" name="/image/Image-Edition-Tools-Line-icon.png"/>
         </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[50, 50]"/>
@@ -321,6 +329,9 @@
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/image/Maps-and-Geolocation-Polyline-icon.png"/>
         </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[50, 50]"/>

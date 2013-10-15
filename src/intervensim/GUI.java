@@ -6,6 +6,7 @@ package intervensim;
 
 import com.sun.xml.internal.ws.api.message.Message;
 import java.awt.Color;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -18,6 +19,12 @@ public class GUI extends javax.swing.JFrame {
      */
     public GUI() {
         initComponents();
+             // String appdata = System.getenv("APPDATA");
+       // String iconPath = appdata + "\\Visualpharm-Icons8-Metro-Style-Medicine-Ambulance.ico";
+        String iconPath = "C:\\Users\\Charles\\Documents\\NetBeansProjects\\Intervensim\\src\\image\\Visualpharm-Icons8-Metro-Style-Medicine-Ambulance.ico";
+        ImageIcon imgicon = new ImageIcon(iconPath);
+        this.setIconImage(imgicon.getImage());
+        
     }
 
     /**
@@ -61,7 +68,10 @@ public class GUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Intervensim");
         setBackground(new java.awt.Color(0, 0, 0));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setMaximumSize(new java.awt.Dimension(800, 600));
         setMinimumSize(new java.awt.Dimension(800, 600));
+        setResizable(false);
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 formKeyPressed(evt);
@@ -74,6 +84,7 @@ public class GUI extends javax.swing.JFrame {
         jPanelMap.setBounds(0, 0, 560, 360);
 
         jSlidZoom.setMajorTickSpacing(10);
+        jSlidZoom.setMinimum(1);
         jSlidZoom.setMinorTickSpacing(2);
         jSlidZoom.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -89,7 +100,7 @@ public class GUI extends javax.swing.JFrame {
                 jSlidVitesseStateChanged(evt);
             }
         });
-        jSlidVitesse.setValue(1);
+        jSlidVitesse.setValue(0);
         getContentPane().add(jSlidVitesse);
         jSlidVitesse.setBounds(260, 400, 200, 23);
 
@@ -101,14 +112,14 @@ public class GUI extends javax.swing.JFrame {
         getContentPane().add(jLabVitesse);
         jLabVitesse.setBounds(460, 400, 100, 20);
 
-        jBtnDemarer.setBackground(new java.awt.Color(0, 0, 0));
-        jBtnDemarer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/media-playback-start-icone-7919-32.png"))); // NOI18N
+        jBtnDemarer.setBackground(new java.awt.Color(204, 204, 204));
+        jBtnDemarer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Media-Controls-Play-icon.png"))); // NOI18N
         jBtnDemarer.setPreferredSize(new java.awt.Dimension(50, 50));
         getContentPane().add(jBtnDemarer);
         jBtnDemarer.setBounds(20, 380, 40, 40);
 
-        jBtnPause.setBackground(new java.awt.Color(0, 0, 0));
-        jBtnPause.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/media-pause-playback-icone-9550-32.png"))); // NOI18N
+        jBtnPause.setBackground(new java.awt.Color(204, 204, 204));
+        jBtnPause.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Media-Controls-Pause-icon.png"))); // NOI18N
         jBtnPause.setPreferredSize(new java.awt.Dimension(50, 50));
         jBtnPause.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,27 +129,27 @@ public class GUI extends javax.swing.JFrame {
         getContentPane().add(jBtnPause);
         jBtnPause.setBounds(60, 380, 40, 40);
 
-        jBtnStop.setBackground(new java.awt.Color(0, 0, 0));
-        jBtnStop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/stop-reading-media-icone-7296-32.png"))); // NOI18N
+        jBtnStop.setBackground(new java.awt.Color(204, 204, 204));
+        jBtnStop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Media-Controls-Stop-icon.png"))); // NOI18N
         jBtnStop.setToolTipText("");
         jBtnStop.setPreferredSize(new java.awt.Dimension(50, 50));
         getContentPane().add(jBtnStop);
         jBtnStop.setBounds(100, 380, 40, 40);
 
         jBtnDemarer1.setBackground(new java.awt.Color(204, 204, 204));
-        jBtnDemarer1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/1381540538_hospital.png"))); // NOI18N
+        jBtnDemarer1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Medicine-Ambulance-icon.png"))); // NOI18N
         jBtnDemarer1.setPreferredSize(new java.awt.Dimension(50, 50));
         getContentPane().add(jBtnDemarer1);
         jBtnDemarer1.setBounds(570, 130, 60, 60);
 
         jBtnDemarer2.setBackground(new java.awt.Color(204, 204, 204));
-        jBtnDemarer2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/1381540442_monotone_location_pin_marker.png"))); // NOI18N
+        jBtnDemarer2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Charts-Mind-map-icon.png"))); // NOI18N
         jBtnDemarer2.setPreferredSize(new java.awt.Dimension(50, 50));
         getContentPane().add(jBtnDemarer2);
         jBtnDemarer2.setBounds(570, 10, 60, 60);
 
         jBtnDemarer3.setBackground(new java.awt.Color(204, 204, 204));
-        jBtnDemarer3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/1381540479_road.png"))); // NOI18N
+        jBtnDemarer3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Image-Edition-Tools-Line-icon.png"))); // NOI18N
         jBtnDemarer3.setPreferredSize(new java.awt.Dimension(50, 50));
         getContentPane().add(jBtnDemarer3);
         jBtnDemarer3.setBounds(570, 70, 60, 60);
@@ -156,6 +167,7 @@ public class GUI extends javax.swing.JFrame {
         label3.setBounds(630, 70, 140, 60);
 
         jBtnDemarer4.setBackground(new java.awt.Color(204, 204, 204));
+        jBtnDemarer4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Maps-and-Geolocation-Polyline-icon.png"))); // NOI18N
         jBtnDemarer4.setPreferredSize(new java.awt.Dimension(50, 50));
         getContentPane().add(jBtnDemarer4);
         jBtnDemarer4.setBounds(570, 190, 60, 60);
@@ -275,6 +287,7 @@ public class GUI extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+       
        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
