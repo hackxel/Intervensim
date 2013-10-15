@@ -232,7 +232,7 @@ public class GUI extends javax.swing.JFrame {
 
         jMenuPropos.setText("À propos");
 
-        //jMenuPropos.setMnemonic(KeyEvent.VK_P);
+        jMenuPropos.setMnemonic(KeyEvent.VK_F);
 
         jMenuBar.add(jMenuPropos);
 
