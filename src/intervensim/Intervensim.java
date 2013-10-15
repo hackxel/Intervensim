@@ -9,6 +9,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -24,8 +26,9 @@ public class Intervensim {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-     GUI.main(args);
-
+     
+  
+        GUI.main(args);
      
     }
 }
