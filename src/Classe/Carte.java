@@ -8,19 +8,18 @@ import java.util.List;
 import java.util.ArrayList;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.geom.Point2D;
 
 /**
  *
  * @author Joseph
  */
 public class Carte {
-    //List<Noeud> m_listeNoeuds = new ArrayList<>();
-    //List<Segment> m_listeSegments = new ArrayList<>();
     ArrayList<Segment> m_listeSegments;
     ArrayList<Noeud> m_listeNoeuds;
     //Liste d'urgence a ajouter ici
     Image m_ImgFond;
-    float m_DistanceEntrePts;
+    
     
     Carte()
     {
@@ -30,23 +29,19 @@ public class Carte {
         m_listeSegments = new ArrayList();
     }
     
-    boolean AjouterNoeud(Point p_Coordonnee)
+    boolean AjouterNoeud(Point2D.Float p_CoordNoeud)
     {
         Boolean ajoutReussi = false;
-        
-        float posX, posY;
-        
-        posX = p_Coordonnee.x;
-        posY = p_Coordonnee.y;
-        if(NoeudEstPresent(posX, posY) == false)
+    
+        if(NoeudEstPresent(p_CoordNoeud) == false)
         {
-             m_listeNoeuds.add(new Noeud(posX, posY));
+             m_listeNoeuds.add(new Noeud(p_CoordNoeud));
              ajoutReussi = true;
         }
         
         return ajoutReussi;
     }
-    
+    /*
     boolean SupprimerNoeud(int p_posX,int p_posY)
     {
         Boolean suppressionReussie = false;
@@ -68,7 +63,7 @@ public class Carte {
         
         return suppressionReussie;
     }
-    
+    */
     double ObtenirDistanceSegment(Noeud p_noeud1, Noeud p_noeud2)
     {
         float deplacementX = p_noeud2.obtenir_posX() - p_noeud1.obtenir_posX();
@@ -77,7 +72,7 @@ public class Carte {
         return Math.sqrt(Math.pow(deplacementX, 2) + Math.pow(deplacementY, 2));
     }
     
-    boolean NoeudEstPresent(float p_posX,float p_posY)
+    boolean NoeudEstPresent(Point2D.Float p_CoordNoeud)
     {
         boolean estPresent = false;
         int compteurNoeuds = 0;
@@ -87,7 +82,7 @@ public class Carte {
         {
             noeudCourant = m_listeNoeuds.get(compteurNoeuds);
             
-            if(noeudCourant.EstMemePosition(p_posX, p_posY))
+            if(noeudCourant.EstMemePosition(p_CoordNoeud))
             {
                 estPresent = true;
             }
@@ -98,7 +93,7 @@ public class Carte {
         return estPresent;
     }
     
-    Noeud ObtenirNoeud(int p_posX,int p_posY)
+    Noeud ObtenirNoeud(Point2D.Float p_CoordNd)
     {
         Noeud noeudTrouve = null;
         int compteurNoeuds = 0;
@@ -108,7 +103,7 @@ public class Carte {
         {
             noeudCourant = m_listeNoeuds.get(compteurNoeuds);
             
-            if(noeudCourant.EstMemePosition(p_posX, p_posY))
+            if(noeudCourant.EstMemePosition(p_CoordNd))
             {
                 noeudTrouve = noeudCourant;
             }
