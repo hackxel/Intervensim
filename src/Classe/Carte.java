@@ -6,22 +6,41 @@ package Classe;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.awt.Image;
+import java.awt.Point;
 
 /**
  *
  * @author Joseph
  */
 public class Carte {
-    List<Noeud> m_listeNoeuds = new ArrayList<>();
-    List<Segment> m_listeSegments = new ArrayList<>();
+    //List<Noeud> m_listeNoeuds = new ArrayList<>();
+    //List<Segment> m_listeSegments = new ArrayList<>();
+    ArrayList<Segment> m_listeSegments;
+    ArrayList<Noeud> m_listeNoeuds;
+    //Liste d'urgence a ajouter ici
+    Image m_ImgFond;
+    float m_DistanceEntrePts;
     
-    boolean AjouterNoeud(int p_posX,int p_posY)
+    Carte()
+    {
+        //Instanciation de la carte va initialiser les listes
+        
+        m_listeNoeuds = new ArrayList();
+        m_listeSegments = new ArrayList();
+    }
+    
+    boolean AjouterNoeud(Point p_Coordonnee)
     {
         Boolean ajoutReussi = false;
         
-        if(NoeudEstPresent(p_posX, p_posY) == false)
+        float posX, posY;
+        
+        posX = p_Coordonnee.x;
+        posY = p_Coordonnee.y;
+        if(NoeudEstPresent(posX, posY) == false)
         {
-             m_listeNoeuds.add(new Noeud(p_posX, p_posY));
+             m_listeNoeuds.add(new Noeud(posX, posY));
              ajoutReussi = true;
         }
         
@@ -52,13 +71,13 @@ public class Carte {
     
     double ObtenirDistanceSegment(Noeud p_noeud1, Noeud p_noeud2)
     {
-        int deplacementX = p_noeud2.obtenir_posX() - p_noeud1.obtenir_posX();
-        int deplacementY = p_noeud2.obtenir_posY() - p_noeud1.obtenir_posY();
+        float deplacementX = p_noeud2.obtenir_posX() - p_noeud1.obtenir_posX();
+        float deplacementY = p_noeud2.obtenir_posY() - p_noeud1.obtenir_posY();
         
         return Math.sqrt(Math.pow(deplacementX, 2) + Math.pow(deplacementY, 2));
     }
     
-    boolean NoeudEstPresent(int p_posX,int p_posY)
+    boolean NoeudEstPresent(float p_posX,float p_posY)
     {
         boolean estPresent = false;
         int compteurNoeuds = 0;
@@ -100,6 +119,11 @@ public class Carte {
         return noeudCourant;
     }
     
+    void AjouterSegment(Point CoordNoeud1, Point CoordNoeud2)
+    {
+        
+    }
+    
     List<Segment> ObtenirSegmentsRelies(Noeud p_noeud)
     {
         List<Segment> listeLiens = new ArrayList<>();
@@ -107,10 +131,10 @@ public class Carte {
         
         for(Segment segmentCourant:m_listeSegments)            
         {
-            if(segmentCourant.m_iIndNoeud1 == indexNoeud || segmentCourant.m_iIndNoeud2 == indexNoeud)
+            /*if(segmentCourant.m_iIndNoeud1 == indexNoeud || segmentCourant.m_iIndNoeud2 == indexNoeud)
             {
                 listeLiens.add(segmentCourant);
-            }
+            }*/
         }
         
         return listeLiens;

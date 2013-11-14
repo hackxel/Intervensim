@@ -11,26 +11,21 @@ package Classe;
 public class Segment {
     
     //Attributs
-    int m_iIndNoeud1;
+    Noeud m_Noeud1;
     
-    int m_iIndNoeud2;
+    Noeud m_Noeud2;
     
     double m_Distance;
     
     //Constructeur
-    Segment(int p_indexNo1, int p_indexNo2)
+    Segment(Noeud p_Noeud1, Noeud p_Noeud2)
     {
+        m_Noeud1 =  p_Noeud1;
+        m_Noeud2 = p_Noeud2;
         
-        if((p_indexNo1 >= 0 && p_indexNo2 >= 0) && p_indexNo1 != p_indexNo2)
-        {
-            m_iIndNoeud1 = p_indexNo1;
-            m_iIndNoeud2 = p_indexNo2;
-            
-            //Calcul de la distance avec pythagore
-            m_Distance = Math.pow((double)p_indexNo1, 2) + Math.pow((double)p_indexNo2, 2);
-            m_Distance = Math.sqrt(m_Distance);
-        }
-        
+        //Calcul de la distance du segment avec pythagore
+        m_Distance = Math.pow((double)Math.abs(m_Noeud1.obtenir_posX() - m_Noeud2.obtenir_posX()), 2) + Math.pow((double)Math.abs(m_Noeud1.obtenir_posY() - m_Noeud2.obtenir_posY()), 2);
+        m_Distance = Math.sqrt(m_Distance);
     }
     
     //Retourner la distance
