@@ -4,6 +4,8 @@
  */
 package Classe;
 
+import java.awt.geom.Point2D;
+
 /**
  *
  * @author Joseph
@@ -11,27 +13,28 @@ package Classe;
 public class Noeud {
     
    //Attributs
-    private float m_posX;
-    
-    private float m_posY;
+    Point2D.Float m_Position;
     
      public float obtenir_posX() {
-        return m_posX;
+        return m_Position.x;
     }
 
     public float obtenir_posY() {
-        return m_posY;
+        return m_Position.y;
     }
     
+    public Point2D.Float obtenir_Position()
+    {
+        return m_Position;
+    }
     //Constructeur
-    Noeud(float p_posX, float p_posY)
+    Noeud(Point2D.Float p_CoordNoeud)
     {
-        m_posX = p_posX;
-        m_posY = p_posY;
+        m_Position = p_CoordNoeud;
     }
     
-    boolean EstMemePosition(float p_posX, float p_posY)
+    boolean EstMemePosition(Point2D.Float p_CoordNoeud)
     {
-        return (m_posX == p_posX && m_posY == p_posY);
+        return (m_Position == p_CoordNoeud);
     }
 }
