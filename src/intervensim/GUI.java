@@ -8,6 +8,9 @@ import com.sun.xml.internal.ws.api.message.Message;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.KeyStroke;
+import java.awt.Component;
+import java.awt.geom.Point2D;
+import intervensim.Simulateur;
 
 /**
  *
@@ -18,6 +21,11 @@ public class GUI extends javax.swing.JFrame {
     /**
      * Creates new form JFrame
      */
+    String m_etatBoutonClique="";
+    Point2D.Float m_PremierPoint;
+    Point2D.Float m_DeuxiemePoint;
+    
+    
     public GUI() {
         initComponents();
              // String appdata = System.getenv("APPDATA");
@@ -25,6 +33,18 @@ public class GUI extends javax.swing.JFrame {
         String iconPath = "C:\\Users\\Charles\\Documents\\NetBeansProjects\\Intervensim\\src\\image\\Visualpharm-Icons8-Metro-Style-Medicine-Ambulance.ico";
         ImageIcon imgicon = new ImageIcon(iconPath);
         this.setIconImage(imgicon.getImage());
+        
+
+        javax.swing.JPanel jPanelMap = new javax.swing.JPanel();
+        jPanelMap.setBackground(new java.awt.Color(51, 51, 51));
+        jPanelMap.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+               jPanelMapMouseClicked(evt);
+            }
+        });
+        getContentPane().add(jPanelMap);
+        jPanelMap.setBounds(0, 0, 560, 360);
         
     }
 
@@ -37,7 +57,6 @@ public class GUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanelMap = new javax.swing.JPanel();
         jSlidZoom = new javax.swing.JSlider();
         jSlidVitesse = new javax.swing.JSlider();
         jLabZoom = new javax.swing.JLabel();
@@ -45,13 +64,13 @@ public class GUI extends javax.swing.JFrame {
         jBtnDemarer = new javax.swing.JButton();
         jBtnPause = new javax.swing.JButton();
         jBtnStop = new javax.swing.JButton();
-        jBtnDemarer1 = new javax.swing.JButton();
-        jBtnDemarer2 = new javax.swing.JButton();
-        jBtnDemarer3 = new javax.swing.JButton();
+        jBtnAjouterPortAttache = new javax.swing.JButton();
+        jBtnAjouterNoeud = new javax.swing.JButton();
+        jBtnAjouterSegment = new javax.swing.JButton();
         label1 = new java.awt.Label();
         label2 = new java.awt.Label();
         label3 = new java.awt.Label();
-        jBtnDemarer4 = new javax.swing.JButton();
+        jBtnAjoutRapide = new javax.swing.JButton();
         label4 = new java.awt.Label();
         jMenuBar = new javax.swing.JMenuBar();
         jMenuFichier = new javax.swing.JMenu();
@@ -80,10 +99,6 @@ public class GUI extends javax.swing.JFrame {
         });
         getContentPane().setLayout(null);
 
-        jPanelMap.setBackground(new java.awt.Color(51, 51, 51));
-        getContentPane().add(jPanelMap);
-        jPanelMap.setBounds(0, 0, 560, 360);
-
         jSlidZoom.setMajorTickSpacing(10);
         jSlidZoom.setMinimum(1);
         jSlidZoom.setMinorTickSpacing(2);
@@ -94,7 +109,7 @@ public class GUI extends javax.swing.JFrame {
         });
         jSlidZoom.setValue(1);
         getContentPane().add(jSlidZoom);
-        jSlidZoom.setBounds(260, 370, 200, 26);
+        jSlidZoom.setBounds(260, 370, 200, 23);
 
         jSlidVitesse.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -103,7 +118,7 @@ public class GUI extends javax.swing.JFrame {
         });
         jSlidVitesse.setValue(0);
         getContentPane().add(jSlidVitesse);
-        jSlidVitesse.setBounds(260, 400, 200, 26);
+        jSlidVitesse.setBounds(260, 400, 200, 23);
 
         jLabZoom.setText("Zoom: 1x");
         getContentPane().add(jLabZoom);
@@ -137,23 +152,38 @@ public class GUI extends javax.swing.JFrame {
         getContentPane().add(jBtnStop);
         jBtnStop.setBounds(100, 380, 40, 40);
 
-        jBtnDemarer1.setBackground(new java.awt.Color(204, 204, 204));
-        jBtnDemarer1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Medicine-Ambulance-icon.png"))); // NOI18N
-        jBtnDemarer1.setPreferredSize(new java.awt.Dimension(50, 50));
-        getContentPane().add(jBtnDemarer1);
-        jBtnDemarer1.setBounds(570, 130, 60, 60);
+        jBtnAjouterPortAttache.setBackground(new java.awt.Color(204, 204, 204));
+        jBtnAjouterPortAttache.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Medicine-Ambulance-icon.png"))); // NOI18N
+        jBtnAjouterPortAttache.setPreferredSize(new java.awt.Dimension(50, 50));
+        jBtnAjouterPortAttache.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnAjouterPortAttacheActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jBtnAjouterPortAttache);
+        jBtnAjouterPortAttache.setBounds(570, 130, 60, 60);
 
-        jBtnDemarer2.setBackground(new java.awt.Color(204, 204, 204));
-        jBtnDemarer2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Charts-Mind-map-icon.png"))); // NOI18N
-        jBtnDemarer2.setPreferredSize(new java.awt.Dimension(50, 50));
-        getContentPane().add(jBtnDemarer2);
-        jBtnDemarer2.setBounds(570, 10, 60, 60);
+        jBtnAjouterNoeud.setBackground(new java.awt.Color(204, 204, 204));
+        jBtnAjouterNoeud.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Charts-Mind-map-icon.png"))); // NOI18N
+        jBtnAjouterNoeud.setPreferredSize(new java.awt.Dimension(50, 50));
+        jBtnAjouterNoeud.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnAjouterNoeudActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jBtnAjouterNoeud);
+        jBtnAjouterNoeud.setBounds(570, 10, 60, 60);
 
-        jBtnDemarer3.setBackground(new java.awt.Color(204, 204, 204));
-        jBtnDemarer3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Image-Edition-Tools-Line-icon.png"))); // NOI18N
-        jBtnDemarer3.setPreferredSize(new java.awt.Dimension(50, 50));
-        getContentPane().add(jBtnDemarer3);
-        jBtnDemarer3.setBounds(570, 70, 60, 60);
+        jBtnAjouterSegment.setBackground(new java.awt.Color(204, 204, 204));
+        jBtnAjouterSegment.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Image-Edition-Tools-Line-icon.png"))); // NOI18N
+        jBtnAjouterSegment.setPreferredSize(new java.awt.Dimension(50, 50));
+        jBtnAjouterSegment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnAjouterSegmentActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jBtnAjouterSegment);
+        jBtnAjouterSegment.setBounds(570, 70, 60, 60);
 
         label1.setText("Ajouter un port d'attache");
         getContentPane().add(label1);
@@ -167,11 +197,16 @@ public class GUI extends javax.swing.JFrame {
         getContentPane().add(label3);
         label3.setBounds(630, 70, 140, 60);
 
-        jBtnDemarer4.setBackground(new java.awt.Color(204, 204, 204));
-        jBtnDemarer4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Maps-and-Geolocation-Polyline-icon.png"))); // NOI18N
-        jBtnDemarer4.setPreferredSize(new java.awt.Dimension(50, 50));
-        getContentPane().add(jBtnDemarer4);
-        jBtnDemarer4.setBounds(570, 190, 60, 60);
+        jBtnAjoutRapide.setBackground(new java.awt.Color(204, 204, 204));
+        jBtnAjoutRapide.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Maps-and-Geolocation-Polyline-icon.png"))); // NOI18N
+        jBtnAjoutRapide.setPreferredSize(new java.awt.Dimension(50, 50));
+        jBtnAjoutRapide.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnAjoutRapideActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jBtnAjoutRapide);
+        jBtnAjoutRapide.setBounds(570, 190, 60, 60);
 
         label4.setText("Ajout rapide");
         getContentPane().add(label4);
@@ -241,6 +276,27 @@ public class GUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jPanelMapMouseClicked(java.awt.event.MouseEvent evt)
+    {
+        if(m_PremierPoint==null)   
+            m_PremierPoint=new Point2D.Float(evt.getX(),evt.getY());
+        else
+            m_DeuxiemePoint=new Point2D.Float(evt.getX(),evt.getY());
+        
+        switch (m_etatBoutonClique) {
+            case "AjoutNoeud":
+                Simulateur.AjouterNoeud(m_PremierPoint);
+                reinitialisationVar();
+                break;
+            case "AjoutSegment":
+                if(m_DeuxiemePoint != null)
+                {
+                    Simulateur.AjouterSegment(m_PremierPoint, m_DeuxiemePoint);
+                    reinitialisationVar();
+                }
+                break;
+        }
+    }
     private void jItemQuitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jItemQuitterActionPerformed
         // TODO add your handling code here:
         System.exit(0);
@@ -269,6 +325,35 @@ public class GUI extends javax.swing.JFrame {
   
     }//GEN-LAST:event_formKeyPressed
 
+    private void jBtnAjouterNoeudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAjouterNoeudActionPerformed
+        // TODO add your handling code here:
+        reinitialisationVar();
+        m_etatBoutonClique="AjoutNoeud";
+    }//GEN-LAST:event_jBtnAjouterNoeudActionPerformed
+
+    private void jBtnAjouterSegmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAjouterSegmentActionPerformed
+        // TODO add your handling code here:
+         reinitialisationVar();
+         m_etatBoutonClique="AjoutSegment";
+    }//GEN-LAST:event_jBtnAjouterSegmentActionPerformed
+
+    private void jBtnAjouterPortAttacheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAjouterPortAttacheActionPerformed
+        // TODO add your handling code here:
+         reinitialisationVar();
+         m_etatBoutonClique="AjoutPortAttache";
+    }//GEN-LAST:event_jBtnAjouterPortAttacheActionPerformed
+
+    private void jBtnAjoutRapideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAjoutRapideActionPerformed
+        // TODO add your handling code here:
+           reinitialisationVar();
+           m_etatBoutonClique="AjoutRapide";
+    }//GEN-LAST:event_jBtnAjoutRapideActionPerformed
+
+    private void reinitialisationVar() {  
+        m_PremierPoint=null;
+        m_DeuxiemePoint=null;
+        m_etatBoutonClique="";
+    }
     /**
      * @param args the command line arguments
      */
@@ -305,11 +390,11 @@ public class GUI extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtnAjoutRapide;
+    private javax.swing.JButton jBtnAjouterNoeud;
+    private javax.swing.JButton jBtnAjouterPortAttache;
+    private javax.swing.JButton jBtnAjouterSegment;
     private javax.swing.JButton jBtnDemarer;
-    private javax.swing.JButton jBtnDemarer1;
-    private javax.swing.JButton jBtnDemarer2;
-    private javax.swing.JButton jBtnDemarer3;
-    private javax.swing.JButton jBtnDemarer4;
     private javax.swing.JButton jBtnPause;
     private javax.swing.JButton jBtnStop;
     private javax.swing.JCheckBoxMenuItem jCbAfficherGrille;
@@ -326,7 +411,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuOptions;
     private javax.swing.JMenu jMenuPropos;
     private javax.swing.JMenu jMenuUrgence;
-    private javax.swing.JPanel jPanelMap;
     private javax.swing.JSlider jSlidVitesse;
     private javax.swing.JSlider jSlidZoom;
     private java.awt.Label label1;
