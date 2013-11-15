@@ -20,8 +20,7 @@ public class Carte {
     //Liste d'urgence a ajouter ici
     Image m_ImgFond;
     
-    
-    Carte()
+    public Carte()
     {
         //Instanciation de la carte va initialiser les listes
         
@@ -29,7 +28,7 @@ public class Carte {
         m_listeSegments = new ArrayList();
     }
     
-    boolean AjouterNoeud(Point2D.Float p_CoordNoeud)
+    public boolean AjouterNoeud(Point2D.Float p_CoordNoeud)
     {
         Boolean ajoutReussi = false;
     
@@ -64,7 +63,7 @@ public class Carte {
         return suppressionReussie;
     }
     */
-    double ObtenirDistanceSegment(Noeud p_noeud1, Noeud p_noeud2)
+    private double ObtenirDistanceSegment(Noeud p_noeud1, Noeud p_noeud2)
     {
         float deplacementX = p_noeud2.obtenir_posX() - p_noeud1.obtenir_posX();
         float deplacementY = p_noeud2.obtenir_posY() - p_noeud1.obtenir_posY();
@@ -72,7 +71,7 @@ public class Carte {
         return Math.sqrt(Math.pow(deplacementX, 2) + Math.pow(deplacementY, 2));
     }
     
-    boolean NoeudEstPresent(Point2D.Float p_CoordNoeud)
+    public boolean NoeudEstPresent(Point2D.Float p_CoordNoeud)
     {
         boolean estPresent = false;
         int compteurNoeuds = 0;
@@ -93,7 +92,7 @@ public class Carte {
         return estPresent;
     }
     
-    Noeud ObtenirNoeud(Point2D.Float p_CoordNd)
+    private Noeud ObtenirNoeud(Point2D.Float p_CoordNd)
     {
         Noeud noeudTrouve = null;
         int compteurNoeuds = 0;
@@ -114,12 +113,12 @@ public class Carte {
         return noeudCourant;
     }
     
-    void AjouterSegment(Point CoordNoeud1, Point CoordNoeud2)
+    public void AjouterSegment(Point CoordNoeud1, Point CoordNoeud2)
     {
         
     }
     
-    List<Segment> ObtenirSegmentsRelies(Noeud p_noeud)
+    private List<Segment> ObtenirSegmentsRelies(Noeud p_noeud)
     {
         List<Segment> listeLiens = new ArrayList<>();
         int indexNoeud = m_listeNoeuds.indexOf(p_noeud);
@@ -133,5 +132,10 @@ public class Carte {
         }
         
         return listeLiens;
+    }
+    
+    public int getNbSommets()
+    {
+        return m_listeNoeuds.size();
     }
 }
