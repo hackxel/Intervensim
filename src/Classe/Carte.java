@@ -30,7 +30,7 @@ public class Carte {
     
     public boolean AjouterNoeud(Point2D.Float p_CoordNoeud)
     {
-        Boolean ajoutReussi = false;
+        boolean ajoutReussi = false;
     
         if(NoeudEstPresent(p_CoordNoeud) == false)
         {
@@ -73,23 +73,7 @@ public class Carte {
     
     public boolean NoeudEstPresent(Point2D.Float p_CoordNoeud)
     {
-        boolean estPresent = false;
-        int compteurNoeuds = 0;
-        Noeud noeudCourant;
-        
-        while(compteurNoeuds < m_listeNoeuds.size() && estPresent == false)
-        {
-            noeudCourant = m_listeNoeuds.get(compteurNoeuds);
-            
-            if(noeudCourant.EstMemePosition(p_CoordNoeud))
-            {
-                estPresent = true;
-            }
-            
-            compteurNoeuds++;
-        }
-        
-        return estPresent;
+        return ObtenirNoeud(p_CoordNoeud) != null;
     }
     
     private Noeud ObtenirNoeud(Point2D.Float p_CoordNd)
@@ -110,12 +94,53 @@ public class Carte {
             compteurNoeuds++;
         }
         
-        return noeudCourant;
+        return noeudTrouve;
     }
     
-    public void AjouterSegment(Point CoordNoeud1, Point CoordNoeud2)
+    public boolean AjouterSegment(Point2D.Float CoordNoeud1, Point2D.Float CoordNoeud2)
     {
+        boolean ajoutReussi = false;
         
+        if(SegmentExiste(CoordNoeud1, CoordNoeud2) == false)
+        {
+            Noeud noeud1 = ObtenirNoeud(CoordNoeud1);
+            Noeud noeud2 = ObtenirNoeud(CoordNoeud2);
+            
+            if(noeud1 != null && noeud2 != null)
+            {
+                Segment nouveauSegment = new Segment(noeud1, noeud2);
+                
+                m_listeSegments.add(nouveauSegment);
+            }
+        }
+        
+        return ajoutReussi;
+    }
+    
+    public boolean SegmentExiste(Point2D.Float CoordNoeud1, Point2D.Float CoordNoeud2)
+    {
+        return ObtenirSegment(CoordNoeud1, CoordNoeud2) != null;
+    }
+    
+    public Segment ObtenirSegment(Point2D.Float CoordNoeud1, Point2D.Float CoordNoeud2)
+    {
+        Segment segmentTrouve = null;
+        int compteurSegments = 0;
+        Segment segmentCourant = null;
+        
+        while(compteurSegments < m_listeSegments.size() && segmentTrouve == null)
+        {
+            segmentCourant = m_listeSegments.get(compteurSegments);
+            
+            if(segmentCourant.EstMemePosition(CoordNoeud1,CoordNoeud2))
+            {
+                segmentTrouve = segmentCourant;
+            }
+            
+            compteurSegments++;
+        }
+        
+        return segmentTrouve;
     }
     
     private List<Segment> ObtenirSegmentsRelies(Noeud p_noeud)

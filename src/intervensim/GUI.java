@@ -109,7 +109,7 @@ public class GUI extends javax.swing.JFrame {
         });
         jSlidZoom.setValue(1);
         getContentPane().add(jSlidZoom);
-        jSlidZoom.setBounds(260, 370, 200, 23);
+        jSlidZoom.setBounds(260, 370, 200, 26);
 
         jSlidVitesse.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -118,7 +118,7 @@ public class GUI extends javax.swing.JFrame {
         });
         jSlidVitesse.setValue(0);
         getContentPane().add(jSlidVitesse);
-        jSlidVitesse.setBounds(260, 400, 200, 23);
+        jSlidVitesse.setBounds(260, 400, 200, 26);
 
         jLabZoom.setText("Zoom: 1x");
         getContentPane().add(jLabZoom);
