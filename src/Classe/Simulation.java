@@ -38,6 +38,21 @@ public class Simulation {
         m_Carte.AjouterNoeud(CoordNoeud);
     }
     
+    void AjouterSegment(Point p_CoordNd1, Point p_CoordNd2)
+    {
+        
+        Point2D.Float CoordNoeud1 = new Point2D.Float();
+        Point2D.Float CoordNoeud2 = new Point2D.Float();
+    
+        CoordNoeud1 = CoordonneeGrillePoint(p_CoordNd1);
+        CoordNoeud2 = CoordonneeGrillePoint(p_CoordNd2);
+        
+        if(m_Carte.NoeudEstPresent(CoordNoeud1) && m_Carte.NoeudEstPresent(CoordNoeud2))
+        {
+            m_Carte.AjouterSegment(CoordNoeud1, CoordNoeud2);
+        }
+    }
+    
     //Méthodes Privées
     Point2D.Float CoordonneeGrillePoint(Point p_Coord)
     {

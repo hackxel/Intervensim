@@ -12,9 +12,9 @@ import java.awt.geom.Point2D;
  */
 public class Noeud {
     
-   //Attributs
     Point2D.Float m_Position;
-    
+   
+    //Attributs
      public float obtenir_posX() {
         return m_Position.x;
     }
@@ -27,12 +27,14 @@ public class Noeud {
     {
         return m_Position;
     }
+    
     //Constructeur
     Noeud(Point2D.Float p_CoordNoeud)
     {
         m_Position = p_CoordNoeud;
     }
     
+    //Méthodes publique
     boolean EstMemePosition(Point2D.Float p_CoordNoeud)
     {
         return (m_Position == p_CoordNoeud);

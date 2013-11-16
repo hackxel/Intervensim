@@ -33,8 +33,11 @@ public class Segment {
     
     boolean EstMemePosition(Point2D.Float p_CoordNoeud1, Point2D.Float p_CoordNoeud2)
     {
-        return (m_Noeud1.obtenir_Position() == p_CoordNoeud1 && m_Noeud2.obtenir_Position() == p_CoordNoeud2) ||
-                (m_Noeud2.obtenir_Position() == p_CoordNoeud2 && m_Noeud1.obtenir_Position() == p_CoordNoeud1);
+        return ((m_Noeud1.obtenir_Position() == p_CoordNoeud1) && m_Noeud2.obtenir_Position() == p_CoordNoeud2) ||
+                ((m_Noeud1.obtenir_Position() == p_CoordNoeud2) && m_Noeud2.obtenir_Position() == p_CoordNoeud1);
+        
+        /*return (m_Noeud1.obtenir_Position() == p_CoordNoeud1 && m_Noeud2.obtenir_Position() == p_CoordNoeud2) ||
+                (m_Noeud2.obtenir_Position() == p_CoordNoeud2 && m_Noeud1.obtenir_Position() == p_CoordNoeud1);*/
     }
     
 }

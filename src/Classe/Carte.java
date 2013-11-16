@@ -40,29 +40,29 @@ public class Carte {
         
         return ajoutReussi;
     }
-    /*
-    boolean SupprimerNoeud(int p_posX,int p_posY)
+    
+    public boolean SupprimerNoeud(Point2D.Float p_CoordNd)
     {
         Boolean suppressionReussie = false;
-        Noeud noeudASupprimer = ObtenirNoeud(p_posX, p_posY);
+        Noeud noeudASupprimer = ObtenirNoeud(p_CoordNd);
         
         if(noeudASupprimer != null)
         {
+             //Trouver la liste des Segments reliés au Noeud
+             ArrayList<Segment> listeLiens = ObtenirSegmentsRelies(noeudASupprimer);
+             
+             //Enlever les segments de la liste de Segment
+             m_listeSegments.removeAll(listeLiens);
+             
+             //Enlever le Noeud
              m_listeNoeuds.remove(noeudASupprimer);
-             
-             List<Segment> listeLiens = ObtenirSegmentsRelies(noeudASupprimer);
-             
-             for(Segment segmentASupprimer:listeLiens)
-             {
-                 m_listeSegments.remove(segmentASupprimer);
-             }
              
              suppressionReussie = true;
         }
         
         return suppressionReussie;
     }
-    */
+    
     private double ObtenirDistanceSegment(Noeud p_noeud1, Noeud p_noeud2)
     {
         float deplacementX = p_noeud2.obtenir_posX() - p_noeud1.obtenir_posX();
@@ -109,12 +109,26 @@ public class Carte {
             if(noeud1 != null && noeud2 != null)
             {
                 Segment nouveauSegment = new Segment(noeud1, noeud2);
-                
                 m_listeSegments.add(nouveauSegment);
+                ajoutReussi = true;
             }
         }
         
         return ajoutReussi;
+    }
+    
+    public boolean SupprimerSegment(Point2D.Float p_CoordNoeud1, Point2D.Float p_CoordNoeud2)
+    {
+        boolean Retour = false;
+        Segment segCourant = ObtenirSegment(p_CoordNoeud1, p_CoordNoeud2);
+        
+        if(segCourant != null)
+        {
+            m_listeSegments.remove(segCourant);
+            Retour = true;
+        }
+            
+        return Retour;
     }
     
     public boolean SegmentExiste(Point2D.Float CoordNoeud1, Point2D.Float CoordNoeud2)
@@ -143,17 +157,14 @@ public class Carte {
         return segmentTrouve;
     }
     
-    private List<Segment> ObtenirSegmentsRelies(Noeud p_noeud)
+    private ArrayList<Segment> ObtenirSegmentsRelies(Noeud p_noeud)
     {
-        List<Segment> listeLiens = new ArrayList<>();
-        int indexNoeud = m_listeNoeuds.indexOf(p_noeud);
-        
-        for(Segment segmentCourant:m_listeSegments)            
+        ArrayList<Segment> listeLiens = new ArrayList();
+        //Lister les Segments qui ont comme destination/départ p_noeud
+        for(Segment segmentCourant:m_listeSegments)
         {
-            /*if(segmentCourant.m_iIndNoeud1 == indexNoeud || segmentCourant.m_iIndNoeud2 == indexNoeud)
-            {
+            if(segmentCourant.m_Noeud1 == p_noeud || segmentCourant.m_Noeud2 == p_noeud)
                 listeLiens.add(segmentCourant);
-            }*/
         }
         
         return listeLiens;
