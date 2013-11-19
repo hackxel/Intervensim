@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package intervensim;
 
 import java.awt.Graphics;
@@ -9,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Point;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.geom.Point2D;
@@ -27,19 +24,16 @@ public class Simulateur {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
-     
+  
+    public Simulateur()
+    {
+    }
+    public void AjouterNoeud(Point p_point)
+    {
+      
+    }
+     public  void AjouterSegment(Point p_point1,Point p_point2)
+    {
         
-        GUI.main(args);
-     
-    }
-    public static void AjouterNoeud(Point2D.Float p_point)
-    {
-        javax.swing.JOptionPane.showMessageDialog(null,p_point.toString()); 
-    }
-     public  static void AjouterSegment(Point2D.Float p_point1,Point2D.Float p_point2)
-    {
-        javax.swing.JOptionPane.showMessageDialog(null,p_point1.toString() + " " + p_point2.toString() );
     }
 }
