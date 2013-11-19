@@ -15,6 +15,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import Classe.Simulation;
+import java.awt.Color;
+import java.awt.geom.Rectangle2D;
 /**
  *
  * @author Charles
@@ -40,4 +42,8 @@ public class Simulateur {
         
         m_simulation.AjouterSegment(p_point1, p_point2);
     }
+     public void Dessin(Graphics p_graphics)
+     {
+       m_simulation.Dessin(p_graphics);
+     }
 }

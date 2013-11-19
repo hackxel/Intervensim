@@ -4,6 +4,8 @@
  */
 package Classe;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.List;
 import java.util.ArrayList;
 import java.awt.Image;
@@ -174,4 +176,19 @@ public class Carte {
     {
         return m_listeNoeuds.size();
     }
+    public void Dessin(Graphics p_graphics)
+    {
+        
+        Graphics2D g2 = (Graphics2D)p_graphics;  
+         g2.drawLine(0, 0, 100, 100);
+        /*for(int i=0;i < m_listeNoeuds.size();i++)
+        {
+           Noeud test=m_listeNoeuds.get(i);
+          
+           g2.drawOval((int)test.m_Position.x,(int)test.m_Position.y, 20, 10);
+        
+        }*/
+        
+    }
+    
 }

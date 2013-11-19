@@ -12,11 +12,41 @@ import java.awt.Component;
 import java.awt.geom.Point2D;
 import java.awt.Point;
 import intervensim.Simulateur;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 
 /**
  *
  * @author Charles
  */
+class PanelMap extends javax.swing.JPanel
+{
+    Simulateur Simulateur;
+    private boolean showEllipse;
+    
+    PanelMap(Simulateur sim) {
+        Simulateur=sim;
+    }
+    @Override
+    protected void paintComponent(Graphics g)  
+    {  
+        
+        super.paintComponent(g);  
+        Graphics2D g2 = (Graphics2D)g;  
+        java.awt.Toolkit toolkit = java.awt.Toolkit.getDefaultToolkit();
+        Image image = toolkit.getImage("C:\\Users\\Charles\\Documents\\NetBeansProjects\\Intervensim\\src\\image\\background.png");
+        g2.drawImage(image, 0, 0, 560, 360, null);
+        
+   
+        /*g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,  
+                            RenderingHints.VALUE_ANTIALIAS_ON);  */
+        Simulateur.Dessin(g);
+    }  
+}
 public class GUI extends javax.swing.JFrame {
 
     /**
@@ -26,12 +56,15 @@ public class GUI extends javax.swing.JFrame {
     Point m_PremierPoint;
     Point m_DeuxiemePoint;
     Simulateur m_simulateur;
+    Graphics m_graphics;
+   
     
     
     public GUI() {
         initComponents();
         m_simulateur= new Simulateur();
-        javax.swing.JPanel jPanelMap = new javax.swing.JPanel();
+        m_graphics=super.getGraphics();
+        PanelMap jPanelMap = new PanelMap(m_simulateur);
         jPanelMap.setBackground(new java.awt.Color(51, 51, 51));
         jPanelMap.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -41,7 +74,8 @@ public class GUI extends javax.swing.JFrame {
         });
         getContentPane().add(jPanelMap);
         jPanelMap.setBounds(0, 0, 560, 360);
-       
+        jPanelMap.paintComponent(m_graphics);
+        //m_simulateur.Dessin(m_graphics);
     }
 
     /**

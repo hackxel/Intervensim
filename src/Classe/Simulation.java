@@ -4,6 +4,7 @@
  */
 package Classe;
 
+import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
@@ -56,7 +57,10 @@ public class Simulation {
             m_Carte.AjouterSegment(CoordNoeud1, CoordNoeud2);
         }
     }
-    
+    public void Dessin(Graphics p_graphics)
+    {
+        m_Carte.Dessin(p_graphics);
+    }
     //Méthodes Privées
     Point2D.Float CoordonneeGrillePoint(Point p_Coord)
     {
