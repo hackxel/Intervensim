@@ -30,13 +30,7 @@ public class GUI extends javax.swing.JFrame {
     
     public GUI() {
         initComponents();
-             // String appdata = System.getenv("APPDATA");
-       // String iconPath = appdata + "\\Visualpharm-Icons8-Metro-Style-Medicine-Ambulance.ico";
-        String iconPath = "C:\\Users\\Charles\\Documents\\NetBeansProjects\\Intervensim\\src\\image\\Visualpharm-Icons8-Metro-Style-Medicine-Ambulance.ico";
-        ImageIcon imgicon = new ImageIcon(iconPath);
-        this.setIconImage(imgicon.getImage());
-        
-
+        m_simulateur= new Simulateur();
         javax.swing.JPanel jPanelMap = new javax.swing.JPanel();
         jPanelMap.setBackground(new java.awt.Color(51, 51, 51));
         jPanelMap.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -47,7 +41,7 @@ public class GUI extends javax.swing.JFrame {
         });
         getContentPane().add(jPanelMap);
         jPanelMap.setBounds(0, 0, 560, 360);
-        
+       
     }
 
     /**

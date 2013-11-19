@@ -22,8 +22,12 @@ public class Simulation {
     float           m_DistanceEntrePts;
     public Simulation()
     {
+        m_RectVisible=new Rectangle.Float(0, 0, 560, 360);
+        m_DistanceEntrePts=10;
         m_Carte = new Carte();
-        
+        m_HautPx=560;
+        m_LargPx=360;
+        m_Zoom=1;
     }
     
     
@@ -31,7 +35,7 @@ public class Simulation {
     
     public void AjouterNoeud(Point p_Coordonnee)
     {
-        Point2D.Float CoordNoeud = new Point2D.Float();
+        Point2D.Float CoordNoeud;
         
         CoordNoeud = CoordonneeGrillePoint(p_Coordonnee);
         
