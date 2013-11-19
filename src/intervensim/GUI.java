@@ -95,6 +95,7 @@ public class GUI extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(800, 600));
         setResizable(false);
         addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 formKeyPressed(evt);
             }
@@ -105,6 +106,7 @@ public class GUI extends javax.swing.JFrame {
         jSlidZoom.setMinimum(1);
         jSlidZoom.setMinorTickSpacing(2);
         jSlidZoom.addChangeListener(new javax.swing.event.ChangeListener() {
+            @Override
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jSlidZoomStateChanged(evt);
             }
@@ -114,6 +116,7 @@ public class GUI extends javax.swing.JFrame {
         jSlidZoom.setBounds(260, 370, 200, 23);
 
         jSlidVitesse.addChangeListener(new javax.swing.event.ChangeListener() {
+            @Override
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jSlidVitesseStateChanged(evt);
             }
@@ -140,6 +143,7 @@ public class GUI extends javax.swing.JFrame {
         jBtnPause.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Media-Controls-Pause-icon.png"))); // NOI18N
         jBtnPause.setPreferredSize(new java.awt.Dimension(50, 50));
         jBtnPause.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnPauseActionPerformed(evt);
             }
@@ -158,6 +162,7 @@ public class GUI extends javax.swing.JFrame {
         jBtnAjouterPortAttache.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Medicine-Ambulance-icon.png"))); // NOI18N
         jBtnAjouterPortAttache.setPreferredSize(new java.awt.Dimension(50, 50));
         jBtnAjouterPortAttache.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnAjouterPortAttacheActionPerformed(evt);
             }
@@ -169,6 +174,7 @@ public class GUI extends javax.swing.JFrame {
         jBtnAjouterNoeud.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Charts-Mind-map-icon.png"))); // NOI18N
         jBtnAjouterNoeud.setPreferredSize(new java.awt.Dimension(50, 50));
         jBtnAjouterNoeud.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnAjouterNoeudActionPerformed(evt);
             }
@@ -180,6 +186,7 @@ public class GUI extends javax.swing.JFrame {
         jBtnAjouterSegment.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Image-Edition-Tools-Line-icon.png"))); // NOI18N
         jBtnAjouterSegment.setPreferredSize(new java.awt.Dimension(50, 50));
         jBtnAjouterSegment.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnAjouterSegmentActionPerformed(evt);
             }
@@ -203,6 +210,7 @@ public class GUI extends javax.swing.JFrame {
         jBtnAjoutRapide.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Maps-and-Geolocation-Polyline-icon.png"))); // NOI18N
         jBtnAjoutRapide.setPreferredSize(new java.awt.Dimension(50, 50));
         jBtnAjoutRapide.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnAjoutRapideActionPerformed(evt);
             }
@@ -227,6 +235,7 @@ public class GUI extends javax.swing.JFrame {
         jItemQuitter.setText("Quitter");
         jItemQuitter.setActionCommand("jMenuQuitter");
         jItemQuitter.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jItemQuitterActionPerformed(evt);
             }
@@ -252,6 +261,7 @@ public class GUI extends javax.swing.JFrame {
 
         jItemOptionAvance.setText("Options avancés");
         jItemOptionAvance.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jItemOptionAvanceActionPerformed(evt);
             }

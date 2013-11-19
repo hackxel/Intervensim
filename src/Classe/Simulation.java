@@ -20,7 +20,7 @@ public class Simulation {
     int             m_HautPx;
     int             m_LargPx;
     float           m_DistanceEntrePts;
-    Simulation()
+    public Simulation()
     {
         m_Carte = new Carte();
         
@@ -29,7 +29,7 @@ public class Simulation {
     
     //Méthodes publique
     
-    void AjouterNoeud(Point p_Coordonnee)
+    public void AjouterNoeud(Point p_Coordonnee)
     {
         Point2D.Float CoordNoeud = new Point2D.Float();
         
@@ -38,11 +38,11 @@ public class Simulation {
         m_Carte.AjouterNoeud(CoordNoeud);
     }
     
-    void AjouterSegment(Point p_CoordNd1, Point p_CoordNd2)
+    public void AjouterSegment(Point p_CoordNd1, Point p_CoordNd2)
     {
         
-        Point2D.Float CoordNoeud1 = new Point2D.Float();
-        Point2D.Float CoordNoeud2 = new Point2D.Float();
+        Point2D.Float CoordNoeud1;
+        Point2D.Float CoordNoeud2;
     
         CoordNoeud1 = CoordonneeGrillePoint(p_CoordNd1);
         CoordNoeud2 = CoordonneeGrillePoint(p_CoordNd2);

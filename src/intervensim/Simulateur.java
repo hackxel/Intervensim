@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
+import Classe.Simulation;
 /**
  *
  * @author Charles
@@ -24,16 +24,20 @@ public class Simulateur {
     /**
      * @param args the command line arguments
      */
-  
+  Simulation m_simulation;
+    
     public Simulateur()
     {
+        m_simulation= new Simulation();
     }
     public void AjouterNoeud(Point p_point)
     {
-      
+        m_simulation.AjouterNoeud(p_point);
+        
     }
      public  void AjouterSegment(Point p_point1,Point p_point2)
     {
         
+        m_simulation.AjouterSegment(p_point1, p_point2);
     }
 }
