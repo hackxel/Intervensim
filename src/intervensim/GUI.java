@@ -22,6 +22,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Timer;
@@ -35,9 +36,11 @@ class PanelMap extends javax.swing.JPanel
     Simulateur simulateur;
     boolean afficherGrille;
     int zoomCarte;
+    URL backgroundImage;
 
     PanelMap() {
-       
+        
+      backgroundImage= getClass().getResource("/image/background.png");
         
     }
     public void setAffichageGrille(boolean p_afficher)
@@ -58,7 +61,7 @@ class PanelMap extends javax.swing.JPanel
         super.paintComponent(g);  
         Graphics2D g2 = (Graphics2D)g;  
         java.awt.Toolkit toolkit = java.awt.Toolkit.getDefaultToolkit();
-        Image image = toolkit.getImage("C:\\Users\\Charles\\Documents\\NetBeansProjects\\Intervensim\\src\\image\\background.png");
+        Image image = toolkit.getImage(backgroundImage.getPath());
         g2.drawImage(image, 0, 0, 560, 360, null);
         simulateur.Dessin(g,afficherGrille);
         g.dispose();

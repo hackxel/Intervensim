@@ -16,6 +16,7 @@ import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.Stroke;
 import java.awt.geom.Point2D;
+import java.net.URL;
 
 /**
  *
@@ -189,30 +190,8 @@ public class Carte {
     {
        
         Graphics2D g2 = (Graphics2D)p_graphics;  
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);  
-        for(int i=0;i < m_listeNoeuds.size();i++)
-        {
-           Noeud test=m_listeNoeuds.get(i);
-           if(m_vehicule.m_portAttache!=null)
-           {
-               if (test.EstMemePosition(m_vehicule.m_portAttache.m_Position))
-               {
-                    java.awt.Toolkit toolkit = java.awt.Toolkit.getDefaultToolkit();
-                    Image image = toolkit.getImage("C:\\Users\\Charles\\Documents\\NetBeansProjects\\Intervensim\\src\\image\\hospital-icon.png");
-                    g2.drawImage(image,(int)test.m_Position.x-12,(int)test.m_Position.y-12, 24, 24, null);
-               }
-               else
-               {
-                    g2.setColor(Color.black);
-                    g2.fillOval((int)test.m_Position.x-8,(int)test.m_Position.y-8, 16, 16);
-               }
-           }
-           else
-           {
-                g2.setColor(Color.black);
-                g2.fillOval((int)test.m_Position.x-8,(int)test.m_Position.y-8, 16, 16);
-           }
-        }
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setColor(Color.black);
         for(int i=0;i < m_listeSegments.size();i++)
         {
            Segment test = m_listeSegments.get(i);
@@ -220,5 +199,28 @@ public class Carte {
            g2.drawLine((int)test.m_Noeud1.m_Position.x,(int)test.m_Noeud1.m_Position.y, (int)test.m_Noeud2.m_Position.x, (int)test.m_Noeud2.m_Position.y);
         
         }
+        for(int i=0;i < m_listeNoeuds.size();i++)
+        {
+           Noeud test=m_listeNoeuds.get(i);
+           if(m_vehicule.m_portAttache!=null)
+           {
+               if (test.EstMemePosition(m_vehicule.m_portAttache.m_Position))
+               {
+                    URL urlImage= getClass().getResource("/image/hospital-icon2.png");
+                    java.awt.Toolkit toolkit = java.awt.Toolkit.getDefaultToolkit();
+                    Image image = toolkit.getImage(urlImage.getPath());
+                    g2.drawImage(image,(int)test.m_Position.x-12,(int)test.m_Position.y-12, 24, 24, null);
+               }
+               else
+               {
+                    g2.fillOval((int)test.m_Position.x-8,(int)test.m_Position.y-8, 16, 16);
+               }
+           }
+           else
+           {
+                g2.fillOval((int)test.m_Position.x-8,(int)test.m_Position.y-8, 16, 16);
+           }
+        }
+       
     } 
 }
