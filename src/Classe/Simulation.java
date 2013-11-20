@@ -4,6 +4,7 @@
  */
 package Classe;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -57,10 +58,14 @@ public class Simulation {
             m_Carte.AjouterSegment(CoordNoeud1, CoordNoeud2);
         }
     }
-    public void Dessin(Graphics p_graphics)
+    public void Dessin(Graphics p_graphics,boolean p_affiche)
     {
+        if (p_affiche)
+        {
+            AfficherGrille(p_graphics);
+        }
         m_Carte.Dessin(p_graphics);
-        AfficherGrille(p_graphics);
+      
         
     }
     //Méthodes Privées
@@ -78,8 +83,10 @@ public class Simulation {
     }
     public void AfficherGrille(Graphics p_graphics)
     {
+        
         int lignex=(int) (m_HautPx/m_DistanceEntrePts);
         int ligney=(int) (m_LargPx/m_DistanceEntrePts);
+         p_graphics.setColor(Color.lightGray);
         for(int i=0;i<lignex;i++)
         {
             p_graphics.drawLine(0, (int) (i*m_DistanceEntrePts), m_LargPx, (int) (i*m_DistanceEntrePts));

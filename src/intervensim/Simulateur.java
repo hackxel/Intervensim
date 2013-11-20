@@ -42,8 +42,8 @@ public class Simulateur {
         
         m_simulation.AjouterSegment(p_point1, p_point2);
     }
-     public void Dessin(Graphics p_graphics)
+     public void Dessin(Graphics p_graphics,boolean p_affiche)
      {
-       m_simulation.Dessin(p_graphics);
+       m_simulation.Dessin(p_graphics,p_affiche);
      }
 }

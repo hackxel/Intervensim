@@ -25,26 +25,34 @@ import java.awt.geom.Rectangle2D;
  */
 class PanelMap extends javax.swing.JPanel
 {
-    Simulateur Simulateur;
-    private boolean showEllipse;
+    Simulateur simulateur;
+    boolean afficherGrille;
+    int zoomCarte;
     
-    PanelMap(Simulateur sim) {
-        Simulateur=sim;
+    PanelMap() {
+        
+    }
+    public void setAffichageGrille(boolean p_afficher)
+    {
+        afficherGrille=p_afficher;
+    }
+    public void setZoom(int p_zoom)
+    {
+        zoomCarte=p_zoom;
+    }
+    public void setSimulateur(Simulateur p_sim)
+    {
+         simulateur=p_sim;
     }
     @Override
     protected void paintComponent(Graphics g)  
-    {  
-        
+    {   
         super.paintComponent(g);  
         Graphics2D g2 = (Graphics2D)g;  
         java.awt.Toolkit toolkit = java.awt.Toolkit.getDefaultToolkit();
         Image image = toolkit.getImage("C:\\Users\\Charles\\Documents\\NetBeansProjects\\Intervensim\\src\\image\\background.png");
         g2.drawImage(image, 0, 0, 560, 360, null);
-        
-   
-        /*g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,  
-                            RenderingHints.VALUE_ANTIALIAS_ON);  */
-        Simulateur.Dessin(g);
+        simulateur.Dessin(g,afficherGrille);
     }  
 }
 public class GUI extends javax.swing.JFrame {
@@ -65,18 +73,22 @@ public class GUI extends javax.swing.JFrame {
         initComponents();
         m_simulateur= new Simulateur();
         m_graphics=super.getGraphics();
-        jPanelMap = new PanelMap(m_simulateur);
+        jPanelMap = new PanelMap();
         jPanelMap.setBackground(new java.awt.Color(51, 51, 51));
         jPanelMap.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
                jPanelMapMouseClicked(evt);
             }
+
         });
         getContentPane().add(jPanelMap);
         jPanelMap.setBounds(0, 0, 560, 360);
+        jPanelMap.setSimulateur(m_simulateur);
+        jPanelMap.setAffichageGrille(jCbAfficherGrille.getState());
+        jPanelMap.setZoom(jSlidZoom.getValue());
         jPanelMap.paintComponent(m_graphics);
-        //m_simulateur.Dessin(m_graphics);
+       
     }
 
     /**
@@ -286,6 +298,14 @@ public class GUI extends javax.swing.JFrame {
         jCbAfficherGrille.setSelected(true);
         jCbAfficherGrille.setText("Affichier la grille");
         jCbAfficherGrille.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G,java.awt.Event.CTRL_MASK));
+        jCbAfficherGrille.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPanelMap.setAffichageGrille(jCbAfficherGrille.getState());
+                jPanelMap.repaint();
+            }
+        });
+        
         jMenuOptions.add(jCbAfficherGrille);
 
         jItemOptionAvance.setText("Options avancés");
@@ -396,7 +416,7 @@ public class GUI extends javax.swing.JFrame {
     private void reinitialisationVar() {  
         m_PremierPoint=null;
         m_DeuxiemePoint=null;
-        m_etatBoutonClique="";
+        
     }
     /**
      * @param args the command line arguments

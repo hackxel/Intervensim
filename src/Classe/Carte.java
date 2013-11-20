@@ -4,6 +4,7 @@
  */
 package Classe;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.awt.Image;
 import java.awt.Paint;
 import java.awt.Point;
+import java.awt.RenderingHints;
 import java.awt.geom.Point2D;
 
 /**
@@ -181,18 +183,18 @@ public class Carte {
     {
         
         Graphics2D g2 = (Graphics2D)p_graphics;  
-       //  g2.drawLine(0, 0, 100, 100);
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);  
         for(int i=0;i < m_listeNoeuds.size();i++)
         {
            Noeud test=m_listeNoeuds.get(i);
-       
-           g2.drawOval((int)test.m_Position.x-10,(int)test.m_Position.y-10, 20, 20);
+           g2.setColor(Color.black);
+           g2.fillOval((int)test.m_Position.x-10,(int)test.m_Position.y-10, 20, 20);
         
         }
          for(int i=0;i < m_listeSegments.size();i++)
         {
            Segment test = m_listeSegments.get(i);
-          
+           
            g2.drawLine((int)test.m_Noeud1.m_Position.x,(int)test.m_Noeud1.m_Position.y, (int)test.m_Noeud2.m_Position.x, (int)test.m_Noeud2.m_Position.y);
         
         }
