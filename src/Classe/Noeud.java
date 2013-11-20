@@ -37,6 +37,6 @@ public class Noeud {
     //Méthodes publique
     boolean EstMemePosition(Point2D.Float p_CoordNoeud)
     {
-        return (m_Position == p_CoordNoeud);
+        return (m_Position.equals(p_CoordNoeud));
     }
 }
