@@ -8,33 +8,38 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.Point2D;
+import javax.swing.Timer;
 
 /**
  *
  * @author Axel
  */
+
 public class Simulation {
-    
+   
     Carte           m_Carte;
     float           m_Zoom;
     Rectangle.Float m_RectVisible; //Coordonnée du coin en haut à gauche, pour affichage
     int             m_HautPx;
     int             m_LargPx;
     float           m_DistanceEntrePts;
-    public Simulation()
+    Timer           m_timer;
+   public Simulation()
     {
         m_RectVisible=new Rectangle.Float(0, 0, 560, 360);
         m_DistanceEntrePts=20;
         m_Carte = new Carte();
         m_HautPx=360;
         m_LargPx=560;
-        m_Zoom=1;
-    }
-    
-    
+    }  
     //Méthodes publique
-    
+    public void DemarrerSimulation()
+    {
+       
+    }
     public void AjouterNoeud(Point p_Coordonnee)
     {
         Point2D.Float CoordNoeud;
@@ -65,7 +70,6 @@ public class Simulation {
             AfficherGrille(p_graphics);
         }
         m_Carte.Dessin(p_graphics);
-      
         
     }
     //Méthodes Privées
@@ -96,5 +100,5 @@ public class Simulation {
             p_graphics.drawLine((int) (j*m_DistanceEntrePts),0 , (int) (j*m_DistanceEntrePts), m_HautPx);
         }
     }
-    
 }
+   

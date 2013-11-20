@@ -16,8 +16,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
+import javax.swing.Timer;
 
 /**
  *
@@ -66,13 +69,15 @@ public class GUI extends javax.swing.JFrame {
     Simulateur m_simulateur;
     Graphics m_graphics;
     PanelMap jPanelMap;
-   
+    Timer m_timer;
     
     
     public GUI() {
         initComponents();
         m_simulateur= new Simulateur();
         m_graphics=super.getGraphics();
+      
+        
         jPanelMap = new PanelMap();
         jPanelMap.setBackground(new java.awt.Color(51, 51, 51));
         jPanelMap.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -88,6 +93,13 @@ public class GUI extends javax.swing.JFrame {
         jPanelMap.setAffichageGrille(jCbAfficherGrille.getState());
         jPanelMap.setZoom(jSlidZoom.getValue());
         jPanelMap.paintComponent(m_graphics);
+        m_timer= new Timer(200, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    jPanelMap.repaint();
+                }
+            });
+        m_timer.start();
        
     }
 
@@ -348,7 +360,7 @@ public class GUI extends javax.swing.JFrame {
             case "AjoutNoeud":
                 m_simulateur.AjouterNoeud(m_PremierPoint);
                 reinitialisationVar();
-                 jPanelMap.repaint();
+                jPanelMap.repaint();
                 break;
             case "AjoutSegment":
                 if(m_DeuxiemePoint != null)

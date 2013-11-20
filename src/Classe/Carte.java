@@ -4,6 +4,7 @@
  */
 package Classe;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -13,6 +14,7 @@ import java.awt.Image;
 import java.awt.Paint;
 import java.awt.Point;
 import java.awt.RenderingHints;
+import java.awt.Stroke;
 import java.awt.geom.Point2D;
 
 /**
@@ -188,13 +190,13 @@ public class Carte {
         {
            Noeud test=m_listeNoeuds.get(i);
            g2.setColor(Color.black);
-           g2.fillOval((int)test.m_Position.x-10,(int)test.m_Position.y-10, 20, 20);
+           g2.fillOval((int)test.m_Position.x-8,(int)test.m_Position.y-8, 16, 16);
         
         }
          for(int i=0;i < m_listeSegments.size();i++)
         {
            Segment test = m_listeSegments.get(i);
-           
+           g2.setStroke(new BasicStroke(4));
            g2.drawLine((int)test.m_Noeud1.m_Position.x,(int)test.m_Noeud1.m_Position.y, (int)test.m_Noeud2.m_Position.x, (int)test.m_Noeud2.m_Position.y);
         
         }
