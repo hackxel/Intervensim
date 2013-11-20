@@ -180,14 +180,14 @@ public class Carte {
     {
         
         Graphics2D g2 = (Graphics2D)p_graphics;  
-         g2.drawLine(0, 0, 100, 100);
-        /*for(int i=0;i < m_listeNoeuds.size();i++)
+       //  g2.drawLine(0, 0, 100, 100);
+        for(int i=0;i < m_listeNoeuds.size();i++)
         {
            Noeud test=m_listeNoeuds.get(i);
           
            g2.drawOval((int)test.m_Position.x,(int)test.m_Position.y, 20, 10);
         
-        }*/
+        }
         
     }
     

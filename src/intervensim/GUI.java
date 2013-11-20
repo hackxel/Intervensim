@@ -57,6 +57,7 @@ public class GUI extends javax.swing.JFrame {
     Point m_DeuxiemePoint;
     Simulateur m_simulateur;
     Graphics m_graphics;
+    PanelMap jPanelMap;
    
     
     
@@ -64,7 +65,7 @@ public class GUI extends javax.swing.JFrame {
         initComponents();
         m_simulateur= new Simulateur();
         m_graphics=super.getGraphics();
-        PanelMap jPanelMap = new PanelMap(m_simulateur);
+        jPanelMap = new PanelMap(m_simulateur);
         jPanelMap.setBackground(new java.awt.Color(51, 51, 51));
         jPanelMap.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -327,15 +328,18 @@ public class GUI extends javax.swing.JFrame {
             case "AjoutNoeud":
                 m_simulateur.AjouterNoeud(m_PremierPoint);
                 reinitialisationVar();
+                 jPanelMap.repaint();
                 break;
             case "AjoutSegment":
                 if(m_DeuxiemePoint != null)
                 {
                     m_simulateur.AjouterSegment(m_PremierPoint, m_DeuxiemePoint);
                     reinitialisationVar();
+                    jPanelMap.repaint();
                 }
                 break;
         }
+        
     }
     private void jItemQuitterActionPerformed(java.awt.event.ActionEvent evt) {                                             
         // TODO add your handling code here:
