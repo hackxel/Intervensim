@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 import java.util.List;
 import java.util.ArrayList;
 import java.awt.Image;
+import java.awt.Paint;
 import java.awt.Point;
 import java.awt.geom.Point2D;
 
@@ -184,8 +185,15 @@ public class Carte {
         for(int i=0;i < m_listeNoeuds.size();i++)
         {
            Noeud test=m_listeNoeuds.get(i);
+       
+           g2.drawOval((int)test.m_Position.x-10,(int)test.m_Position.y-10, 20, 20);
+        
+        }
+         for(int i=0;i < m_listeSegments.size();i++)
+        {
+           Segment test = m_listeSegments.get(i);
           
-           g2.drawOval((int)test.m_Position.x,(int)test.m_Position.y, 20, 10);
+           g2.drawLine((int)test.m_Noeud1.m_Position.x,(int)test.m_Noeud1.m_Position.y, (int)test.m_Noeud2.m_Position.x, (int)test.m_Noeud2.m_Position.y);
         
         }
         

@@ -24,10 +24,10 @@ public class Simulation {
     public Simulation()
     {
         m_RectVisible=new Rectangle.Float(0, 0, 560, 360);
-        m_DistanceEntrePts=10;
+        m_DistanceEntrePts=20;
         m_Carte = new Carte();
-        m_HautPx=560;
-        m_LargPx=360;
+        m_HautPx=360;
+        m_LargPx=560;
         m_Zoom=1;
     }
     
@@ -60,6 +60,8 @@ public class Simulation {
     public void Dessin(Graphics p_graphics)
     {
         m_Carte.Dessin(p_graphics);
+        AfficherGrille(p_graphics);
+        
     }
     //Méthodes Privées
     Point2D.Float CoordonneeGrillePoint(Point p_Coord)
@@ -73,6 +75,19 @@ public class Simulation {
         CoordModif.y = ((int)(CoordModif.y / m_DistanceEntrePts + 0.5)) * m_DistanceEntrePts;
         
         return CoordModif;
+    }
+    public void AfficherGrille(Graphics p_graphics)
+    {
+        int lignex=(int) (m_HautPx/m_DistanceEntrePts);
+        int ligney=(int) (m_LargPx/m_DistanceEntrePts);
+        for(int i=0;i<lignex;i++)
+        {
+            p_graphics.drawLine(0, (int) (i*m_DistanceEntrePts), m_LargPx, (int) (i*m_DistanceEntrePts));
+        }
+        for(int j=0;j<ligney;j++)
+        {
+            p_graphics.drawLine((int) (j*m_DistanceEntrePts),0 , (int) (j*m_DistanceEntrePts), m_HautPx);
+        }
     }
     
 }
