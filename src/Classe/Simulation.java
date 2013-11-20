@@ -6,6 +6,7 @@ package Classe;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -25,6 +26,7 @@ public class Simulation {
     Rectangle.Float m_RectVisible; //Coordonnée du coin en haut à gauche, pour affichage
     int             m_HautPx;
     int             m_LargPx;
+    int lol;
     float           m_DistanceEntrePts;
     Timer           m_timer;
    public Simulation()
@@ -34,11 +36,36 @@ public class Simulation {
         m_Carte = new Carte();
         m_HautPx=360;
         m_LargPx=560;
+        lol=0;
     }  
     //Méthodes publique
     public void DemarrerSimulation()
     {
        
+    }
+    public void SupprimerNoeud(Point p_Coordonnee)
+    {
+        Point2D.Float CoordNoeud;
+        
+        CoordNoeud = CoordonneeGrillePoint(p_Coordonnee);
+        
+        m_Carte.SupprimerNoeud(CoordNoeud);
+    }
+    public  void PortAttache(Point p_Coordonnee)
+    {
+        Point2D.Float CoordNoeud;
+        CoordNoeud = CoordonneeGrillePoint(p_Coordonnee);
+        if(m_Carte.NoeudEstPresent(CoordNoeud))
+        {
+           Noeud test=m_Carte.ObtenirNoeud(CoordNoeud);
+           m_Carte.m_vehicule.DefinirPortAttache(test);
+        }
+        else
+        {
+            m_Carte.AjouterNoeud(CoordNoeud);
+            Noeud test=m_Carte.ObtenirNoeud(CoordNoeud);
+            m_Carte.m_vehicule.DefinirPortAttache(test);
+        }
     }
     public void AjouterNoeud(Point p_Coordonnee)
     {
@@ -69,8 +96,7 @@ public class Simulation {
         {
             AfficherGrille(p_graphics);
         }
-        m_Carte.Dessin(p_graphics);
-        
+        m_Carte.Dessin(p_graphics);     
     }
     //Méthodes Privées
     Point2D.Float CoordonneeGrillePoint(Point p_Coord)
@@ -85,6 +111,7 @@ public class Simulation {
         
         return CoordModif;
     }
+   
     public void AfficherGrille(Graphics p_graphics)
     {
         

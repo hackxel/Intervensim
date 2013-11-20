@@ -26,6 +26,8 @@ public class Carte {
     ArrayList<Noeud> m_listeNoeuds;
     //Liste d'urgence a ajouter ici
     Image m_ImgFond;
+    Vehicule m_vehicule;
+    int lol;
     
     public Carte()
     {
@@ -33,6 +35,8 @@ public class Carte {
         
         m_listeNoeuds = new ArrayList();
         m_listeSegments = new ArrayList();
+        m_vehicule=new Vehicule(new Point2D.Float(50.0f,50.0f));
+        lol=0;
     }
     
     public boolean AjouterNoeud(Point2D.Float p_CoordNoeud)
@@ -83,7 +87,7 @@ public class Carte {
         return ObtenirNoeud(p_CoordNoeud) != null;
     }
     
-    private Noeud ObtenirNoeud(Point2D.Float p_CoordNd)
+    public Noeud ObtenirNoeud(Point2D.Float p_CoordNd)
     {
         Noeud noeudTrouve = null;
         int compteurNoeuds = 0;
@@ -183,24 +187,38 @@ public class Carte {
     }
     public void Dessin(Graphics p_graphics)
     {
-        
+       
         Graphics2D g2 = (Graphics2D)p_graphics;  
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);  
         for(int i=0;i < m_listeNoeuds.size();i++)
         {
            Noeud test=m_listeNoeuds.get(i);
-           g2.setColor(Color.black);
-           g2.fillOval((int)test.m_Position.x-8,(int)test.m_Position.y-8, 16, 16);
-        
+           if(m_vehicule.m_portAttache!=null)
+           {
+               if (test.EstMemePosition(m_vehicule.m_portAttache.m_Position))
+               {
+                    java.awt.Toolkit toolkit = java.awt.Toolkit.getDefaultToolkit();
+                    Image image = toolkit.getImage("C:\\Users\\Charles\\Documents\\NetBeansProjects\\Intervensim\\src\\image\\hospital-icon.png");
+                    g2.drawImage(image,(int)test.m_Position.x-12,(int)test.m_Position.y-12, 24, 24, null);
+               }
+               else
+               {
+                    g2.setColor(Color.black);
+                    g2.fillOval((int)test.m_Position.x-8,(int)test.m_Position.y-8, 16, 16);
+               }
+           }
+           else
+           {
+                g2.setColor(Color.black);
+                g2.fillOval((int)test.m_Position.x-8,(int)test.m_Position.y-8, 16, 16);
+           }
         }
-         for(int i=0;i < m_listeSegments.size();i++)
+        for(int i=0;i < m_listeSegments.size();i++)
         {
            Segment test = m_listeSegments.get(i);
            g2.setStroke(new BasicStroke(4));
            g2.drawLine((int)test.m_Noeud1.m_Position.x,(int)test.m_Noeud1.m_Position.y, (int)test.m_Noeud2.m_Position.x, (int)test.m_Noeud2.m_Position.y);
         
         }
-        
-    }
-    
+    } 
 }

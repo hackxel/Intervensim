@@ -32,6 +32,14 @@ public class Simulateur {
     {
         m_simulation= new Simulation();
     }
+    public void PortAttache(Point p_point)
+    {
+        m_simulation.PortAttache(p_point);
+    }
+    public void SupprimerNoeud(Point p_point)
+    {
+        m_simulation.SupprimerNoeud(p_point);
+    }
     public void AjouterNoeud(Point p_point)
     {
         m_simulation.AjouterNoeud(p_point);
