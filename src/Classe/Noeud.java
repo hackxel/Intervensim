@@ -13,6 +13,10 @@ import java.awt.geom.Point2D;
 public class Noeud {
     
     Point2D.Float m_Position;
+    
+    private int distance;
+    private boolean visite;
+    private Noeud precedent;
    
     //Attributs
      public float obtenir_posX() {
@@ -38,5 +42,41 @@ public class Noeud {
     boolean EstMemePosition(Point2D.Float p_CoordNoeud)
     {
         return (m_Position.equals(p_CoordNoeud));
+    }
+    
+    public void InitialiserValeursParcours()
+    {
+        distance = 9999;
+        visite = false;
+        precedent = null;
+    }
+    
+    public void SetVisite()
+    {
+        visite = true;
+    }
+    
+    public void RelacheNoeud(int nouvelleDistance, Noeud noeudCourantParcours)
+    {
+        if(nouvelleDistance < distance)
+        {
+            distance = nouvelleDistance;
+            precedent = noeudCourantParcours;
+        }
+    }
+    
+    public int GetDistance()
+    {
+        return distance;
+    }
+    
+    public Noeud GetPrecedent()
+    {
+        return precedent;
+    }
+    
+    public boolean DejaVisite()
+    {
+        return visite;
     }
 }
