@@ -15,6 +15,7 @@ import java.awt.Rectangle;
 import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.net.URL;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -245,10 +246,8 @@ public class Carte {
            {
                if (test.EstMemePosition(m_vehicule.m_portAttache.m_Position))
                {
-                    URL urlImage= getClass().getResource("/image/hospital-icon2.png");
-                    java.awt.Toolkit toolkit = java.awt.Toolkit.getDefaultToolkit();
-                    Image image = toolkit.getImage(urlImage.getPath());
-                    g2.drawImage(image, ptAffiche1.x-12, ptAffiche1.y-12, 24, 24, null);
+                    Image img = new ImageIcon(getClass().getResource("/image/hospital-icon2.png")).getImage();
+                    g2.drawImage(img, ptAffiche1.x-12, ptAffiche1.y-12, 24, 24, null);
                }
                else
                {

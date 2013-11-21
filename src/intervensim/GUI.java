@@ -14,7 +14,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.URL;
+import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
 /**
@@ -23,44 +23,37 @@ import javax.swing.Timer;
  */
 class PanelMap extends javax.swing.JPanel
 {
-    Simulateur simulateur;
-    boolean afficherGrille;
-    int zoomCarte;
-    URL backgroundImage;
+    Simulateur m_simulateur;
+    boolean m_afficherGrille;
+    int m_zoomCarte;
+    Image m_image;
     //Image backgroundImage;
     PanelMap() {
-        
-      backgroundImage= getClass().getResource("/image/background.png");
-        
+      // m_image = new ImageIcon(getClass().getResource("/image/background.png")).getImage();
     }
     public void setImageArrierePlan(String p_image)
     {
-      //  backgroundImage= getClass().getResource("/image/background.png");
-     // java.awt.Toolkit toolkit = java.awt.Toolkit.getDefaultToolkit();
-     //  backgroundImage = toolkit.getImage(p_image);
+         m_image = new ImageIcon(getClass().getResource(p_image)).getImage();
     }
     public void setAffichageGrille(boolean p_afficher)
     {
-        afficherGrille=p_afficher;
-    }
-    public void setZoom(int p_zoom)
-    {
-        zoomCarte=p_zoom;
+        m_afficherGrille=p_afficher;
     }
     public void setSimulateur(Simulateur p_sim)
     {
-         simulateur=p_sim;
+         m_simulateur=p_sim;
     }
     @Override
     protected void paintComponent(Graphics g)  
     {   
         super.paintComponent(g);  
         Graphics2D g2 = (Graphics2D)g;  
-        java.awt.Toolkit toolkit = java.awt.Toolkit.getDefaultToolkit();
-        Image image = toolkit.getImage(backgroundImage.getPath());
-        g2.drawImage(image, 0, 0, 560, 360, null);
-        simulateur.Dessin(g,afficherGrille);
+        if(m_image!=null)
+            g2.drawImage(m_image, 0, 0,560,360,this);
+        m_simulateur.Dessin(g,m_afficherGrille);
         g.dispose();
+       // repaint();
+        
 
     } 
 }
@@ -475,13 +468,14 @@ public class GUI extends javax.swing.JFrame {
         jPanelMap.setBounds(0, 0, 560, 360);
         //Initialisation simulateur
         m_simulateur= new Simulateur();
+        m_simulateur.ChangerFondEcran("/image/background.png");
         jPanelMap.setSimulateur(m_simulateur);
         //Initialisation grille
         jCbAfficherGrille.setState(false);
         jPanelMap.setAffichageGrille(jCbAfficherGrille.getState());
         //Initialisation zoom
         jSlidZoom.setValue(1);
-        jPanelMap.setZoom(jSlidZoom.getValue());
+        m_simulateur.ChangerZoom(jSlidZoom.getValue());
         //Initialisation timer et vitesse
         jSlidVitesse.setValue(1);
         m_timer= new Timer(500/jSlidVitesse.getValue(), new ActionListener() {

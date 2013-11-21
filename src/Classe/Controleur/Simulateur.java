@@ -55,4 +55,8 @@ public class Simulateur {
     {
         m_simulation.ChangerZoom(p_nouveauZoom);
     }
+    public void ChangerFondEcran(String p_pathImage)
+    {
+        m_simulation.ChangerFondEcran(p_pathImage);
+    }
 }
