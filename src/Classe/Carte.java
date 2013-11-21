@@ -149,9 +149,12 @@ public class Carte {
     }
     public boolean AjouterRapide(Point2D.Float CoordNoeud)
     {
-        AjouterNoeud(CoordNoeud);
-        Noeud noeudCourt=null;
+        Noeud noeudCourt;
         boolean Retour = true;
+        if(!NoeudEstPresent(CoordNoeud))
+        {
+            AjouterNoeud(CoordNoeud);
+        }  
         for(int i=0;i < m_listeNoeuds.size();i++)
         {
             noeudCourt=m_listeNoeuds.get(i);
@@ -162,12 +165,30 @@ public class Carte {
             }
         }
         return Retour;
+         /* 
+        Noeud noeudCourt;
+        boolean Retour = false;
+        if(!NoeudEstPresent(CoordNoeud))
+        {          
+            AjouterNoeud(CoordNoeud);
+            Retour=true;
+            if(m_listeNoeuds.size()>1)
+            {
+                noeudCourt=m_listeNoeuds.get(m_listeNoeuds.size()-2);
+                AjouterSegment(CoordNoeud, noeudCourt.m_Position);
+                if(!SegmentExiste(CoordNoeud,  noeudCourt.m_Position))
+                {
+                    Retour=false;
+                }
+            }
+        }
+        return Retour;*/
     }
     public Segment ObtenirSegment(Point2D.Float CoordNoeud1, Point2D.Float CoordNoeud2)
     {
         Segment segmentTrouve = null;
         int compteurSegments = 0;
-        Segment segmentCourant = null;
+        Segment segmentCourant;
         
         while(compteurSegments < m_listeSegments.size() && segmentTrouve == null)
         {
