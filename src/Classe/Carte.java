@@ -134,6 +134,9 @@ public class Carte {
         
         if(segCourant != null)
         {
+            //Supprimer les référence dans chaque noeud
+            segCourant.SupprimerRefSegNd();
+            //Supprimer le segment de la liste 
             m_listeSegments.remove(segCourant);
             Retour = true;
         }
