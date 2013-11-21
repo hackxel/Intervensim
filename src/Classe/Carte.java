@@ -8,13 +8,9 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.util.List;
 import java.util.ArrayList;
 import java.awt.Image;
-import java.awt.Paint;
-import java.awt.Point;
 import java.awt.RenderingHints;
-import java.awt.Stroke;
 import java.awt.geom.Point2D;
 import java.net.URL;
 
@@ -92,7 +88,7 @@ public class Carte {
     {
         Noeud noeudTrouve = null;
         int compteurNoeuds = 0;
-        Noeud noeudCourant = null;
+        Noeud noeudCourant ;
         
         while(compteurNoeuds < m_listeNoeuds.size() && noeudTrouve == null)
         {
@@ -247,6 +243,7 @@ public class Carte {
                     java.awt.Toolkit toolkit = java.awt.Toolkit.getDefaultToolkit();
                     Image image = toolkit.getImage(urlImage.getPath());
                     g2.drawImage(image,(int)test.m_Position.x-12,(int)test.m_Position.y-12, 24, 24, null);
+                
                }
                else
                {
