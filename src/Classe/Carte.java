@@ -150,20 +150,21 @@ public class Carte {
     public boolean AjouterRapide(Point2D.Float CoordNoeud)
     {
         Noeud noeudCourt;
-        boolean Retour = true;
+        boolean Retour = false;
         if(!NoeudEstPresent(CoordNoeud))
         {
             AjouterNoeud(CoordNoeud);
-        }  
-        for(int i=0;i < m_listeNoeuds.size();i++)
-        {
-            noeudCourt=m_listeNoeuds.get(i);
-            AjouterSegment(CoordNoeud, noeudCourt.m_Position);
-            if(!SegmentExiste(CoordNoeud,  noeudCourt.m_Position))
+            Retour=true;
+            for(int i=0;i < m_listeNoeuds.size();i++)
             {
-                Retour=false;
+                noeudCourt=m_listeNoeuds.get(i);
+                AjouterSegment(CoordNoeud, noeudCourt.m_Position);
+                if(!SegmentExiste(CoordNoeud,  noeudCourt.m_Position))
+                {
+                    Retour=false;
+                }
             }
-        }
+        } 
         return Retour;
          /* 
         Noeud noeudCourt;
