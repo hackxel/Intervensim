@@ -15,7 +15,36 @@ public abstract class AlgorithmePlusCourtChemin {
     {
        systemeRoutier = InitialiserParcours(noeudDepart,systemeRoutier);
        
-       return null;
+       ArrayList<Noeud> listeNoeudsTraitement = new ArrayList<Noeud>();
+       
+       listeNoeudsTraitement.add(noeudDepart);
+       
+       while(listeNoeudsTraitement.size() > 0)
+       {
+           Noeud noeudCourant = ObtenirNoeudPlusPetiteDistance(listeNoeudsTraitement);
+           
+           listeNoeudsTraitement.remove(noeudCourant);
+           noeudCourant.SetVisite();
+           
+           for(Noeud noeudAdjacent: noeudCourant.ObtenirNoeudsAdjacents())
+           {
+               if(noeudAdjacent.DejaVisite() == false)
+               {
+                   noeudAdjacent.RelacheNoeud(noeudCourant);
+                   
+                   listeNoeudsTraitement.add(noeudAdjacent);
+               }
+           }
+       }
+       
+       Noeud noeudCourant = noeudDestination;
+       
+       while(noeudCourant.GetPrecedent() != noeudDepart)
+       {
+           noeudCourant = noeudCourant.GetPrecedent();
+       }
+       
+       return noeudCourant;
     }
     
     private ArrayList<Noeud> InitialiserParcours(Noeud noeudDepart, ArrayList<Noeud> systemeRoutier)
@@ -23,13 +52,23 @@ public abstract class AlgorithmePlusCourtChemin {
         for(Noeud noeudCourant : systemeRoutier)
         {
             noeudCourant.InitialiserValeursParcours();
-            
-            if(noeudCourant.EstMemePosition(noeudDepart.obtenir_Position()))
-            {
-                noeudCourant.SetVisite();
-            }
         }
         
         return systemeRoutier;
+    }
+    
+    private Noeud ObtenirNoeudPlusPetiteDistance(ArrayList<Noeud> listeNoeuds)
+    {
+        Noeud plusPetiteDistance = null;
+        
+        for(Noeud noeudCourant: listeNoeuds)
+        {
+           if(plusPetiteDistance == null || plusPetiteDistance.GetDistance() > noeudCourant.GetDistance())
+           {
+               plusPetiteDistance = noeudCourant;
+           }
+        }
+        
+        return plusPetiteDistance;
     }
 }

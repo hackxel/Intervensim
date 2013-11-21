@@ -5,6 +5,7 @@
 package Classe;
 
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,10 +15,11 @@ public class Noeud {
     
     Point2D.Float m_Position;
     
-    private int distance;
+    private double distance;
     private boolean visite;
     private Noeud precedent;
    
+    private ArrayList<Segment> segmentsAdjacents;
     //Attributs
      public float obtenir_posX() {
         return m_Position.x;
@@ -36,12 +38,29 @@ public class Noeud {
     Noeud(Point2D.Float p_CoordNoeud)
     {
         m_Position = p_CoordNoeud;
+        segmentsAdjacents = new ArrayList<Segment>();
     }
     
     //Méthodes publique
     boolean EstMemePosition(Point2D.Float p_CoordNoeud)
     {
         return (m_Position.equals(p_CoordNoeud));
+    }
+    
+    public void AjouterSegment(Segment segmentAAjouter)
+    {
+        if(segmentsAdjacents.contains(segmentAAjouter) == false)
+        {
+            segmentsAdjacents.add(segmentAAjouter);
+        }        
+    }
+    
+    public void SupprimerSegment(Segment segmentASupprimer)
+    {
+        if(segmentsAdjacents.contains(segmentASupprimer) == true)
+        {
+            segmentsAdjacents.remove(segmentASupprimer);
+        }
     }
     
     public void InitialiserValeursParcours()
@@ -56,8 +75,10 @@ public class Noeud {
         visite = true;
     }
     
-    public void RelacheNoeud(int nouvelleDistance, Noeud noeudCourantParcours)
+    public void RelacheNoeud(Noeud noeudCourantParcours)
     {
+        double nouvelleDistance = GetDistance(noeudCourantParcours);
+        
         if(nouvelleDistance < distance)
         {
             distance = nouvelleDistance;
@@ -65,7 +86,7 @@ public class Noeud {
         }
     }
     
-    public int GetDistance()
+    public double GetDistance()
     {
         return distance;
     }
@@ -78,5 +99,39 @@ public class Noeud {
     public boolean DejaVisite()
     {
         return visite;
+    }
+    
+    public ArrayList<Noeud> ObtenirNoeudsAdjacents()
+    {
+        ArrayList<Noeud> listeNoeudsAdjacents = new ArrayList<>();
+        
+        for(Segment unSegment: segmentsAdjacents)
+        {
+            if(unSegment.m_Noeud1 == this)
+            {
+                listeNoeudsAdjacents.add(unSegment.m_Noeud2);
+            }
+            else
+            {
+                listeNoeudsAdjacents.add(unSegment.m_Noeud1);
+            }
+        }
+        
+        return listeNoeudsAdjacents;
+    }
+    
+    private double GetDistance(Noeud noeudAdjacent)
+    {
+        double distance = 9999;
+        
+        for(Segment segmentCourant: segmentsAdjacents)
+        {
+            if(segmentCourant.EstMemePosition(obtenir_Position(), noeudAdjacent.obtenir_Position()))
+            {
+                distance = segmentCourant.getDistance();
+            }
+        }
+        
+        return distance;
     }
 }

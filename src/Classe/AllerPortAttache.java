@@ -10,11 +10,11 @@ import java.util.ArrayList;
  *
  * @author Joseph
  */
-public class AllerPortAttache implements IStrategieAttente{
+public class AllerPortAttache extends AlgorithmePlusCourtChemin implements IStrategieAttente{
 
     @Override
     public Noeud ObtenirProchainNoeud(Noeud noeudCourant, ArrayList<Noeud> systemeRoutier,Noeud portAttache) {
-        return null;
+        return ProchainNoeud(noeudCourant, portAttache, systemeRoutier);
     }
     
 }
