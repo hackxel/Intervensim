@@ -19,7 +19,8 @@ public class Noeud {
     private boolean visite;
     private Noeud precedent;
    
-    private ArrayList<Segment> segmentsAdjacents;
+    private ArrayList<Segment> segmentsAdjacents;    
+    private ArrayList<Urgence> listeUrgences;
     //Attributs
      public float obtenir_posX() {
         return m_Position.x;
@@ -38,7 +39,8 @@ public class Noeud {
     Noeud(Point2D.Float p_CoordNoeud)
     {
         m_Position = p_CoordNoeud;
-        segmentsAdjacents = new ArrayList<Segment>();
+        segmentsAdjacents = new ArrayList<>();
+        listeUrgences = new ArrayList<>();
     }
     
     //Méthodes publique
