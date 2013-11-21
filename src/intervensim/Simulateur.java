@@ -45,8 +45,14 @@ public class Simulateur {
         
         m_simulation.AjouterSegment(p_point1, p_point2);
     }
-     public void Dessin(Graphics p_graphics,boolean p_affiche)
-     {
-       m_simulation.Dessin(p_graphics,p_affiche);
-     }
+
+    public void Dessin(Graphics p_graphics,boolean p_affiche)
+    {
+        m_simulation.Dessin(p_graphics,p_affiche);
+    }
+    
+    public void ChangerZoom(float p_nouveauZoom)
+    {
+        m_simulation.ChangerZoom(p_nouveauZoom);
+    }
 }

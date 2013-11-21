@@ -516,7 +516,12 @@ public class GUI extends javax.swing.JFrame {
 
     private void jSlidZoomStateChanged(javax.swing.event.ChangeEvent evt) {                                       
         // TODO add your handling code here:
-       jLabZoom.setText("Zoom: " + String.valueOf(jSlidZoom.getValue()) + "x");
+        jLabZoom.setText("Zoom: " + String.valueOf(jSlidZoom.getValue()) + "x");
+        if(m_simulateur != null)
+        {
+            m_simulateur.ChangerZoom(jSlidZoom.getValue());
+            jPanelMap.repaint();
+        }
     }                                      
 
     private void jSlidVitesseStateChanged(javax.swing.event.ChangeEvent evt) {                                          

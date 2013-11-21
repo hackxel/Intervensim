@@ -11,6 +11,8 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.Rectangle;
+import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.net.URL;
 
@@ -219,9 +221,9 @@ public class Carte {
     {
         return m_listeNoeuds.size();
     }
-    public void Dessin(Graphics p_graphics)
+    public void Dessin(Graphics p_graphics, Rectangle.Float p_rectVisible, int p_largPix, int p_hautPix)
     {
-       
+        Point ptAffiche1, ptAffiche2;
         Graphics2D g2 = (Graphics2D)p_graphics;  
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setColor(Color.black);
@@ -229,12 +231,16 @@ public class Carte {
         {
            Segment test = m_listeSegments.get(i);
            g2.setStroke(new BasicStroke(4));
-           g2.drawLine((int)test.m_Noeud1.m_Position.x,(int)test.m_Noeud1.m_Position.y, (int)test.m_Noeud2.m_Position.x, (int)test.m_Noeud2.m_Position.y);
+           ptAffiche1 = new Point((int)((test.m_Noeud1.m_Position.x - p_rectVisible.x) * p_largPix / p_rectVisible.width), (int)((test.m_Noeud1.m_Position.y - p_rectVisible.y) * p_hautPix / p_rectVisible.height));
+           ptAffiche2 = new Point((int)((test.m_Noeud2.m_Position.x - p_rectVisible.x) * p_largPix / p_rectVisible.width), (int)((test.m_Noeud2.m_Position.y - p_rectVisible.y) * p_hautPix / p_rectVisible.height));
+           g2.drawLine(ptAffiche1.x, ptAffiche1.y, ptAffiche2.x, ptAffiche2.y);
         
         }
         for(int i=0;i < m_listeNoeuds.size();i++)
         {
-           Noeud test=m_listeNoeuds.get(i);
+       Noeud test=m_listeNoeuds.get(i);
+           ptAffiche1 = new Point((int)((test.m_Position.x - p_rectVisible.x) * p_largPix / p_rectVisible.width), (int)((test.m_Position.y - p_rectVisible.y) * p_hautPix / p_rectVisible.height));
+           
            if(m_vehicule.m_portAttache!=null)
            {
                if (test.EstMemePosition(m_vehicule.m_portAttache.m_Position))
@@ -242,17 +248,16 @@ public class Carte {
                     URL urlImage= getClass().getResource("/image/hospital-icon2.png");
                     java.awt.Toolkit toolkit = java.awt.Toolkit.getDefaultToolkit();
                     Image image = toolkit.getImage(urlImage.getPath());
-                    g2.drawImage(image,(int)test.m_Position.x-12,(int)test.m_Position.y-12, 24, 24, null);
-                
+                    g2.drawImage(image, ptAffiche1.x-12, ptAffiche1.y-12, 24, 24, null);
                }
                else
                {
-                    g2.fillOval((int)test.m_Position.x-8,(int)test.m_Position.y-8, 16, 16);
+                    g2.fillOval(ptAffiche1.x-8, ptAffiche1.y-8, 16, 16);
                }
            }
            else
            {
-                g2.fillOval((int)test.m_Position.x-8,(int)test.m_Position.y-8, 16, 16);
+                g2.fillOval(ptAffiche1.x-8, ptAffiche1.y-8, 16, 16);
            }
         }
        

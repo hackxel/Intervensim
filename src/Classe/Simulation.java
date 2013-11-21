@@ -33,6 +33,7 @@ public class Simulation {
         m_Carte = new Carte();
         m_HautPx=360;
         m_LargPx=560;
+        m_Zoom = 1.0f;
         lol=0;
     }  
     //Méthodes publique
@@ -115,7 +116,7 @@ public class Simulation {
         {
             AfficherGrille(p_graphics);
         }
-        m_Carte.Dessin(p_graphics);     
+        m_Carte.Dessin(p_graphics, m_RectVisible, m_LargPx, m_HautPx);     
     }
     //Méthodes Privées
     Point2D.Float CoordonneeGrillePoint(Point p_Coord)
@@ -133,18 +134,31 @@ public class Simulation {
    
     public void AfficherGrille(Graphics p_graphics)
     {
+        int coordonnee;
+        float i;
+        p_graphics.setColor(Color.lightGray);
         
-        int lignex=(int) (m_HautPx/m_DistanceEntrePts);
-        int ligney=(int) (m_LargPx/m_DistanceEntrePts);
-         p_graphics.setColor(Color.lightGray);
-        for(int i=0;i<lignex;i++)
+        // Affiche les lignes verticales
+        for(i = 0.0f; i < m_LargPx; i += m_DistanceEntrePts)
         {
-            p_graphics.drawLine(0, (int) (i*m_DistanceEntrePts), m_LargPx, (int) (i*m_DistanceEntrePts));
+            coordonnee = (int) ((i - m_RectVisible.x) * m_LargPx / m_RectVisible.width);
+            p_graphics.drawLine(coordonnee, 0, coordonnee, m_HautPx);
         }
-        for(int j=0;j<ligney;j++)
+        
+        // Affiche les lignes horizontales
+        for(i = 0.0f; i < m_HautPx; i += m_DistanceEntrePts)
         {
-            p_graphics.drawLine((int) (j*m_DistanceEntrePts),0 , (int) (j*m_DistanceEntrePts), m_HautPx);
+            coordonnee = (int) ((i - m_RectVisible.y) * m_HautPx / m_RectVisible.height);
+            p_graphics.drawLine(0, coordonnee, m_LargPx, coordonnee);
         }
     }
+    
+    public void ChangerZoom(float p_nouveauZoom)
+    {
+        m_Zoom = p_nouveauZoom;
+        m_RectVisible.width = m_LargPx / m_Zoom;
+        m_RectVisible.height = m_HautPx / m_Zoom;
+        m_RectVisible.x = (m_LargPx - m_RectVisible.width) / 2.0f;
+        m_RectVisible.y = (m_HautPx - m_RectVisible.height) / 2.0f; 
+    }
 }
-   
