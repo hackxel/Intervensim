@@ -48,8 +48,24 @@ public class Simulation {
         Point2D.Float CoordNoeud;
         
         CoordNoeud = CoordonneeGrillePoint(p_Coordonnee);
+        if(m_Carte.NoeudEstPresent(CoordNoeud))
+        {
+            m_Carte.SupprimerNoeud(CoordNoeud);
+        }
+    }
+    public void SupprimerSegment(Point p_point1,Point p_point2)
+    {
+        Point2D.Float CoordNoeud1;
+        Point2D.Float CoordNoeud2;
+    
+        CoordNoeud1 = CoordonneeGrillePoint(p_point1);
+        CoordNoeud2 = CoordonneeGrillePoint(p_point2);
         
-        m_Carte.SupprimerNoeud(CoordNoeud);
+        if(m_Carte.NoeudEstPresent(CoordNoeud1) && m_Carte.NoeudEstPresent(CoordNoeud2))
+        {
+            m_Carte.SupprimerSegment(CoordNoeud1, CoordNoeud2);
+        }
+       
     }
     public  void PortAttache(Point p_Coordonnee)
     {
@@ -66,6 +82,12 @@ public class Simulation {
             Noeud test=m_Carte.ObtenirNoeud(CoordNoeud);
             m_Carte.m_vehicule.DefinirPortAttache(test);
         }
+    }
+    public void AjouterRapide(Point p_Coordonnee)
+    {
+        Point2D.Float CoordNoeud;
+        CoordNoeud = CoordonneeGrillePoint(p_Coordonnee);
+        m_Carte.AjouterRapide(CoordNoeud);
     }
     public void AjouterNoeud(Point p_Coordonnee)
     {

@@ -147,7 +147,22 @@ public class Carte {
     {
         return ObtenirSegment(CoordNoeud1, CoordNoeud2) != null;
     }
-    
+    public boolean AjouterRapide(Point2D.Float CoordNoeud)
+    {
+        AjouterNoeud(CoordNoeud);
+        Noeud noeudCourt=null;
+        boolean Retour = true;
+        for(int i=0;i < m_listeNoeuds.size();i++)
+        {
+            noeudCourt=m_listeNoeuds.get(i);
+            AjouterSegment(CoordNoeud, noeudCourt.m_Position);
+            if(!SegmentExiste(CoordNoeud,  noeudCourt.m_Position))
+            {
+                Retour=false;
+            }
+        }
+        return Retour;
+    }
     public Segment ObtenirSegment(Point2D.Float CoordNoeud1, Point2D.Float CoordNoeud2)
     {
         Segment segmentTrouve = null;

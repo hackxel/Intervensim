@@ -40,12 +40,20 @@ public class Simulateur {
     {
         m_simulation.SupprimerNoeud(p_point);
     }
+    public void SupprimerSegment(Point p_point1,Point p_point2)
+    {
+        m_simulation.SupprimerSegment(p_point1, p_point2);
+    }
     public void AjouterNoeud(Point p_point)
     {
         m_simulation.AjouterNoeud(p_point);
         
     }
-     public  void AjouterSegment(Point p_point1,Point p_point2)
+    public void AjouterRapide(Point p_point)
+    {
+        m_simulation.AjouterRapide(p_point);
+    }
+    public  void AjouterSegment(Point p_point1,Point p_point2)
     {
         
         m_simulation.AjouterSegment(p_point1, p_point2);

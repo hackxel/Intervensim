@@ -22,9 +22,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import static java.awt.image.ImageObserver.WIDTH;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.Timer;
 
 /**
@@ -37,11 +44,17 @@ class PanelMap extends javax.swing.JPanel
     boolean afficherGrille;
     int zoomCarte;
     URL backgroundImage;
-
+    //Image backgroundImage;
     PanelMap() {
         
       backgroundImage= getClass().getResource("/image/background.png");
         
+    }
+    public void setImageArrierePlan(String p_image)
+    {
+      //  backgroundImage= getClass().getResource("/image/background.png");
+     // java.awt.Toolkit toolkit = java.awt.Toolkit.getDefaultToolkit();
+     //  backgroundImage = toolkit.getImage(p_image);
     }
     public void setAffichageGrille(boolean p_afficher)
     {
@@ -66,7 +79,7 @@ class PanelMap extends javax.swing.JPanel
         simulateur.Dessin(g,afficherGrille);
         g.dispose();
 
-    }  
+    } 
 }
 public class GUI extends javax.swing.JFrame {
 
@@ -84,12 +97,7 @@ public class GUI extends javax.swing.JFrame {
     
     public GUI() {
         initComponents();
-        m_simulateur= new Simulateur();
-        m_graphics=super.getGraphics();
-      
-        
-        jPanelMap = new PanelMap();
-        jPanelMap.setBackground(new java.awt.Color(51, 51, 51));
+        jPanelMap = new PanelMap();     
         jPanelMap.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -97,22 +105,12 @@ public class GUI extends javax.swing.JFrame {
             }
 
         });
+     
         getContentPane().add(jPanelMap);
-        jPanelMap.setBounds(0, 0, 560, 360);
-        jPanelMap.setSimulateur(m_simulateur);
-        jPanelMap.setAffichageGrille(jCbAfficherGrille.getState());
-        jPanelMap.setZoom(jSlidZoom.getValue());
+      
+        initilialisationSimulation();
+        //Initialisation paint component
         jPanelMap.paintComponent(m_graphics);
-        pack();        
-        setVisible(true);
-        m_timer= new Timer(200, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    jPanelMap.repaint();
-                }
-            });
-        m_timer.start();
-       
     }
 
     /**
@@ -134,17 +132,20 @@ public class GUI extends javax.swing.JFrame {
         jBtnAjouterPortAttache = new javax.swing.JButton();
         jBtnAjouterNoeud = new javax.swing.JButton();
         jBtnAjouterSegment = new javax.swing.JButton();
-        jBtnSupprimer = new javax.swing.JButton();
+        jBtnAjoutRapide = new javax.swing.JButton();
+        jBtnSupprimerNoeud = new javax.swing.JButton();
+        jBtnSupprimerSegment = new javax.swing.JButton();
         label1 = new java.awt.Label();
         label2 = new java.awt.Label();
         label3 = new java.awt.Label();
-        jBtnAjoutRapide = new javax.swing.JButton();
         label4 = new java.awt.Label();
-         label5 = new java.awt.Label();
+        label5 = new java.awt.Label();
+        label6 = new java.awt.Label();
         jMenuBar = new javax.swing.JMenuBar();
         jMenuFichier = new javax.swing.JMenu();
         jItemImporter = new javax.swing.JMenuItem();
         jItemSauvegarder = new javax.swing.JMenuItem();
+        jItemNouvelle = new javax.swing.JMenuItem();
         jItemQuitter = new javax.swing.JMenuItem();
         jMenuUrgence = new javax.swing.JMenu();
         jItemAjouterUrgence = new javax.swing.JMenuItem();
@@ -171,6 +172,7 @@ public class GUI extends javax.swing.JFrame {
 
         jSlidZoom.setMajorTickSpacing(10);
         jSlidZoom.setMinimum(1);
+        jSlidZoom.setMaximum(10);
         jSlidZoom.setMinorTickSpacing(2);
         jSlidZoom.addChangeListener(new javax.swing.event.ChangeListener() {
             @Override
@@ -181,14 +183,17 @@ public class GUI extends javax.swing.JFrame {
         jSlidZoom.setValue(1);
         getContentPane().add(jSlidZoom);
         jSlidZoom.setBounds(260, 370, 200, 23);
-
+       
+        
+        jSlidVitesse.setMinimum(1);
+        jSlidVitesse.setMaximum(10);
         jSlidVitesse.addChangeListener(new javax.swing.event.ChangeListener() {
             @Override
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jSlidVitesseStateChanged(evt);
             }
         });
-        jSlidVitesse.setValue(0);
+        jSlidVitesse.setValue(1);
         getContentPane().add(jSlidVitesse);
         jSlidVitesse.setBounds(260, 400, 200, 23);
 
@@ -285,9 +290,17 @@ public class GUI extends javax.swing.JFrame {
         getContentPane().add(label3);
         label3.setBounds(630, 70, 140, 60);
         
+        label4.setText("Ajout rapide");
+        getContentPane().add(label4);
+        label4.setBounds(630, 190, 140, 60);
+        
         label5.setText("Supprimer un noeud");
         getContentPane().add(label5);
         label5.setBounds(630, 250, 140, 60);
+        
+        label6.setText("Supprimer un segment");
+        getContentPane().add(label6);
+        label6.setBounds(630, 310, 140, 60);
 
         jBtnAjoutRapide.setBackground(new java.awt.Color(204, 204, 204));
         jBtnAjoutRapide.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Maps-and-Geolocation-Polyline-icon.png"))); // NOI18N
@@ -301,24 +314,47 @@ public class GUI extends javax.swing.JFrame {
         getContentPane().add(jBtnAjoutRapide);
         jBtnAjoutRapide.setBounds(570, 190, 60, 60);
         
-        jBtnSupprimer.setBackground(new java.awt.Color(204, 204, 204));
-        jBtnSupprimer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Editing-Delete-icon.png"))); // NOI18N
-        jBtnSupprimer.setPreferredSize(new java.awt.Dimension(50, 50));
-        jBtnSupprimer.addActionListener(new java.awt.event.ActionListener() {
+        jBtnSupprimerNoeud.setBackground(new java.awt.Color(204, 204, 204));
+        jBtnSupprimerNoeud.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Editing-Delete-icon.png"))); // NOI18N
+        jBtnSupprimerNoeud.setPreferredSize(new java.awt.Dimension(50, 50));
+        jBtnSupprimerNoeud.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnSupprimerActionPerformed(evt);
+                jBtnSupprimerNoeudActionPerformed(evt);
             }
         });
-        getContentPane().add(jBtnSupprimer);
-        jBtnSupprimer.setBounds(570, 250, 60, 60);
+        getContentPane().add(jBtnSupprimerNoeud);
+        jBtnSupprimerNoeud.setBounds(570, 250, 60, 60);
 
-        label4.setText("Ajout rapide");
-        getContentPane().add(label4);
-        label4.setBounds(630, 190, 140, 60);
+        
+        jBtnSupprimerSegment.setBackground(new java.awt.Color(204, 204, 204));
+        jBtnSupprimerSegment.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Editing-Erase-icon.png"))); // NOI18N
+        jBtnSupprimerSegment.setPreferredSize(new java.awt.Dimension(50, 50));
+        jBtnSupprimerSegment.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnSupprimerSegmentActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jBtnSupprimerSegment);
+        jBtnSupprimerSegment.setBounds(570, 310, 60, 60);
+        
+        
+        
+        
+        
 
         jMenuFichier.setText("Fichier");
-
+        jItemNouvelle.setText("Nouvelle simulation");
+        jItemNouvelle.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jItemNouvelleActionPerformed(evt);
+            }
+        });
+        jItemNouvelle.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N,java.awt.Event.CTRL_MASK));
+        jMenuFichier.add(jItemNouvelle);
+        
         jItemImporter.setText("Importer une simulation");
         jItemImporter.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I,java.awt.Event.CTRL_MASK));
         jMenuFichier.add(jItemImporter);
@@ -417,10 +453,23 @@ public class GUI extends javax.swing.JFrame {
                 reinitialisationVar();
                 jPanelMap.repaint();
             break;
+            case "AjoutRapide":
+                m_simulateur.AjouterRapide(m_PremierPoint);
+                reinitialisationVar();
+                jPanelMap.repaint();
+            break;
             case "SupprimerNoeud":
                 m_simulateur.SupprimerNoeud(m_PremierPoint);
                 reinitialisationVar();
                 jPanelMap.repaint();
+            break;
+            case "SupprimerSegment":
+                if(m_DeuxiemePoint != null)
+                {
+                    m_simulateur.SupprimerSegment(m_PremierPoint, m_DeuxiemePoint);
+                    reinitialisationVar();
+                    jPanelMap.repaint();
+                }
             break;
         }
         
@@ -428,8 +477,44 @@ public class GUI extends javax.swing.JFrame {
     private void jItemQuitterActionPerformed(java.awt.event.ActionEvent evt) {                                             
         // TODO add your handling code here:
         System.exit(0);
-    }                                            
+    }  
+     private void jItemNouvelleActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        // TODO add your handling code here:
+         initilialisationSimulation();
+          //final JFileChooser fc = new JFileChooser();
+        //  int returnVal = fc.showOpenDialog(this);
+    }  
+     private void initilialisationSimulation()
+     {
+         m_graphics=super.getGraphics();
+         //Redimentionnement par default
+        jPanelMap.setBackground(new java.awt.Color(51, 51, 51));
+        jPanelMap.setBounds(0, 0, 560, 360);
+        //Initialisation simulateur
+        m_simulateur= new Simulateur();
+        jPanelMap.setSimulateur(m_simulateur);
+        //Initialisation grille
+        jCbAfficherGrille.setState(false);
+        jPanelMap.setAffichageGrille(jCbAfficherGrille.getState());
+        //Initialisation zoom
+        jSlidZoom.setValue(1);
+        jPanelMap.setZoom(jSlidZoom.getValue());
+        //Initialisation timer et vitesse
+        jSlidVitesse.setValue(1);
+        m_timer= new Timer(500/jSlidVitesse.getValue(), new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    jPanelMap.repaint();
+                }
+        });   
 
+        //Initialisation variable
+        reinitialisationVar();
+        m_etatBoutonClique="";
+        
+        //Rafraichissement
+        jPanelMap.repaint();
+     }
     private void jItemOptionAvanceActionPerformed(java.awt.event.ActionEvent evt) {                                                  
         // TODO add your handling code here:
     }   
@@ -485,11 +570,16 @@ public class GUI extends javax.swing.JFrame {
            reinitialisationVar();
            m_etatBoutonClique="AjoutRapide";
     }    
-    private void jBtnSupprimerActionPerformed(java.awt.event.ActionEvent evt) {                                                
+    private void jBtnSupprimerNoeudActionPerformed(java.awt.event.ActionEvent evt) {                                                
     // TODO add your handling code here:
        reinitialisationVar();
        m_etatBoutonClique="SupprimerNoeud";
-    }       
+    }     
+    private void jBtnSupprimerSegmentActionPerformed(java.awt.event.ActionEvent evt) {                                                
+    // TODO add your handling code here:
+       reinitialisationVar();
+       m_etatBoutonClique="SupprimerSegment";
+    }     
 
     private void reinitialisationVar() {  
         m_PremierPoint=null;
@@ -536,12 +626,14 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jBtnAjouterNoeud;
     private javax.swing.JButton jBtnAjouterPortAttache;
     private javax.swing.JButton jBtnAjouterSegment;
-    private javax.swing.JButton jBtnSupprimer;
+    private javax.swing.JButton jBtnSupprimerNoeud;
+    private javax.swing.JButton jBtnSupprimerSegment;
     private javax.swing.JButton jBtnDemarer;
     private javax.swing.JButton jBtnPause;
     private javax.swing.JButton jBtnStop;
     private javax.swing.JCheckBoxMenuItem jCbAfficherGrille;
     private javax.swing.JMenuItem jItemAjouterUrgence;
+    private javax.swing.JMenuItem jItemNouvelle;
     private javax.swing.JMenuItem jItemImporter;
     private javax.swing.JMenuItem jItemOptionAvance;
     private javax.swing.JMenuItem jItemQuitter;
@@ -561,5 +653,6 @@ public class GUI extends javax.swing.JFrame {
     private java.awt.Label label3;
     private java.awt.Label label4;
     private java.awt.Label label5;
+    private java.awt.Label label6;
     // End of variables declaration                   
 }
