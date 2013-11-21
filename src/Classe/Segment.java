@@ -40,4 +40,9 @@ public class Segment {
                 (m_Noeud2.obtenir_Position() == p_CoordNoeud2 && m_Noeud1.obtenir_Position() == p_CoordNoeud1);*/
     }
     
+    public void SupprimerRefSegNd()
+    {
+        m_Noeud1.SupprimerSegment(this);
+        m_Noeud2.SupprimerSegment(this);
+    }
 }

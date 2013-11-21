@@ -4,6 +4,13 @@
  */
 package Classe;
 
+import Classe.Strategies.SuivreParcoursOptimal;
+import Classe.Strategies.AllerNoeudPlusAncien;
+import Classe.Strategies.AllerNoeudPlusPret;
+import Classe.Strategies.AttendreNoeud;
+import Classe.Strategies.AllerPortAttache;
+import Classe.Strategies.IStrategieAttente;
+import Classe.Strategies.IStrategieTraitement;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 

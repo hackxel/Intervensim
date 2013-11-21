@@ -2,15 +2,17 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Classe;
+package Classe.Strategies;
 
+import Classe.Noeud;
+import Classe.Strategies.IStrategieTraitement;
 import java.util.ArrayList;
 
 /**
  *
  * @author Joseph
  */
-public class AllerNoeudPlusPret implements IStrategieTraitement {
+public class SuivreParcoursOptimal implements IStrategieTraitement {
     
     @Override
     public Noeud ObtenirProchainNoeud(Noeud noeudCourant, ArrayList<Noeud> systemeRoutier,Noeud portAttache)

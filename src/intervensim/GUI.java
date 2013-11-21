@@ -6,6 +6,7 @@ package intervensim;
 
 //import com.sun.xml.internal.ws.api.message.Message;
 
+import Classe.Controleur.Simulateur;
 import javax.swing.KeyStroke;
 import java.awt.Point;
 import java.awt.Graphics;

@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Classe;
+package Classe.Strategies;
 
+import Classe.Noeud;
 import java.util.ArrayList;
 
 /**

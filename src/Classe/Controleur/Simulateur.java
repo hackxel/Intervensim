@@ -1,4 +1,4 @@
-package intervensim;
+package Classe.Controleur;
 
 import java.awt.Graphics;
 import java.awt.Point;
