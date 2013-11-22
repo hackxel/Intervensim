@@ -181,7 +181,7 @@ public class Carte {
             if(ajoutExistant)
             {
                 noeudCourt=m_listeNoeuds.get(m_listeNoeuds.size()-1);
-                m_noeudRapide=noeudCourt;
+                m_noeudRapide=ObtenirNoeud(CoordNoeud);
             }
             else
             {
