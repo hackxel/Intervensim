@@ -148,7 +148,7 @@ public class Carte {
     }
     public boolean AjouterRapide(Point2D.Float CoordNoeud)
     {
-        Noeud noeudCourt;
+       /* Noeud noeudCourt;
         boolean Retour = false;
         if(!NoeudEstPresent(CoordNoeud))
         {
@@ -164,8 +164,8 @@ public class Carte {
                 }
             }
         } 
-        return Retour;
-         /* 
+        return Retour;*/
+         
         Noeud noeudCourt;
         boolean Retour = false;
         if(!NoeudEstPresent(CoordNoeud))
@@ -182,7 +182,7 @@ public class Carte {
                 }
             }
         }
-        return Retour;*/
+        return Retour;
     }
     public Segment ObtenirSegment(Point2D.Float CoordNoeud1, Point2D.Float CoordNoeud2)
     {

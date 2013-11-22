@@ -140,8 +140,8 @@ public class Simulation {
     {
         Point2D.Float CoordModif = new Point2D.Float();
         
-        CoordModif.x = (p_Coord.x * m_RectVisible.width) / m_LargPx;
-        CoordModif.y = (p_Coord.y * m_RectVisible.height) / m_HautPx;
+        CoordModif.x = (p_Coord.x * m_RectVisible.width) / m_LargPx + m_RectVisible.x;
+        CoordModif.y = (p_Coord.y * m_RectVisible.height) / m_HautPx + m_RectVisible.y;
         //Arrondissement pour la grille mangnétique
         CoordModif.x = ((int)(CoordModif.x / m_DistanceEntrePts + 0.5)) * m_DistanceEntrePts; 
         CoordModif.y = ((int)(CoordModif.y / m_DistanceEntrePts + 0.5)) * m_DistanceEntrePts;
