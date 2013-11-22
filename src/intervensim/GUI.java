@@ -148,7 +148,7 @@ public class GUI extends javax.swing.JFrame {
 
         jSlidZoom.setMajorTickSpacing(10);
         jSlidZoom.setMinimum(1);
-        jSlidZoom.setMaximum(10);
+        jSlidZoom.setMaximum(5);
         jSlidZoom.setMinorTickSpacing(2);
         jSlidZoom.addChangeListener(new javax.swing.event.ChangeListener() {
             @Override
@@ -468,7 +468,7 @@ public class GUI extends javax.swing.JFrame {
         jPanelMap.setBounds(0, 0, 560, 360);
         //Initialisation simulateur
         m_simulateur= new Simulateur();
-        m_simulateur.ChangerFondEcran("/image/background.png");
+        m_simulateur.ChangerFondEcran("/image/background_1.png");
         jPanelMap.setSimulateur(m_simulateur);
         //Initialisation grille
         jCbAfficherGrille.setState(false);

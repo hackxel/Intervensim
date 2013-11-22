@@ -13,6 +13,9 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
@@ -29,6 +32,7 @@ public class Simulation {
     int             m_HautPx;
     int             m_LargPx;
     Image           m_image;
+    BufferedImage   m_image2;
     float           m_DistanceEntrePts;
     Timer           m_timer;
    public Simulation()
@@ -114,17 +118,20 @@ public class Simulation {
             m_Carte.AjouterSegment(CoordNoeud1, CoordNoeud2);
         }
     }
-    public void Dessin(Graphics p_graphics,boolean p_affiche)
+    public void Dessin(Graphics p_graphics,boolean p_affiche) throws IOException
     {
         if(m_image!=null)
         {
-            Graphics2D g = (Graphics2D) p_graphics;   
+            
+            Graphics2D g = (Graphics2D) p_graphics; 
+            g.addRenderingHints(new RenderingHints(RenderingHints.KEY_RENDERING,
+                                RenderingHints.VALUE_RENDER_QUALITY));
             int w = m_LargPx;
             int h = m_HautPx;
             int imageWidth = m_image.getWidth(null);
             int imageHeight = m_image.getHeight(null);  
             double x = (w - m_Zoom * imageWidth)/2;  
-            double y = (h - m_Zoom * imageHeight)/2;  
+            double y = (h - m_Zoom * imageHeight)/2; 
             AffineTransform at = AffineTransform.getTranslateInstance(x,y);  
             at.scale(m_Zoom, m_Zoom);  
             g.drawImage(m_image, at,null);  
@@ -178,8 +185,9 @@ public class Simulation {
         m_RectVisible.x = (m_LargPx - m_RectVisible.width) / 2.0f;
         m_RectVisible.y = (m_HautPx - m_RectVisible.height) / 2.0f; 
     }
-    public void ChangerFondEcran(String p_pathImage)
+    public void ChangerFondEcran(String p_pathImage) throws IOException
     {
-        m_image = new ImageIcon(getClass().getResource(p_pathImage)).getImage();
+        BufferedImage img = ImageIO.read(getClass().getResource(p_pathImage));   
+        m_image= img.getScaledInstance(m_LargPx, m_HautPx, Image.SCALE_SMOOTH);       
     }
 }
