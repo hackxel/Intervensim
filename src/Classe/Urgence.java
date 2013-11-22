@@ -9,15 +9,40 @@ package Classe;
  * @author Joseph
  */
 public class Urgence {
-    private float m_tempsTraitement;
+    private double m_tempsEcoule;
+    private double m_tempsAvantDeclenchement;
+    private boolean m_traitementTermine;
     
-    public void DefinirTempsTraitement(float nouveauTemps)
+    Urgence(double tempsDeclenchement)
     {
-        m_tempsTraitement = nouveauTemps;
+        m_tempsAvantDeclenchement = tempsDeclenchement;
+        m_tempsEcoule = 0 - tempsDeclenchement;
+        m_traitementTermine = false;
     }
     
-    public float ObtenirTempsTraitement()
+    public double GetTempsAvantDeclenchement()
     {
-        return m_tempsTraitement;
+        return m_tempsAvantDeclenchement;
+    }
+    
+    public boolean UrgenceEstDeclenchee()
+    {
+        return m_tempsEcoule >= 0 && m_traitementTermine == false;
+    }
+    
+    public boolean UrgenceEstTerminee()
+    {
+        return m_tempsEcoule >= 0 && m_traitementTermine == true;
+    }
+    
+    public void DefinirTerminee()
+    {
+        m_traitementTermine = true;
+    }
+    
+    public void Reinitialiser()
+    {
+        m_tempsEcoule = 0 - m_tempsAvantDeclenchement;
+        m_traitementTermine = false;
     }
 }

@@ -33,8 +33,9 @@ public class Vehicule {
     public Vehicule (Point2D.Float p_point)
     {
         m_Position=p_point;
-        m_tempsTraitementUrgence=0;
-        m_portAttache=null;
+        m_tempsTraitementUrgence = 0;
+        m_portAttache = null;
+        m_tempsEcouleSurUrgence = 0;
         
         DefinirStrategieAttente(0);
         DefinirStrategieTraitement(0);
@@ -87,12 +88,49 @@ public class Vehicule {
     }
     
     public void AvancerTemps(ArrayList<Noeud> systemeRoutier, double vitesse)
-    {     
+    {
         //Verifie si véhicule est sur un noeud
         if(m_noeudCourant.EstMemePosition(m_Position))
         {
-            
+            if(m_noeudCourant.ContientUrgenceDeclencheeNonTraitee())
+            {
+                AvancerTraitementUrgence(vitesse);
+            }
+            else
+            {
+                
+            }
         }
+    }
+    
+    private void AvancerTraitementUrgence(double vitesse)
+    {
+        m_tempsEcouleSurUrgence += vitesse;
+        
+        if(m_tempsEcouleSurUrgence >= m_tempsTraitementUrgence)
+        {
+            m_tempsEcouleSurUrgence = 0;
+            
+            Urgence urgenceCourante = m_noeudCourant.ObtenirUrgenceCouranteDeclenchee();
+            
+            urgenceCourante.DefinirTerminee();
+        }
+    }
+    
+    private boolean SystemeContientUrgenceRestante(ArrayList<Noeud> systemeRoutier)
+    {
+        boolean systemeContientUrgence =  false;
+        int compteur = 0;
+        
+        while(systemeContientUrgence = false && compteur < systemeRoutier.size())
+        {
+            if(systemeRoutier.get(compteur).ContientUrgenceDeclencheeNonTraitee())
+            {
+                systemeContientUrgence = true;
+            }
+        }
+        
+        return systemeContientUrgence;
     }
 
 }
