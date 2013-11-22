@@ -14,6 +14,8 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
@@ -29,6 +31,7 @@ class PanelMap extends javax.swing.JPanel
     Image m_image;
     //Image backgroundImage;
     PanelMap() {
+          
       // m_image = new ImageIcon(getClass().getResource("/image/background.png")).getImage();
     }
     public void setImageArrierePlan(String p_image)
@@ -56,6 +59,7 @@ class PanelMap extends javax.swing.JPanel
         
 
     } 
+
 }
 public class GUI extends javax.swing.JFrame {
 
@@ -79,8 +83,20 @@ public class GUI extends javax.swing.JFrame {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                jPanelMapMouseClicked(evt);
             }
-
         });
+        jPanelMap.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+             @Override
+            public void mouseDragged(MouseEvent e) {
+               // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                jPanelMapMouseMoved(e);
+            }
+        });
+            
+        
      
         getContentPane().add(jPanelMap);
       
@@ -402,7 +418,11 @@ public class GUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>                        
-
+    private void jPanelMapMouseMoved(java.awt.event.MouseEvent evt)
+    {       
+        m_simulateur.PositionSouris(evt.getX(),evt.getY());
+        jPanelMap.repaint();
+    }
     private void jPanelMapMouseClicked(java.awt.event.MouseEvent evt)
     {
         if(m_PremierPoint==null)   

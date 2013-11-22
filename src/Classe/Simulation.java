@@ -15,6 +15,8 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
@@ -32,7 +34,8 @@ public class Simulation {
     int             m_HautPx;
     int             m_LargPx;
     Image           m_image;
-    BufferedImage   m_image2;
+    int             m_positionSourisX;
+    int             m_positionSourisY;
     float           m_DistanceEntrePts;
     Timer           m_timer;
    public Simulation()
@@ -43,6 +46,8 @@ public class Simulation {
         m_HautPx=360;
         m_LargPx=560;
         m_Zoom = 1.0f;
+        m_positionSourisX=0;
+        m_positionSourisY=0;
     }  
     //Méthodes publique
     public void DemarrerSimulation()
@@ -140,7 +145,9 @@ public class Simulation {
         {
             AfficherGrille(p_graphics);
         }
-        m_Carte.Dessin(p_graphics, m_RectVisible, m_LargPx, m_HautPx);     
+        m_Carte.Dessin(p_graphics, m_RectVisible, m_LargPx, m_HautPx);  
+         p_graphics.setColor(Color.black);
+        p_graphics.drawString("pos:"+String.valueOf(m_positionSourisX) +", " +String.valueOf(m_positionSourisY), 10, 10);
     }
     //Méthodes Privées
     Point2D.Float CoordonneeGrillePoint(Point p_Coord)
@@ -185,9 +192,19 @@ public class Simulation {
         m_RectVisible.x = (m_LargPx - m_RectVisible.width) / 2.0f;
         m_RectVisible.y = (m_HautPx - m_RectVisible.height) / 2.0f; 
     }
-    public void ChangerFondEcran(String p_pathImage) throws IOException
+    public void ChangerFondEcran(String p_pathImage)
     {
-        BufferedImage img = ImageIO.read(getClass().getResource(p_pathImage));   
+        BufferedImage img = null;   
+        try {
+            img = ImageIO.read(getClass().getResource(p_pathImage));
+        } catch (IOException ex) {
+            Logger.getLogger(Simulation.class.getName()).log(Level.SEVERE, null, ex);
+        }
         m_image= img.getScaledInstance(m_LargPx, m_HautPx, Image.SCALE_SMOOTH);       
+    }
+    public void PositionSouris(int p_x,int p_y)
+    {
+        m_positionSourisX=p_x;
+        m_positionSourisY=p_y;
     }
 }

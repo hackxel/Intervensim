@@ -27,7 +27,7 @@ public class Carte {
     //Liste d'urgence a ajouter ici
     Image m_ImgFond;
     Vehicule m_vehicule;
-    int lol;
+    Noeud m_noeudRapide;
     
     public Carte()
     {
@@ -36,7 +36,7 @@ public class Carte {
         m_listeNoeuds = new ArrayList();
         m_listeSegments = new ArrayList();
         m_vehicule=new Vehicule(new Point2D.Float(50.0f,50.0f));
-        lol=0;
+        m_noeudRapide=null;
     }
     
     public boolean AjouterNoeud(Point2D.Float p_CoordNoeud)
@@ -148,6 +148,7 @@ public class Carte {
     }
     public boolean AjouterRapide(Point2D.Float CoordNoeud)
     {
+        boolean ajoutExistant=true;
        /* Noeud noeudCourt;
         boolean Retour = false;
         if(!NoeudEstPresent(CoordNoeud))
@@ -167,19 +168,37 @@ public class Carte {
         return Retour;*/
          
         Noeud noeudCourt;
-        boolean Retour = false;
+        boolean Retour = true;
+       
         if(!NoeudEstPresent(CoordNoeud))
-        {          
-            AjouterNoeud(CoordNoeud);
-            Retour=true;
-            if(m_listeNoeuds.size()>1)
+        {
+                ajoutExistant=false;
+                AjouterNoeud(CoordNoeud);
+        }
+        
+        if(m_listeNoeuds.size()>1)
+        {
+            if(ajoutExistant)
             {
-                noeudCourt=m_listeNoeuds.get(m_listeNoeuds.size()-2);
-                AjouterSegment(CoordNoeud, noeudCourt.m_Position);
-                if(!SegmentExiste(CoordNoeud,  noeudCourt.m_Position))
+                noeudCourt=m_listeNoeuds.get(m_listeNoeuds.size()-1);
+                m_noeudRapide=noeudCourt;
+            }
+            else
+            {
+                if(m_noeudRapide!=null)
                 {
-                    Retour=false;
+                    noeudCourt=m_noeudRapide;
+                    m_noeudRapide=null;
                 }
+                else
+                {
+                  noeudCourt=m_listeNoeuds.get(m_listeNoeuds.size()-2);
+                }
+            }
+            AjouterSegment(CoordNoeud,noeudCourt.m_Position);
+            if(!SegmentExiste(CoordNoeud,  noeudCourt.m_Position))
+            {
+                Retour=false;
             }
         }
         return Retour;
