@@ -65,6 +65,69 @@ public class Noeud {
         }
     }
     
+    public void AjouterUrgence(double tempsAvantDeclenchement)
+    {
+        if(ContientUrgenceSelonTempsDeclenchement(tempsAvantDeclenchement) == false)
+        {
+            listeUrgences.add(new Urgence(tempsAvantDeclenchement));
+        }
+    }
+    
+    public boolean ContientUrgenceSelonTempsDeclenchement(double tempsAvantDeclenchement)
+    {        
+        boolean contientUrgence = false;
+        
+        int compteur = 0;
+        
+        while(contientUrgence == false && compteur < listeUrgences.size())
+        {
+            if(listeUrgences.get(compteur).GetTempsAvantDeclenchement() == tempsAvantDeclenchement)
+            {
+                contientUrgence = true;
+            }
+        }
+        
+        return contientUrgence;
+    }
+    
+    public boolean ContientUrgenceDeclencheeNonTraitee()
+    {
+        boolean contientUrgence = false;
+                
+        int compteur = 0;
+        
+        while(contientUrgence == false && compteur < listeUrgences.size())
+        {
+            if(listeUrgences.get(compteur).UrgenceEstTerminee() == false)
+            {
+                contientUrgence = true;
+            }
+        }
+        
+        return contientUrgence;
+    }
+    
+    public Urgence ObtenirUrgenceCouranteDeclenchee()
+    {
+        Urgence urgenceCourante = null;
+        int compteur = 0;
+        
+        while(urgenceCourante == null && compteur < listeUrgences.size())
+        {
+            if(listeUrgences.get(compteur).UrgenceEstTerminee() == false)
+            {
+                return listeUrgences.get(compteur);
+            }
+        }
+        
+        return urgenceCourante;
+    }
+    
+    public void SupprimerUrgence(double tempsAvantDeclenchement)
+    {
+        
+    }
+    
     public void InitialiserValeursParcours()
     {
         distance = 9999;
@@ -125,12 +188,13 @@ public class Noeud {
     private double GetDistance(Noeud noeudAdjacent)
     {
         double distance = 9999;
+        int compteur = 0;
         
-        for(Segment segmentCourant: segmentsAdjacents)
+        while(distance == 9999 && compteur < segmentsAdjacents.size())
         {
-            if(segmentCourant.EstMemePosition(obtenir_Position(), noeudAdjacent.obtenir_Position()))
+            if(segmentsAdjacents.get(compteur).EstMemePosition(obtenir_Position(), noeudAdjacent.obtenir_Position()))
             {
-                distance = segmentCourant.getDistance();
+                distance = segmentsAdjacents.get(compteur).getDistance();
             }
         }
         

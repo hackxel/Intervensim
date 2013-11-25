@@ -3,6 +3,9 @@ package Classe.Controleur;
 import java.awt.Graphics;
 import java.awt.Point;
 import Classe.Simulation;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -48,11 +51,23 @@ public class Simulateur {
 
     public void Dessin(Graphics p_graphics,boolean p_affiche)
     {
-        m_simulation.Dessin(p_graphics,p_affiche);
+      try {
+          m_simulation.Dessin(p_graphics,p_affiche);
+      } catch (IOException ex) {
+          Logger.getLogger(Simulateur.class.getName()).log(Level.SEVERE, null, ex);
+      }
     }
     
     public void ChangerZoom(float p_nouveauZoom)
     {
         m_simulation.ChangerZoom(p_nouveauZoom);
+    }
+    public void ChangerFondEcran(String p_pathImage)
+    {
+        m_simulation.ChangerFondEcran(p_pathImage);
+    }
+    public void PositionSouris(int p_x,int p_y)
+    {
+        m_simulation.PositionSouris(p_x,p_y);
     }
 }
