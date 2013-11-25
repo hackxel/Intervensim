@@ -7,6 +7,7 @@ package intervensim;
 //import com.sun.xml.internal.ws.api.message.Message;
 
 import Classe.Controleur.Simulateur;
+import java.awt.Color;
 import javax.swing.KeyStroke;
 import java.awt.Point;
 import java.awt.Graphics;
@@ -23,7 +24,7 @@ import javax.swing.Timer;
  *
  * @author Charles
  */
-class PanelMap extends javax.swing.JPanel
+class PanelMap extends javax.swing.JScrollPane
 {
     Simulateur m_simulateur;
     boolean m_afficherGrille;
@@ -55,9 +56,6 @@ class PanelMap extends javax.swing.JPanel
             g2.drawImage(m_image, 0, 0,560,360,this);
         m_simulateur.Dessin(g,m_afficherGrille);
         g.dispose();
-       // repaint();
-        
-
     } 
 
 }
@@ -69,6 +67,8 @@ public class GUI extends javax.swing.JFrame {
     String m_etatBoutonClique="";
     Point m_PremierPoint;
     Point m_DeuxiemePoint;
+    Point m_pointOffset;
+    Point m_pointDepart;
     Simulateur m_simulateur;
     Graphics m_graphics;
     PanelMap jPanelMap;
@@ -77,17 +77,22 @@ public class GUI extends javax.swing.JFrame {
     
     public GUI() {
         initComponents();
+        m_pointOffset= new Point(0, 0);
         jPanelMap = new PanelMap();     
         jPanelMap.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mousePressed(java.awt.event.MouseEvent evt) {
-               jPanelMapMouseClicked(evt);
+               jPanelMapMousePressed(evt);
+            }
+            @Override
+                public void mouseReleased(java.awt.event.MouseEvent evt) {
+               jPanelMapMouseReleased(evt);
             }
         });
         jPanelMap.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
              @Override
             public void mouseDragged(MouseEvent e) {
-               // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+               jPanelMapMouseDragged(e);
             }
 
             @Override
@@ -121,6 +126,7 @@ public class GUI extends javax.swing.JFrame {
         jBtnDemarer = new javax.swing.JButton();
         jBtnPause = new javax.swing.JButton();
         jBtnStop = new javax.swing.JButton();
+        jBtnFreeMove = new javax.swing.JButton();
         jBtnAjouterPortAttache = new javax.swing.JButton();
         jBtnAjouterNoeud = new javax.swing.JButton();
         //Urgence a enlever commentaire
@@ -136,6 +142,8 @@ public class GUI extends javax.swing.JFrame {
         label5 = new java.awt.Label();
         label6 = new java.awt.Label();
         label7 = new java.awt.Label();
+        label8 = new java.awt.Label();
+        lblErreur = new java.awt.Label();
         jMenuBar = new javax.swing.JMenuBar();
         jMenuFichier = new javax.swing.JMenu();
         jItemImporter = new javax.swing.JMenuItem();
@@ -154,8 +162,8 @@ public class GUI extends javax.swing.JFrame {
         setTitle("Intervensim");
         setBackground(new java.awt.Color(0, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        setMaximumSize(new java.awt.Dimension(800, 600));
-        setMinimumSize(new java.awt.Dimension(800, 600));
+        setMaximumSize(new java.awt.Dimension(1000, 600));
+        setMinimumSize(new java.awt.Dimension(1000, 600));
         setResizable(false);
         addKeyListener(new java.awt.event.KeyAdapter() {
             @Override
@@ -299,7 +307,17 @@ public class GUI extends javax.swing.JFrame {
         
         label7.setText("Ajouter une Urgence");
         getContentPane().add(label7);
-        label7.setBounds(630, 370, 140, 60);
+        label7.setBounds(845, 10, 140, 60);
+        
+        label8.setText("Free Move");
+        getContentPane().add(label8);
+        label8.setBounds(845, 70, 140, 60);
+        
+        lblErreur.setText("");
+        getContentPane().add(lblErreur);
+        lblErreur.setBounds(20, 450, 500, 60);
+        
+        
         
         jBtnAjoutRapide.setBackground(new java.awt.Color(204, 204, 204));
         jBtnAjoutRapide.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Maps-and-Geolocation-Polyline-icon.png"))); // NOI18N
@@ -338,8 +356,8 @@ public class GUI extends javax.swing.JFrame {
         getContentPane().add(jBtnSupprimerSegment);
         jBtnSupprimerSegment.setBounds(570, 310, 60, 60);
         
-         jBtnAjouterUrgence.setBackground(new java.awt.Color(204, 204, 204));
-        jBtnAjouterUrgence.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Charts-Mind-map-icon.png"))); // NOI18N
+        jBtnAjouterUrgence.setBackground(new java.awt.Color(204, 204, 204));
+        jBtnAjouterUrgence.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Medicine-Doctor-suitecase-icon.png"))); // NOI18N
         jBtnAjouterUrgence.setPreferredSize(new java.awt.Dimension(50, 50));
         jBtnAjouterUrgence.addActionListener(new java.awt.event.ActionListener() {
             @Override
@@ -348,9 +366,19 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jBtnAjouterUrgence);
-        jBtnAjouterUrgence.setBounds(570, 370, 60, 60);
+        jBtnAjouterUrgence.setBounds(785, 10, 60, 60);
         
-        
+        jBtnFreeMove.setBackground(new java.awt.Color(204, 204, 204));
+        jBtnFreeMove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Image-Edition-Tools-Collapse-icon.png"))); // NOI18N
+        jBtnFreeMove.setPreferredSize(new java.awt.Dimension(50, 50));
+        jBtnFreeMove.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnFreeMoveActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jBtnFreeMove);
+        jBtnFreeMove.setBounds(785, 70, 60, 60);
         
 
         jMenuFichier.setText("Fichier");
@@ -434,20 +462,40 @@ public class GUI extends javax.swing.JFrame {
         setJMenuBar(jMenuBar);
 
         pack();
-    }// </editor-fold>                        
+    }
+    private void jPanelMapMouseReleased(java.awt.event.MouseEvent evt)
+    {
+           m_PremierPoint = null;
+    }
+    private void jPanelMapMouseDragged(java.awt.event.MouseEvent evt)
+    {       
+        Point p = evt.getPoint();
+        int x = p.x - m_PremierPoint.x;
+        int y = p.y - m_PremierPoint.x;
+        m_pointOffset = new Point(x, y);
+        m_simulateur.PositionFondMap(m_pointOffset);
+        lblErreur.setText(String.valueOf(evt.getX()) +" "+ String.valueOf( evt.getY()));
+    }
     private void jPanelMapMouseMoved(java.awt.event.MouseEvent evt)
     {       
         m_simulateur.PositionSouris(evt.getX(),evt.getY());
         jPanelMap.repaint();
     }
-    private void jPanelMapMouseClicked(java.awt.event.MouseEvent evt)
+    private void jPanelMapMousePressed(java.awt.event.MouseEvent evt)
     {
+       
+        
         if(m_PremierPoint==null)   
-            m_PremierPoint=new Point(evt.getX(),evt.getY());
+            m_PremierPoint=evt.getPoint();
         else
-            m_DeuxiemePoint=new Point(evt.getX(),evt.getY());
+            m_DeuxiemePoint=evt.getPoint();
         
         switch (m_etatBoutonClique) {
+            case "FreeMove":
+                 m_PremierPoint = evt.getPoint();
+                 m_PremierPoint.x -= m_pointOffset.x;
+                 m_PremierPoint.y -= m_pointOffset.y;
+                break;
             case "AjoutNoeud":
                 m_simulateur.AjouterNoeud(m_PremierPoint);
                 reinitialisationVar();
@@ -570,7 +618,10 @@ public class GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
   
     }                               
-
+    private void jBtnFreeMoveActionPerformed(java.awt.event.ActionEvent evt){      
+        reinitialisationVar();
+        m_etatBoutonClique="FreeMove";
+    }   
     private void jBtnAjouterNoeudActionPerformed(java.awt.event.ActionEvent evt) {                                                 
         // TODO add your handling code here:
         reinitialisationVar();
@@ -645,7 +696,8 @@ public class GUI extends javax.swing.JFrame {
             }
         });
     }
-    // Variables declaration - do not modify                     
+    // Variables declaration - do not modify       
+    private javax.swing.JButton jBtnFreeMove;
     private javax.swing.JButton jBtnAjoutRapide;
     private javax.swing.JButton jBtnAjouterNoeud; 
     private javax.swing.JButton jBtnAjouterUrgence; //Urgence enlever Comm
@@ -680,5 +732,7 @@ public class GUI extends javax.swing.JFrame {
     private java.awt.Label label5;
     private java.awt.Label label6;
     private java.awt.Label label7;
+    private java.awt.Label label8;
+    private java.awt.Label lblErreur;
     // End of variables declaration                   
 }

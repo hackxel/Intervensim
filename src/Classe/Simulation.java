@@ -148,6 +148,7 @@ public class Simulation {
             AffineTransform at = AffineTransform.getTranslateInstance(x,y);  
             at.scale(m_Zoom, m_Zoom);  
             g.drawImage(m_image, at,null);  
+          //  g.drawImage(m_image,(int) m_RectVisible.x, (int) m_RectVisible.y, null);
         }
         if (p_affiche)
         {
@@ -215,5 +216,9 @@ public class Simulation {
     {
         m_positionSourisX=p_x;
         m_positionSourisY=p_y;
+    }
+    public void PositionFondMap(Point p_point)
+    {
+       // m_RectVisible=new Rectangle.Float(p_point.x, p_point.y, 560+p_point.x, 360+p_point.y);
     }
 }

@@ -39,6 +39,7 @@ public class Simulateur {
         m_simulation.AjouterNoeud(p_point);
         
     }
+    
     public void AjouterRapide(Point p_point)
     {
         m_simulation.AjouterRapide(p_point);
@@ -74,5 +75,9 @@ public class Simulateur {
     public void PositionSouris(int p_x,int p_y)
     {
         m_simulation.PositionSouris(p_x,p_y);
+    }
+    public void PositionFondMap(Point p_point)
+    {
+        m_simulation.PositionFondMap(p_point);
     }
 }
