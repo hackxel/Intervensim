@@ -51,6 +51,21 @@ public class Carte {
         return ajoutReussi;
     }
     
+    public boolean AjouterUrgence(Point2D.Float p_CoordUrg, double p_TempsDeclenchement)
+    {
+        boolean ajoutReussi = false;
+        
+        Noeud ndCourant = ObtenirNoeud(p_CoordUrg);
+        //Vérifier si le Noeud existe et temps de déclenchement
+        if(ndCourant != null && p_TempsDeclenchement > 0)
+        {
+            ndCourant.AjouterUrgence(p_TempsDeclenchement);
+            ajoutReussi = true;
+        }
+        
+        return ajoutReussi;
+    }
+    
     public boolean SupprimerNoeud(Point2D.Float p_CoordNd)
     {
         Boolean suppressionReussie = false;

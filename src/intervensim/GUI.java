@@ -123,6 +123,8 @@ public class GUI extends javax.swing.JFrame {
         jBtnStop = new javax.swing.JButton();
         jBtnAjouterPortAttache = new javax.swing.JButton();
         jBtnAjouterNoeud = new javax.swing.JButton();
+        //Urgence a enlever commentaire
+        jBtnAjouterUrgence = new javax.swing.JButton();
         jBtnAjouterSegment = new javax.swing.JButton();
         jBtnAjoutRapide = new javax.swing.JButton();
         jBtnSupprimerNoeud = new javax.swing.JButton();
@@ -133,6 +135,7 @@ public class GUI extends javax.swing.JFrame {
         label4 = new java.awt.Label();
         label5 = new java.awt.Label();
         label6 = new java.awt.Label();
+        label7 = new java.awt.Label();
         jMenuBar = new javax.swing.JMenuBar();
         jMenuFichier = new javax.swing.JMenu();
         jItemImporter = new javax.swing.JMenuItem();
@@ -293,7 +296,11 @@ public class GUI extends javax.swing.JFrame {
         label6.setText("Supprimer un segment");
         getContentPane().add(label6);
         label6.setBounds(630, 310, 140, 60);
-
+        
+        label7.setText("Ajouter une Urgence");
+        getContentPane().add(label7);
+        label7.setBounds(630, 370, 140, 60);
+        
         jBtnAjoutRapide.setBackground(new java.awt.Color(204, 204, 204));
         jBtnAjoutRapide.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Maps-and-Geolocation-Polyline-icon.png"))); // NOI18N
         jBtnAjoutRapide.setPreferredSize(new java.awt.Dimension(50, 50));
@@ -331,7 +338,17 @@ public class GUI extends javax.swing.JFrame {
         getContentPane().add(jBtnSupprimerSegment);
         jBtnSupprimerSegment.setBounds(570, 310, 60, 60);
         
-        
+         jBtnAjouterUrgence.setBackground(new java.awt.Color(204, 204, 204));
+        jBtnAjouterUrgence.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Charts-Mind-map-icon.png"))); // NOI18N
+        jBtnAjouterUrgence.setPreferredSize(new java.awt.Dimension(50, 50));
+        jBtnAjouterUrgence.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnAjouterUrgenceActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jBtnAjouterUrgence);
+        jBtnAjouterUrgence.setBounds(570, 370, 60, 60);
         
         
         
@@ -467,6 +484,11 @@ public class GUI extends javax.swing.JFrame {
                     jPanelMap.repaint();
                 }
             break;
+            case "AjouterUrgence":
+                m_simulateur.AjouterUrgence(m_PremierPoint, 10.00);
+                reinitialisationVar();
+                jPanelMap.repaint();
+                break;
         }
         
     }
@@ -581,7 +603,13 @@ public class GUI extends javax.swing.JFrame {
     // TODO add your handling code here:
        reinitialisationVar();
        m_etatBoutonClique="SupprimerSegment";
-    }     
+    } 
+    //Urgence supprimer Comm
+    private void jBtnAjouterUrgenceActionPerformed(java.awt.event.ActionEvent evt) {                                                
+    // TODO add your handling code here:
+       reinitialisationVar();
+       m_etatBoutonClique="AjouterUrgence";
+    }
 
     private void reinitialisationVar() {  
         m_PremierPoint=null;
@@ -619,7 +647,8 @@ public class GUI extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify                     
     private javax.swing.JButton jBtnAjoutRapide;
-    private javax.swing.JButton jBtnAjouterNoeud;
+    private javax.swing.JButton jBtnAjouterNoeud; 
+    private javax.swing.JButton jBtnAjouterUrgence; //Urgence enlever Comm
     private javax.swing.JButton jBtnAjouterPortAttache;
     private javax.swing.JButton jBtnAjouterSegment;
     private javax.swing.JButton jBtnSupprimerNoeud;
@@ -650,5 +679,6 @@ public class GUI extends javax.swing.JFrame {
     private java.awt.Label label4;
     private java.awt.Label label5;
     private java.awt.Label label6;
+    private java.awt.Label label7;
     // End of variables declaration                   
 }

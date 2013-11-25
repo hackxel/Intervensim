@@ -21,6 +21,7 @@ public class Noeud {
    
     private ArrayList<Segment> segmentsAdjacents;    
     private ArrayList<Urgence> listeUrgences;
+    
     //Attributs
      public float obtenir_posX() {
         return m_Position.x;

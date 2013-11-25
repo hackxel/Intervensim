@@ -48,7 +48,12 @@ public class Simulateur {
         
         m_simulation.AjouterSegment(p_point1, p_point2);
     }
-
+    
+    public void AjouterUrgence(Point p_point, double p_TempsDecl)
+    {
+        m_simulation.AjouterUrgence(p_point, p_TempsDecl);
+    }
+    
     public void Dessin(Graphics p_graphics,boolean p_affiche)
     {
       try {

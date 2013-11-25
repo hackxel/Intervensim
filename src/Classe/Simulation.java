@@ -108,6 +108,15 @@ public class Simulation {
         m_Carte.AjouterNoeud(CoordNoeud);
     }
     
+    public void AjouterUrgence(Point p_Coordonnee, double p_TempsDeclenchement)
+    {
+        Point2D.Float CoordNoeud;
+        
+        CoordNoeud = CoordonneeGrillePoint(p_Coordonnee);
+        
+        m_Carte.AjouterUrgence(CoordNoeud, p_TempsDeclenchement);
+    }
+    
     public void AjouterSegment(Point p_CoordNd1, Point p_CoordNd2)
     {
         
