@@ -272,24 +272,40 @@ public class Carte {
         }
         for(int i=0;i < m_listeNoeuds.size();i++)
         {
-            Noeud test=m_listeNoeuds.get(i);
-            ptAffiche1 = new Point((int)((test.m_Position.x - p_rectVisible.x) * p_largPix / p_rectVisible.width), (int)((test.m_Position.y - p_rectVisible.y) * p_hautPix / p_rectVisible.height));
+            Noeud ndCourant =m_listeNoeuds.get(i);
+            ptAffiche1 = new Point((int)((ndCourant.m_Position.x - p_rectVisible.x) * p_largPix / p_rectVisible.width), (int)((ndCourant.m_Position.y - p_rectVisible.y) * p_hautPix / p_rectVisible.height));
            
             if(m_vehicule.m_portAttache!=null)
             {
-                if (test.EstMemePosition(m_vehicule.m_portAttache.m_Position))
+                if (ndCourant.EstMemePosition(m_vehicule.m_portAttache.m_Position))
                 {
                      Image img = new ImageIcon(getClass().getResource("/image/hospital-icon2.png")).getImage();
                      g2.drawImage(img, ptAffiche1.x-12, ptAffiche1.y-12, 24, 24, null);
                 }
                 else
                 {
-                     g2.fillOval(ptAffiche1.x-8, ptAffiche1.y-8, 16, 16);
+                    if(ndCourant.ContientUrgenceDeclencheeNonTraitee())
+                    {
+                        Image img = new ImageIcon(getClass().getResource("/image/emergency.png")).getImage();
+                        g2.drawImage(img, ptAffiche1.x-12, ptAffiche1.y-12, 24, 24, null);
+                    }
+                    else
+                    {
+                         g2.fillOval(ptAffiche1.x-8, ptAffiche1.y-8, 16, 16);
+                    }
                 }
             }
             else
             {
-                g2.fillOval(ptAffiche1.x-8, ptAffiche1.y-8, 16, 16);
+                 if(ndCourant.ContientUrgenceDeclencheeNonTraitee())
+                    {
+                        Image img = new ImageIcon(getClass().getResource("/image/emergency.png")).getImage();
+                        g2.drawImage(img, ptAffiche1.x-12, ptAffiche1.y-12, 24, 24, null);
+                    }
+                    else
+                    {
+                         g2.fillOval(ptAffiche1.x-8, ptAffiche1.y-8, 16, 16);
+                    }
             }
         }
        
