@@ -56,11 +56,11 @@ public class Carte {
         boolean ajoutReussi = false;
         
         Noeud ndCourant = ObtenirNoeud(p_CoordUrg);
-        //Vérifier si le Noeud existe et temps de déclenchement
-        if(ndCourant != null && p_TempsDeclenchement > 0)
+        //Vérifier si le Noeud existe et temps de déclenchement, *impossible ajouter urg sur port attache
+        if(ndCourant != null && p_TempsDeclenchement > 0 && (m_vehicule.m_portAttache == null || !ndCourant.EstMemePosition(m_vehicule.m_portAttache.obtenir_Position()) ))
         {
             ndCourant.AjouterUrgence(p_TempsDeclenchement);
-            ajoutReussi = true;
+            ajoutReussi = true;    
         }
         
         return ajoutReussi;
