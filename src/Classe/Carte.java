@@ -14,7 +14,6 @@ import java.awt.RenderingHints;
 import java.awt.Rectangle;
 import java.awt.Point;
 import java.awt.geom.Point2D;
-import java.net.URL;
 import javax.swing.ImageIcon;
 
 /**
@@ -132,13 +131,11 @@ public class Carte {
     {
         boolean Retour = false;
         Segment segCourant = ObtenirSegment(p_CoordNoeud1, p_CoordNoeud2);
-        
         if(segCourant != null)
         {
             m_listeSegments.remove(segCourant);
             Retour = true;
-        }
-            
+        } 
         return Retour;
     }
     
@@ -172,10 +169,10 @@ public class Carte {
        
         if(!NoeudEstPresent(CoordNoeud))
         {
-                ajoutExistant=false;
-                AjouterNoeud(CoordNoeud);
+            ajoutExistant=false;
+            AjouterNoeud(CoordNoeud);
         }
-        
+
         if(m_listeNoeuds.size()>1)
         {
             if(ajoutExistant)
@@ -192,7 +189,7 @@ public class Carte {
                 }
                 else
                 {
-                  noeudCourt=m_listeNoeuds.get(m_listeNoeuds.size()-2);
+                    noeudCourt=m_listeNoeuds.get(m_listeNoeuds.size()-2);
                 }
             }
             AjouterSegment(CoordNoeud,noeudCourt.m_Position);
@@ -212,15 +209,12 @@ public class Carte {
         while(compteurSegments < m_listeSegments.size() && segmentTrouve == null)
         {
             segmentCourant = m_listeSegments.get(compteurSegments);
-            
             if(segmentCourant.EstMemePosition(CoordNoeud1,CoordNoeud2))
             {
                 segmentTrouve = segmentCourant;
             }
-            
             compteurSegments++;
-        }
-        
+        }   
         return segmentTrouve;
     }
     
@@ -231,9 +225,10 @@ public class Carte {
         for(Segment segmentCourant:m_listeSegments)
         {
             if(segmentCourant.m_Noeud1 == p_noeud || segmentCourant.m_Noeud2 == p_noeud)
+            {
                 listeLiens.add(segmentCourant);
+            }
         }
-        
         return listeLiens;
     }
     
@@ -247,36 +242,37 @@ public class Carte {
         Graphics2D g2 = (Graphics2D)p_graphics;  
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setColor(Color.black);
+        
         for(int i=0;i < m_listeSegments.size();i++)
         {
-           Segment test = m_listeSegments.get(i);
-           g2.setStroke(new BasicStroke(4));
-           ptAffiche1 = new Point((int)((test.m_Noeud1.m_Position.x - p_rectVisible.x) * p_largPix / p_rectVisible.width), (int)((test.m_Noeud1.m_Position.y - p_rectVisible.y) * p_hautPix / p_rectVisible.height));
-           ptAffiche2 = new Point((int)((test.m_Noeud2.m_Position.x - p_rectVisible.x) * p_largPix / p_rectVisible.width), (int)((test.m_Noeud2.m_Position.y - p_rectVisible.y) * p_hautPix / p_rectVisible.height));
-           g2.drawLine(ptAffiche1.x, ptAffiche1.y, ptAffiche2.x, ptAffiche2.y);
+            Segment test = m_listeSegments.get(i);
+            g2.setStroke(new BasicStroke(4));
+            ptAffiche1 = new Point((int)((test.m_Noeud1.m_Position.x - p_rectVisible.x) * p_largPix / p_rectVisible.width), (int)((test.m_Noeud1.m_Position.y - p_rectVisible.y) * p_hautPix / p_rectVisible.height));
+            ptAffiche2 = new Point((int)((test.m_Noeud2.m_Position.x - p_rectVisible.x) * p_largPix / p_rectVisible.width), (int)((test.m_Noeud2.m_Position.y - p_rectVisible.y) * p_hautPix / p_rectVisible.height));
+            g2.drawLine(ptAffiche1.x, ptAffiche1.y, ptAffiche2.x, ptAffiche2.y);
         
         }
         for(int i=0;i < m_listeNoeuds.size();i++)
         {
-       Noeud test=m_listeNoeuds.get(i);
-           ptAffiche1 = new Point((int)((test.m_Position.x - p_rectVisible.x) * p_largPix / p_rectVisible.width), (int)((test.m_Position.y - p_rectVisible.y) * p_hautPix / p_rectVisible.height));
+            Noeud test=m_listeNoeuds.get(i);
+            ptAffiche1 = new Point((int)((test.m_Position.x - p_rectVisible.x) * p_largPix / p_rectVisible.width), (int)((test.m_Position.y - p_rectVisible.y) * p_hautPix / p_rectVisible.height));
            
-           if(m_vehicule.m_portAttache!=null)
-           {
-               if (test.EstMemePosition(m_vehicule.m_portAttache.m_Position))
-               {
-                    Image img = new ImageIcon(getClass().getResource("/image/hospital-icon2.png")).getImage();
-                    g2.drawImage(img, ptAffiche1.x-12, ptAffiche1.y-12, 24, 24, null);
-               }
-               else
-               {
-                    g2.fillOval(ptAffiche1.x-8, ptAffiche1.y-8, 16, 16);
-               }
-           }
-           else
-           {
+            if(m_vehicule.m_portAttache!=null)
+            {
+                if (test.EstMemePosition(m_vehicule.m_portAttache.m_Position))
+                {
+                     Image img = new ImageIcon(getClass().getResource("/image/hospital-icon2.png")).getImage();
+                     g2.drawImage(img, ptAffiche1.x-12, ptAffiche1.y-12, 24, 24, null);
+                }
+                else
+                {
+                     g2.fillOval(ptAffiche1.x-8, ptAffiche1.y-8, 16, 16);
+                }
+            }
+            else
+            {
                 g2.fillOval(ptAffiche1.x-8, ptAffiche1.y-8, 16, 16);
-           }
+            }
         }
        
     } 

@@ -193,13 +193,14 @@ public class Simulation {
     }
     public void ChangerFondEcran(String p_pathImage)
     {
-        BufferedImage img = null;   
+        BufferedImage img=null;   
         try {
             img = ImageIO.read(getClass().getResource(p_pathImage));
         } catch (IOException ex) {
             Logger.getLogger(Simulation.class.getName()).log(Level.SEVERE, null, ex);
         }
-        m_image= img.getScaledInstance(m_LargPx, m_HautPx, Image.SCALE_SMOOTH);       
+        if(img!=null)
+            m_image= img.getScaledInstance(m_LargPx, m_HautPx, Image.SCALE_SMOOTH);       
     }
     public void PositionSouris(int p_x,int p_y)
     {
