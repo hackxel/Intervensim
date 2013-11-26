@@ -45,4 +45,9 @@ public class Urgence {
         m_tempsEcoule = 0 - m_tempsAvantDeclenchement;
         m_traitementTermine = false;
     }
+    
+    public double GetTempsDepuisDeclenchement()
+    {
+        return m_tempsEcoule;
+    }
 }

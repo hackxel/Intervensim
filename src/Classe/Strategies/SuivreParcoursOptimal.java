@@ -12,10 +12,10 @@ import java.util.ArrayList;
  *
  * @author Joseph
  */
-public class SuivreParcoursOptimal implements IStrategieTraitement {
+public class SuivreParcoursOptimal extends AlgorithmePlusCourtChemin implements IStrategieTraitement {
     
     @Override
-    public Noeud ObtenirProchainNoeud(Noeud noeudCourant, ArrayList<Noeud> systemeRoutier,Noeud portAttache)
+    public Noeud ObtenirProchainNoeud(Noeud noeudCourant, ArrayList<Noeud> systemeRoutier)
     {
         return null;
     }

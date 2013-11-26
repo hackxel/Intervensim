@@ -12,5 +12,5 @@ import java.util.ArrayList;
  * @author Joseph
  */
 public interface IStrategieTraitement {
-    Noeud ObtenirProchainNoeud(Noeud noeudCourant, ArrayList<Noeud> systemeRoutier,Noeud portAttache);
+    Noeud ObtenirProchainNoeud(Noeud noeudCourant, ArrayList<Noeud> systemeRoutier);
 }

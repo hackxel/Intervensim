@@ -109,7 +109,7 @@ public class Vehicule {
                 m_Position = m_prochainNoeud.obtenir_Position();
                 if(SystemeContientUrgenceRestante(systemeRoutier))
                 {
-                    m_prochainNoeud = m_strategieTraitement.ObtenirProchainNoeud(m_noeudCourant, systemeRoutier, m_portAttache);
+                    m_prochainNoeud = m_strategieTraitement.ObtenirProchainNoeud(m_noeudCourant, systemeRoutier);
                 }
                 else
                 {
