@@ -93,31 +93,27 @@ public class Vehicule {
         double DistanceSegment;
         
         //Verifie si véhicule est sur un noeud
-        if(m_noeudCourant.EstMemePosition(m_Position))
+        if(m_noeudCourant.EstMemePosition(m_Position) && m_noeudCourant.ContientUrgenceDeclencheeNonTraitee())
         {
-            if(m_noeudCourant.ContientUrgenceDeclencheeNonTraitee())
+            AvancerTraitementUrgence(vitesse);
+        }
+        else
+        {
+            DistanceSegment = m_noeudCourant.GetDistance(m_prochainNoeud);
+            rapportDistance = vitesse / DistanceSegment;
+            m_Position.x += rapportDistance * (m_prochainNoeud.obtenir_posX() - m_noeudCourant.obtenir_posX());
+            m_Position.y += rapportDistance * (m_prochainNoeud.obtenir_posY() - m_noeudCourant.obtenir_posY());
+            if(m_noeudCourant.GetDistance(m_Position) >= DistanceSegment)
             {
-                AvancerTraitementUrgence(vitesse);
-            }
-            else
-            {
-                // meh
-                DistanceSegment = m_noeudCourant.GetDistance(m_prochainNoeud);
-                rapportDistance = vitesse / DistanceSegment;
-                m_Position.x += rapportDistance * (m_prochainNoeud.obtenir_posX() - m_noeudCourant.obtenir_posX());
-                m_Position.y += rapportDistance * (m_prochainNoeud.obtenir_posY() - m_noeudCourant.obtenir_posY());
-                if(m_noeudCourant.GetDistance(m_Position) >= DistanceSegment)
+                m_noeudCourant = m_prochainNoeud;
+                m_Position = m_prochainNoeud.obtenir_Position();
+                if(SystemeContientUrgenceRestante(systemeRoutier))
                 {
-                    m_noeudCourant = m_prochainNoeud;
-                    m_Position = m_prochainNoeud.obtenir_Position();
-                    if(SystemeContientUrgenceRestante(systemeRoutier))
-                    {
-                        m_prochainNoeud = m_strategieTraitement.ObtenirProchainNoeud(m_noeudCourant, systemeRoutier, m_portAttache);
-                    }
-                    else
-                    {
-                        m_prochainNoeud = m_strategieAttente.ObtenirProchainNoeud(m_noeudCourant, systemeRoutier, m_portAttache);
-                    }
+                    m_prochainNoeud = m_strategieTraitement.ObtenirProchainNoeud(m_noeudCourant, systemeRoutier, m_portAttache);
+                }
+                else
+                {
+                    m_prochainNoeud = m_strategieAttente.ObtenirProchainNoeud(m_noeudCourant, systemeRoutier, m_portAttache);
                 }
             }
         }
