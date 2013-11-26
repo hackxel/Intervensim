@@ -465,17 +465,17 @@ public class GUI extends javax.swing.JFrame {
     }
     private void jPanelMapMouseReleased(java.awt.event.MouseEvent evt)
     {
-           m_PremierPoint = null;
+           //m_PremierPoint = null;
     }
     private void jPanelMapMouseDragged(java.awt.event.MouseEvent evt)
     {       
-        Point p = evt.getPoint();
+        /*Point p = evt.getPoint();
         int x = p.x - m_PremierPoint.x;
-        int y = p.y - m_PremierPoint.x;
+        int y = p.y - m_PremierPoint.y;
         m_pointOffset = new Point(x, y);
         m_simulateur.PositionFondMap(m_pointOffset);
         lblErreur.setText(String.valueOf(evt.getX()) +" "+ String.valueOf( evt.getY()));
-    }
+    */}
     private void jPanelMapMouseMoved(java.awt.event.MouseEvent evt)
     {       
         m_simulateur.PositionSouris(evt.getX(),evt.getY());
