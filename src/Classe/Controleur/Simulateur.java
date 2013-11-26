@@ -26,6 +26,14 @@ public class Simulateur {
     {
         m_simulation.PortAttache(p_point);
     }
+    public boolean SimulationEstPrete()
+    {
+         return m_simulation.SimulationEstPrete();
+    }
+    public void TimerTick()
+    {
+        m_simulation.TimerTick();
+    }
     public void SupprimerNoeud(Point p_point)
     {
         m_simulation.SupprimerNoeud(p_point);

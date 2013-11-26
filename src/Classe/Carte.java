@@ -231,6 +231,10 @@ public class Carte {
         }
         return false;
     }
+    public void TimerTick()
+    {
+        m_vehicule.AvancerTemps(m_listeNoeuds,1);
+    }
     public Segment ObtenirSegment(Point2D.Float CoordNoeud1, Point2D.Float CoordNoeud2)
     {
         Segment segmentTrouve = null;

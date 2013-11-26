@@ -589,6 +589,7 @@ public class GUI extends javax.swing.JFrame {
         m_timer= new Timer(500/jSlidVitesse.getValue(), new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    m_simulateur.TimerTick();
                     jPanelMap.repaint();
                 }
         });   
@@ -606,15 +607,21 @@ public class GUI extends javax.swing.JFrame {
     private void jBtnStopActionPerformed(java.awt.event.ActionEvent evt) {                                          
      // TODO add your handling code here:
         m_timer.stop();
+        lblErreur.setText("Simulation arreter");
        
     }   
      private void jBtnStartActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // TODO add your handling code here:
-        m_timer.start();
+        if(m_simulateur.SimulationEstPrete())
+        {
+            m_timer.start();
+            lblErreur.setText("Simulation en Court");
+        }
     }   
     private void jBtnPauseActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // TODO add your handling code here:
         m_timer.stop();
+            lblErreur.setText("Simulation en pause");
     }                                         
 
     private void jSlidZoomStateChanged(javax.swing.event.ChangeEvent evt) {                                       

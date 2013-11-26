@@ -194,7 +194,18 @@ public class Simulation {
             p_graphics.drawLine(0, coordonnee, m_LargPx, coordonnee);
         }
     }
-    
+    public void TimerTick()
+    {
+        m_Carte.TimerTick();    
+    }
+    public boolean SimulationEstPrete()
+    {
+        if(m_Carte.m_vehicule.m_portAttache!=null && m_Carte.m_listeNoeuds.size()>1 && m_Carte.m_listeSegments.size() >0)
+        {
+            return true;
+        }
+        return false;
+    }
     public void ChangerZoom(float p_nouveauZoom)
     {
         m_Zoom = p_nouveauZoom;
@@ -280,10 +291,5 @@ public class Simulation {
                 m_positionNouvSelection=null;
                break;     
         }
-              
-     //  Point2D.Float CoordNoeud;
-      // CoordNoeud = CoordonneeGrillePoint(p_point);
-      // m_Carte.NoeudEstPresent(CoordNoeud);
-        
     }
 }
