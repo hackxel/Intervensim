@@ -36,6 +36,9 @@ public class Simulation {
     int             m_positionSourisX;
     int             m_positionSourisY;
     float           m_DistanceEntrePts;
+    Point2D.Float   m_positionNouvSelection;
+    Point2D.Float   m_positionSelection;
+    
     Timer           m_timer;
    public Simulation()
     {
@@ -47,6 +50,8 @@ public class Simulation {
         m_Zoom = 1.0f;
         m_positionSourisX=0;
         m_positionSourisY=0;
+        m_positionSelection=null;
+        m_positionNouvSelection=null;
     }  
     //Méthodes publique
     public void DemarrerSimulation()
@@ -81,17 +86,14 @@ public class Simulation {
     {
         Point2D.Float CoordNoeud;
         CoordNoeud = CoordonneeGrillePoint(p_Coordonnee);
-        if(m_Carte.NoeudEstPresent(CoordNoeud))
-        {
-           Noeud test=m_Carte.ObtenirNoeud(CoordNoeud);
-           m_Carte.m_vehicule.DefinirPortAttache(test);
-        }
-        else
+        if(!m_Carte.NoeudEstPresent(CoordNoeud))
         {
             m_Carte.AjouterNoeud(CoordNoeud);
-            Noeud test=m_Carte.ObtenirNoeud(CoordNoeud);
-            m_Carte.m_vehicule.DefinirPortAttache(test);
         }
+        
+        Noeud ndCourant = m_Carte.ObtenirNoeud(CoordNoeud);
+        m_Carte.m_vehicule.DefinirPortAttache(ndCourant);
+        m_Carte.m_vehicule.setPosition(CoordNoeud);
     }
     public void AjouterRapide(Point p_Coordonnee)
     {
@@ -217,8 +219,71 @@ public class Simulation {
         m_positionSourisX=p_x;
         m_positionSourisY=p_y;
     }
-    public void PositionFondMap(Point p_point)
+    private Point SnapBorne(Point p_point)
     {
-       // m_RectVisible=new Rectangle.Float(p_point.x, p_point.y, 560+p_point.x, 360+p_point.y);
+        if(p_point.y>=m_HautPx-5)
+            p_point.y=m_HautPx-5;
+        else if (p_point.y<5)
+            p_point.y=5;
+
+        if(p_point.x>=m_LargPx-5)
+            p_point.x=m_LargPx-5;
+        else if (p_point.x<5)
+            p_point.x=5;
+            
+        return p_point;
+                      
+    }
+    public void Selection(Point p_point,String p_mode)
+    {
+        Point2D.Float CoordNoeud;
+        Point2D.Float NouvCoordNoeud;
+        switch(p_mode)
+        {
+             case "Pressed":
+                 CoordNoeud = CoordonneeGrillePoint(p_point);
+                 if(m_Carte.NoeudEstPresent(CoordNoeud))
+                 {
+                     m_positionSelection=CoordNoeud;
+                     m_positionNouvSelection=CoordNoeud;
+                 } 
+             break;
+             case "Dragged":
+                 if(m_positionSelection!=null)
+                 {        
+                    p_point = SnapBorne(p_point);  
+                    NouvCoordNoeud=new Point2D.Float();
+                    NouvCoordNoeud.x = (p_point.x * m_RectVisible.width) / m_LargPx + m_RectVisible.x;
+                    NouvCoordNoeud.y = (p_point.y * m_RectVisible.height) / m_HautPx + m_RectVisible.y;
+                    
+
+                     m_Carte.DeplacerNoeud(m_positionNouvSelection,NouvCoordNoeud);
+                     m_positionNouvSelection=NouvCoordNoeud;
+                 }
+             break;
+             case "Released":
+                if(m_positionSelection!=null)
+                {   
+                    p_point=SnapBorne(p_point);
+                    NouvCoordNoeud=CoordonneeGrillePoint(p_point);
+                  
+                    if(m_Carte.NoeudEstPresent(NouvCoordNoeud))
+                    {
+                        m_Carte.DeplacerNoeud(m_positionNouvSelection,m_positionSelection);
+                    }
+                    else
+                    {
+                        m_Carte.DeplacerNoeud(m_positionNouvSelection,NouvCoordNoeud);
+                    }
+                }
+                m_positionSelection=null;
+                m_positionNouvSelection=null;
+               break;     
+        }
+              
+     //  Point2D.Float CoordNoeud;
+      // CoordNoeud = CoordonneeGrillePoint(p_point);
+      // m_Carte.NoeudEstPresent(CoordNoeud);
+        
     }
 }

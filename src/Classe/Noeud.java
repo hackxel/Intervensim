@@ -30,6 +30,9 @@ public class Noeud {
     public float obtenir_posY() {
         return m_Position.y;
     }
+    public void definir_position(Point2D.Float p_Position){
+        m_Position=p_Position;
+    }
     
     public Point2D.Float obtenir_Position()
     {

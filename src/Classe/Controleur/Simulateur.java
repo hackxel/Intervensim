@@ -76,8 +76,8 @@ public class Simulateur {
     {
         m_simulation.PositionSouris(p_x,p_y);
     }
-    public void PositionFondMap(Point p_point)
+    public void Selection(Point p_point,String p_mode)
     {
-        m_simulation.PositionFondMap(p_point);
+        m_simulation.Selection(p_point,p_mode);
     }
 }
