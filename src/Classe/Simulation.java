@@ -219,6 +219,21 @@ public class Simulation {
         m_positionSourisX=p_x;
         m_positionSourisY=p_y;
     }
+    private Point SnapBorne(Point p_point)
+    {
+        if(p_point.y>=m_HautPx-5)
+            p_point.y=m_HautPx-5;
+        else if (p_point.y<5)
+            p_point.y=5;
+
+        if(p_point.x>=m_LargPx-5)
+            p_point.x=m_LargPx-5;
+        else if (p_point.x<5)
+            p_point.x=5;
+            
+        return p_point;
+                      
+    }
     public void Selection(Point p_point,String p_mode)
     {
         Point2D.Float CoordNoeud;
@@ -236,7 +251,12 @@ public class Simulation {
              case "Dragged":
                  if(m_positionSelection!=null)
                  {        
-                     NouvCoordNoeud = new Point2D.Float((float)p_point.x, (float)p_point.y);              
+                    p_point = SnapBorne(p_point);  
+                    NouvCoordNoeud=new Point2D.Float();
+                    NouvCoordNoeud.x = (p_point.x * m_RectVisible.width) / m_LargPx + m_RectVisible.x;
+                    NouvCoordNoeud.y = (p_point.y * m_RectVisible.height) / m_HautPx + m_RectVisible.y;
+                    
+
                      m_Carte.DeplacerNoeud(m_positionNouvSelection,NouvCoordNoeud);
                      m_positionNouvSelection=NouvCoordNoeud;
                  }
@@ -244,7 +264,9 @@ public class Simulation {
              case "Released":
                 if(m_positionSelection!=null)
                 {   
+                    p_point=SnapBorne(p_point);
                     NouvCoordNoeud=CoordonneeGrillePoint(p_point);
+                  
                     if(m_Carte.NoeudEstPresent(NouvCoordNoeud))
                     {
                         m_Carte.DeplacerNoeud(m_positionNouvSelection,m_positionSelection);
