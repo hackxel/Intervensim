@@ -551,7 +551,7 @@ public class GUI extends javax.swing.JFrame {
                 }
             break;
             case "AjouterUrgence":
-                m_simulateur.AjouterUrgence(m_PremierPoint, 10.00);
+                m_simulateur.AjouterUrgence(m_PremierPoint, 0.00);
                 reinitialisationVar();
                 jPanelMap.repaint();
                 break;

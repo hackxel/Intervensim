@@ -102,7 +102,7 @@ public class Noeud {
         
         while(contientUrgence == false && compteur < listeUrgences.size())
         {
-            if(listeUrgences.get(compteur).UrgenceEstTerminee() == false)
+            if(listeUrgences.get(compteur).UrgenceEstDeclenchee())
             {
                 contientUrgence = true;
             }
@@ -210,5 +210,13 @@ public class Noeud {
         // meh
         double distance = Math.pow(m_Position.x - p_Point.x, 2) + Math.pow(m_Position.y - p_Point.y, 2);
         return Math.sqrt(distance);
+    }
+    
+    public void AvancerTemps()
+    {
+        for(Urgence urg: listeUrgences)
+        {
+            urg.AvancerTemps();
+        }
     }
 }

@@ -57,7 +57,7 @@ public class Carte {
         
         Noeud ndCourant = ObtenirNoeud(p_CoordUrg);
         //Vérifier si le Noeud existe et temps de déclenchement, *impossible ajouter urg sur port attache
-        if(ndCourant != null && p_TempsDeclenchement > 0 && (m_vehicule.m_portAttache == null || !ndCourant.EstMemePosition(m_vehicule.m_portAttache.obtenir_Position()) ))
+        if(ndCourant != null && p_TempsDeclenchement >= 0 && (m_vehicule.m_portAttache == null || !ndCourant.EstMemePosition(m_vehicule.m_portAttache.obtenir_Position()) ))
         {
             ndCourant.AjouterUrgence(p_TempsDeclenchement);
             ajoutReussi = true;    
@@ -233,6 +233,10 @@ public class Carte {
     }
     public void TimerTick()
     {
+        for(Noeud nd: m_listeNoeuds)
+        {
+            nd.AvancerTemps();
+        }
         m_vehicule.AvancerTemps(m_listeNoeuds,1);
     }
     public Segment ObtenirSegment(Point2D.Float CoordNoeud1, Point2D.Float CoordNoeud2)
@@ -293,37 +297,22 @@ public class Carte {
             Noeud ndCourant =m_listeNoeuds.get(i);
             ptAffiche1 = new Point((int)((ndCourant.m_Position.x - p_rectVisible.x) * p_largPix / p_rectVisible.width), (int)((ndCourant.m_Position.y - p_rectVisible.y) * p_hautPix / p_rectVisible.height));
            
-            if(m_vehicule.m_portAttache!=null)
+            if(m_vehicule.m_portAttache!=null && ndCourant.EstMemePosition(m_vehicule.m_portAttache.m_Position))
             {
-                if (ndCourant.EstMemePosition(m_vehicule.m_portAttache.m_Position))
-                {
-                     img = new ImageIcon(getClass().getResource("/image/hospital-icon2.png")).getImage();
-                     g2.drawImage(img, ptAffiche1.x-12, ptAffiche1.y-12, 24, 24, null);
-                }
-                else
-                {
-                    if(ndCourant.ContientUrgenceDeclencheeNonTraitee())
-                    {
-                        img = new ImageIcon(getClass().getResource("/image/emergency.png")).getImage();
-                        g2.drawImage(img, ptAffiche1.x-12, ptAffiche1.y-12, 24, 24, null);
-                    }
-                    else
-                    {
-                         g2.fillOval(ptAffiche1.x-8, ptAffiche1.y-8, 16, 16);
-                    }
-                }
+                 img = new ImageIcon(getClass().getResource("/image/hospital-icon2.png")).getImage();
+                 g2.drawImage(img, ptAffiche1.x-12, ptAffiche1.y-12, 24, 24, null);
             }
             else
             {
-                 if(ndCourant.ContientUrgenceDeclencheeNonTraitee())
-                    {
-                        img = new ImageIcon(getClass().getResource("/image/emergency.png")).getImage();
-                        g2.drawImage(img, ptAffiche1.x-12, ptAffiche1.y-12, 24, 24, null);
-                    }
-                    else
-                    {
-                         g2.fillOval(ptAffiche1.x-8, ptAffiche1.y-8, 16, 16);
-                    }
+                if(ndCourant.ContientUrgenceDeclencheeNonTraitee())
+                {
+                    img = new ImageIcon(getClass().getResource("/image/emergency.png")).getImage();
+                    g2.drawImage(img, ptAffiche1.x-12, ptAffiche1.y-12, 24, 24, null);
+                }
+                else
+                {
+                     g2.fillOval(ptAffiche1.x-8, ptAffiche1.y-8, 16, 16);
+                }
             }
         }
         //Dessin du véhicule
