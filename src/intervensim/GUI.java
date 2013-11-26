@@ -637,6 +637,10 @@ public class GUI extends javax.swing.JFrame {
     private void jSlidVitesseStateChanged(javax.swing.event.ChangeEvent evt) {                                          
         // TODO add your handling code here:
          jLabVitesse.setText("Vitesse: " + String.valueOf(jSlidVitesse.getValue()) + "x");
+         if (m_timer!=null)
+         {
+             m_timer.setDelay(100/jSlidVitesse.getValue());
+         }
     }                                         
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {                                
