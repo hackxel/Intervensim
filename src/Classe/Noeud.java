@@ -186,7 +186,7 @@ public class Noeud {
         return listeNoeudsAdjacents;
     }
     
-    private double GetDistance(Noeud noeudAdjacent)
+    public double GetDistance(Noeud noeudAdjacent)
     {
         double distance = 9999;
         int compteur = 0;
@@ -200,5 +200,11 @@ public class Noeud {
         }
         
         return distance;
+    }
+    
+    public double GetDistance(Point2D.Float p_Point)
+    {
+        double distance = Math.pow(m_Position.x - p_Point.x, 2) + Math.pow(m_Position.y - p_Point.y, 2);
+        return Math.sqrt(distance);
     }
 }

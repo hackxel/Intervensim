@@ -27,7 +27,7 @@ public class Segment {
     //Retourner la distance
     public double getDistance()
     {
-        double distance = Math.pow((double)Math.abs(m_Noeud1.obtenir_posX() - m_Noeud2.obtenir_posX()), 2) + Math.pow((double)Math.abs(m_Noeud1.obtenir_posY() - m_Noeud2.obtenir_posY()), 2);
+        double distance = Math.pow(m_Noeud1.obtenir_posX() - m_Noeud2.obtenir_posX(), 2) + Math.pow(m_Noeud1.obtenir_posY() - m_Noeud2.obtenir_posY(), 2);
         return Math.sqrt(distance);
     }
     
