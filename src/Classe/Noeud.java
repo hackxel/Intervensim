@@ -207,6 +207,7 @@ public class Noeud {
     
     public double GetDistance(Point2D.Float p_Point)
     {
+        // meh
         double distance = Math.pow(m_Position.x - p_Point.x, 2) + Math.pow(m_Position.y - p_Point.y, 2);
         return Math.sqrt(distance);
     }

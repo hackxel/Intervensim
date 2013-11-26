@@ -101,6 +101,7 @@ public class Vehicule {
             }
             else
             {
+                // meh
                 DistanceSegment = m_noeudCourant.GetDistance(m_prochainNoeud);
                 rapportDistance = vitesse / DistanceSegment;
                 m_Position.x += rapportDistance * (m_prochainNoeud.obtenir_posX() - m_noeudCourant.obtenir_posX());
