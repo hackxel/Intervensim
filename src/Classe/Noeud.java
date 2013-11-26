@@ -89,6 +89,8 @@ public class Noeud {
             {
                 contientUrgence = true;
             }
+            
+            compteur++;
         }
         
         return contientUrgence;
@@ -106,6 +108,8 @@ public class Noeud {
             {
                 contientUrgence = true;
             }
+            
+            compteur++;
         }
         
         return contientUrgence;
@@ -122,6 +126,8 @@ public class Noeud {
             {
                 return listeUrgences.get(compteur);
             }
+            
+            compteur++;
         }
         
         return urgenceCourante;
@@ -205,6 +211,8 @@ public class Noeud {
             {
                 distance = segmentsAdjacents.get(compteur).getDistance();
             }
+            
+            compteur++;
         }
         
         return distance;

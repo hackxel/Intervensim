@@ -33,7 +33,7 @@ public class Vehicule {
     public Vehicule (Point2D.Float p_point)
     {
         m_Position=p_point;
-        m_tempsTraitementUrgence = 0;
+        m_tempsTraitementUrgence = 10;
         m_portAttache = null;
         m_tempsEcouleSurUrgence = 0;
         
@@ -128,9 +128,7 @@ public class Vehicule {
         {
             m_tempsEcouleSurUrgence = 0;
             
-            Urgence urgenceCourante = m_noeudCourant.ObtenirUrgenceCouranteDeclenchee();
-            
-            urgenceCourante.DefinirTerminee();
+            m_noeudCourant.ObtenirUrgenceCouranteDeclenchee().DefinirTerminee();
         }
     }
     

@@ -586,7 +586,7 @@ public class GUI extends javax.swing.JFrame {
         m_simulateur.ChangerZoom(jSlidZoom.getValue());
         //Initialisation timer et vitesse
         jSlidVitesse.setValue(1);
-        m_timer= new Timer(500/jSlidVitesse.getValue(), new ActionListener() {
+        m_timer= new Timer(100/jSlidVitesse.getValue(), new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     m_simulateur.TimerTick();
