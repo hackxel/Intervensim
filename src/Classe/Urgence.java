@@ -50,4 +50,9 @@ public class Urgence {
     {
         return m_tempsEcoule;
     }
+    
+    public void AvancerTemps()
+    {
+        m_tempsEcoule++;
+    }
 }
