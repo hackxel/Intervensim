@@ -91,20 +91,14 @@ public class Vehicule {
         double DistanceSegment;
         
         //Verifie si véhicule est sur un noeud
-        if(m_noeudCourant.EstMemePosition(m_Position) && m_noeudCourant.ContientUrgenceDeclencheeNonTraitee())
+        if(m_noeudCourant.EstMemePosition(m_Position))
         {
-            AvancerTraitementUrgence(vitesse);
-        }
-        else
-        {
-            DistanceSegment = m_noeudCourant.GetDistance(m_prochainNoeud.obtenir_Position());
-            rapportDistance = vitesse / DistanceSegment;
-            m_Position.x += rapportDistance * (m_prochainNoeud.obtenir_posX() - m_noeudCourant.obtenir_posX());
-            m_Position.y += rapportDistance * (m_prochainNoeud.obtenir_posY() - m_noeudCourant.obtenir_posY());
-            if(m_noeudCourant.GetDistance(m_Position) >= DistanceSegment)
+            if(m_noeudCourant.ContientUrgenceDeclencheeNonTraitee())
             {
-                m_noeudCourant = m_prochainNoeud;
-                m_Position = new Point2D.Float(m_prochainNoeud.obtenir_posX(), m_prochainNoeud.obtenir_posY());
+                AvancerTraitementUrgence(vitesse);
+            }
+            else
+            {
                 if(SystemeContientUrgenceRestante(systemeRoutier))
                 {
                     m_prochainNoeud = m_strategieTraitement.ObtenirProchainNoeud(m_noeudCourant, systemeRoutier);
@@ -112,8 +106,17 @@ public class Vehicule {
                 else
                 {
                     m_prochainNoeud = m_strategieAttente.ObtenirProchainNoeud(m_noeudCourant, systemeRoutier, m_portAttache);
+                    if(m_prochainNoeud == null)
+                    {
+                        m_prochainNoeud = m_noeudCourant;
+                    }
                 }
+                Avancer(vitesse);
             }
+        }
+        else
+        {
+               Avancer(vitesse);
         }
     }
     
@@ -145,6 +148,21 @@ public class Vehicule {
         }
         
         return systemeContientUrgence;
+    }
+    
+    private void Avancer(double vitesse)
+    {
+        double distanceSegment, rapportDistance;
+        
+        distanceSegment = m_noeudCourant.GetDistance(m_prochainNoeud.obtenir_Position());
+        rapportDistance = (distanceSegment == 0) ? 0 : (vitesse / distanceSegment);
+        m_Position.x += rapportDistance * (m_prochainNoeud.obtenir_posX() - m_noeudCourant.obtenir_posX());
+        m_Position.y += rapportDistance * (m_prochainNoeud.obtenir_posY() - m_noeudCourant.obtenir_posY());
+        if(m_noeudCourant.GetDistance(m_Position) >= distanceSegment)
+        {
+            m_noeudCourant = m_prochainNoeud;
+            m_Position = new Point2D.Float(m_prochainNoeud.obtenir_posX(), m_prochainNoeud.obtenir_posY());
+        }
     }
 
 }
