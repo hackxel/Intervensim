@@ -270,6 +270,7 @@ public class Carte {
     public void Dessin(Graphics p_graphics, Rectangle.Float p_rectVisible, int p_largPix, int p_hautPix)
     {
         Point ptAffiche1, ptAffiche2;
+        Image img;
         Graphics2D g2 = (Graphics2D)p_graphics;  
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setColor(Color.black);
@@ -292,14 +293,14 @@ public class Carte {
             {
                 if (ndCourant.EstMemePosition(m_vehicule.m_portAttache.m_Position))
                 {
-                     Image img = new ImageIcon(getClass().getResource("/image/hospital-icon2.png")).getImage();
+                     img = new ImageIcon(getClass().getResource("/image/hospital-icon2.png")).getImage();
                      g2.drawImage(img, ptAffiche1.x-12, ptAffiche1.y-12, 24, 24, null);
                 }
                 else
                 {
                     if(ndCourant.ContientUrgenceDeclencheeNonTraitee())
                     {
-                        Image img = new ImageIcon(getClass().getResource("/image/emergency.png")).getImage();
+                        img = new ImageIcon(getClass().getResource("/image/emergency.png")).getImage();
                         g2.drawImage(img, ptAffiche1.x-12, ptAffiche1.y-12, 24, 24, null);
                     }
                     else
@@ -312,7 +313,7 @@ public class Carte {
             {
                  if(ndCourant.ContientUrgenceDeclencheeNonTraitee())
                     {
-                        Image img = new ImageIcon(getClass().getResource("/image/emergency.png")).getImage();
+                        img = new ImageIcon(getClass().getResource("/image/emergency.png")).getImage();
                         g2.drawImage(img, ptAffiche1.x-12, ptAffiche1.y-12, 24, 24, null);
                     }
                     else
@@ -320,6 +321,13 @@ public class Carte {
                          g2.fillOval(ptAffiche1.x-8, ptAffiche1.y-8, 16, 16);
                     }
             }
+        }
+        //Dessin du véhicule
+        if(m_vehicule.m_portAttache != null)
+        {
+            ptAffiche1 = new Point((int)((m_vehicule.m_Position.x - p_rectVisible.x) * p_largPix / p_rectVisible.width), (int)((m_vehicule.m_Position.y - p_rectVisible.y) * p_hautPix / p_rectVisible.height));
+            img = new ImageIcon(getClass().getResource("/image/Medicine-Ambulance-icon.png")).getImage();
+            g2.drawImage(img, ptAffiche1.x-12, ptAffiche1.y-12, 24, 24, null);
         }
        
     } 

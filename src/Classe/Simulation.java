@@ -86,17 +86,14 @@ public class Simulation {
     {
         Point2D.Float CoordNoeud;
         CoordNoeud = CoordonneeGrillePoint(p_Coordonnee);
-        if(m_Carte.NoeudEstPresent(CoordNoeud))
-        {
-           Noeud test=m_Carte.ObtenirNoeud(CoordNoeud);
-           m_Carte.m_vehicule.DefinirPortAttache(test);
-        }
-        else
+        if(!m_Carte.NoeudEstPresent(CoordNoeud))
         {
             m_Carte.AjouterNoeud(CoordNoeud);
-            Noeud test=m_Carte.ObtenirNoeud(CoordNoeud);
-            m_Carte.m_vehicule.DefinirPortAttache(test);
         }
+        
+        Noeud ndCourant = m_Carte.ObtenirNoeud(CoordNoeud);
+        m_Carte.m_vehicule.DefinirPortAttache(ndCourant);
+        m_Carte.m_vehicule.setPosition(CoordNoeud);
     }
     public void AjouterRapide(Point p_Coordonnee)
     {
