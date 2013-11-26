@@ -134,6 +134,8 @@ public class Carte {
             if(noeud1 != null && noeud2 != null)
             {
                 Segment nouveauSegment = new Segment(noeud1, noeud2);
+                noeud1.AjouterSegment(nouveauSegment);
+                noeud2.AjouterSegment(nouveauSegment);
                 m_listeSegments.add(nouveauSegment);
                 ajoutReussi = true;
             }

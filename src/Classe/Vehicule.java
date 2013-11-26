@@ -70,7 +70,7 @@ public class Vehicule {
     {
         if(indexStrategie == 2)
         {
-            m_strategieTraitement = new AllerNoeudPlusAncien();
+            m_strategieTraitement = new AllerNoeudPlusPret();
         }
         else
         {
@@ -80,7 +80,7 @@ public class Vehicule {
             }
             else
             {
-                m_strategieTraitement = new AllerNoeudPlusPret();
+                m_strategieTraitement = new AllerNoeudPlusAncien();
             }
         }
     }
@@ -139,12 +139,14 @@ public class Vehicule {
         boolean systemeContientUrgence =  false;
         int compteur = 0;
         
-        while(systemeContientUrgence = false && compteur < systemeRoutier.size())
+        while(systemeContientUrgence == false && compteur < systemeRoutier.size())
         {
             if(systemeRoutier.get(compteur).ContientUrgenceDeclencheeNonTraitee())
             {
                 systemeContientUrgence = true;
             }
+            
+            compteur++;
         }
         
         return systemeContientUrgence;

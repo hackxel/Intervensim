@@ -48,7 +48,7 @@ public class Noeud {
     }
     
     //Méthodes publique
-    boolean EstMemePosition(Point2D.Float p_CoordNoeud)
+    public boolean EstMemePosition(Point2D.Float p_CoordNoeud)
     {
         return (m_Position.equals(p_CoordNoeud));
     }
@@ -137,6 +137,11 @@ public class Noeud {
         distance = 9999;
         visite = false;
         precedent = null;
+    }
+    
+    public void SetPointDepart()
+    {
+        distance = 0;
     }
     
     public void SetVisite()

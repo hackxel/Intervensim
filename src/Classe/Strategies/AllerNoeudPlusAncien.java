@@ -22,7 +22,7 @@ public class AllerNoeudPlusAncien extends AlgorithmePlusCourtChemin implements I
         
         for(Noeud unNoeud: systemeRoutier)
         {
-            if(noeudUrgencePlusAncienne == null || unNoeud.ObtenirUrgenceCouranteDeclenchee().GetTempsDepuisDeclenchement() > noeudUrgencePlusAncienne.ObtenirUrgenceCouranteDeclenchee().GetTempsDepuisDeclenchement())
+            if(unNoeud.ContientUrgenceDeclencheeNonTraitee() && (noeudUrgencePlusAncienne == null || unNoeud.ObtenirUrgenceCouranteDeclenchee().GetTempsDepuisDeclenchement() > noeudUrgencePlusAncienne.ObtenirUrgenceCouranteDeclenchee().GetTempsDepuisDeclenchement()))
             {
                 noeudUrgencePlusAncienne = unNoeud;
             }

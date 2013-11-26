@@ -53,6 +53,11 @@ public abstract class AlgorithmePlusCourtChemin {
         for(Noeud noeudCourant : systemeRoutier)
         {
             noeudCourant.InitialiserValeursParcours();
+            
+            if(noeudCourant.EstMemePosition(noeudDepart.obtenir_Position()))
+            {
+                noeudCourant.SetPointDepart();
+            }
         }
         
         return systemeRoutier;
