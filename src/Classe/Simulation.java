@@ -93,7 +93,6 @@ public class Simulation {
         
         Noeud ndCourant = m_Carte.ObtenirNoeud(CoordNoeud);
         m_Carte.m_vehicule.DefinirPortAttache(ndCourant);
-        m_Carte.m_vehicule.setPosition(CoordNoeud);
     }
     public void AjouterRapide(Point p_Coordonnee)
     {
