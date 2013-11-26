@@ -126,7 +126,7 @@ public class GUI extends javax.swing.JFrame {
         jBtnDemarer = new javax.swing.JButton();
         jBtnPause = new javax.swing.JButton();
         jBtnStop = new javax.swing.JButton();
-        jBtnFreeMove = new javax.swing.JButton();
+        jBtnSlection = new javax.swing.JButton();
         jBtnAjouterPortAttache = new javax.swing.JButton();
         jBtnAjouterNoeud = new javax.swing.JButton();
         //Urgence a enlever commentaire
@@ -309,7 +309,7 @@ public class GUI extends javax.swing.JFrame {
         getContentPane().add(label7);
         label7.setBounds(845, 10, 140, 60);
         
-        label8.setText("Free Move");
+        label8.setText("Selection");
         getContentPane().add(label8);
         label8.setBounds(845, 70, 140, 60);
         
@@ -368,17 +368,17 @@ public class GUI extends javax.swing.JFrame {
         getContentPane().add(jBtnAjouterUrgence);
         jBtnAjouterUrgence.setBounds(785, 10, 60, 60);
         
-        jBtnFreeMove.setBackground(new java.awt.Color(204, 204, 204));
-        jBtnFreeMove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Image-Edition-Tools-Collapse-icon.png"))); // NOI18N
-        jBtnFreeMove.setPreferredSize(new java.awt.Dimension(50, 50));
-        jBtnFreeMove.addActionListener(new java.awt.event.ActionListener() {
+        jBtnSlection.setBackground(new java.awt.Color(204, 204, 204));
+        jBtnSlection.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Very-Basic-Cursor-icon.png"))); // NOI18N
+        jBtnSlection.setPreferredSize(new java.awt.Dimension(50, 50));
+        jBtnSlection.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnFreeMoveActionPerformed(evt);
+                jBtnSelectionActionPerformed(evt);
             }
         });
-        getContentPane().add(jBtnFreeMove);
-        jBtnFreeMove.setBounds(785, 70, 60, 60);
+        getContentPane().add(jBtnSlection);
+        jBtnSlection.setBounds(785, 70, 60, 60);
         
 
         jMenuFichier.setText("Fichier");
@@ -465,10 +465,24 @@ public class GUI extends javax.swing.JFrame {
     }
     private void jPanelMapMouseReleased(java.awt.event.MouseEvent evt)
     {
-           //m_PremierPoint = null;
+        m_pointOffset=evt.getPoint();
+        switch (m_etatBoutonClique) {
+            case "Selection":
+                m_simulateur.Selection(m_pointOffset,"Released");
+                 reinitialisationVar();
+                 jPanelMap.repaint();
+            break;
+        }
     }
     private void jPanelMapMouseDragged(java.awt.event.MouseEvent evt)
     {       
+        m_pointOffset=evt.getPoint();
+        switch (m_etatBoutonClique) {
+            case "Selection":
+                m_simulateur.Selection(m_pointOffset,"Dragged");            
+                jPanelMap.repaint();
+            break;
+        }
         /*Point p = evt.getPoint();
         int x = p.x - m_PremierPoint.x;
         int y = p.y - m_PremierPoint.y;
@@ -491,10 +505,14 @@ public class GUI extends javax.swing.JFrame {
             m_DeuxiemePoint=evt.getPoint();
         
         switch (m_etatBoutonClique) {
-            case "FreeMove":
-                 m_PremierPoint = evt.getPoint();
+            case "Selection":
+                m_simulateur.Selection(m_PremierPoint,"Pressed");
+             //  reinitialisationVar();
+                //jPanelMap.repaint();
+                /* m_PremierPoint = evt.getPoint();
                  m_PremierPoint.x -= m_pointOffset.x;
-                 m_PremierPoint.y -= m_pointOffset.y;
+                 m_PremierPoint.y -= m_pointOffset.y;*/
+                
                 break;
             case "AjoutNoeud":
                 m_simulateur.AjouterNoeud(m_PremierPoint);
@@ -618,9 +636,9 @@ public class GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
   
     }                               
-    private void jBtnFreeMoveActionPerformed(java.awt.event.ActionEvent evt){      
+    private void jBtnSelectionActionPerformed(java.awt.event.ActionEvent evt){      
         reinitialisationVar();
-        m_etatBoutonClique="FreeMove";
+        m_etatBoutonClique="Selection";
     }   
     private void jBtnAjouterNoeudActionPerformed(java.awt.event.ActionEvent evt) {                                                 
         // TODO add your handling code here:
@@ -697,7 +715,7 @@ public class GUI extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify       
-    private javax.swing.JButton jBtnFreeMove;
+    private javax.swing.JButton jBtnSlection;
     private javax.swing.JButton jBtnAjoutRapide;
     private javax.swing.JButton jBtnAjouterNoeud; 
     private javax.swing.JButton jBtnAjouterUrgence; //Urgence enlever Comm

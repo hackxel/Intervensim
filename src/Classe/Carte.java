@@ -218,6 +218,19 @@ public class Carte {
         }
         return Retour;
     }
+    public boolean DeplacerNoeud(Point2D.Float p_CoordNoeud,Point2D.Float p_nouvCoordNoeud)
+    {
+        if(NoeudEstPresent(p_CoordNoeud))
+        {
+            Noeud noeudCourt=ObtenirNoeud(p_CoordNoeud);
+            noeudCourt.definir_position(p_nouvCoordNoeud);
+            if(noeudCourt.obtenir_Position().equals(p_nouvCoordNoeud))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     public Segment ObtenirSegment(Point2D.Float CoordNoeud1, Point2D.Float CoordNoeud2)
     {
         Segment segmentTrouve = null;
