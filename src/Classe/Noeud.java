@@ -18,7 +18,7 @@ public class Noeud {
     private double distance;
     private boolean visite;
     private Noeud precedent;
-   
+    
     private ArrayList<Segment> segmentsAdjacents;    
     private ArrayList<Urgence> listeUrgences;
     
@@ -71,29 +71,7 @@ public class Noeud {
     
     public void AjouterUrgence(double tempsAvantDeclenchement)
     {
-        if(ContientUrgenceSelonTempsDeclenchement(tempsAvantDeclenchement) == false)
-        {
-            listeUrgences.add(new Urgence(tempsAvantDeclenchement));
-        }
-    }
-    
-    public boolean ContientUrgenceSelonTempsDeclenchement(double tempsAvantDeclenchement)
-    {        
-        boolean contientUrgence = false;
-        
-        int compteur = 0;
-        
-        while(contientUrgence == false && compteur < listeUrgences.size())
-        {
-            if(listeUrgences.get(compteur).GetTempsAvantDeclenchement() == tempsAvantDeclenchement)
-            {
-                contientUrgence = true;
-            }
-            
-            compteur++;
-        }
-        
-        return contientUrgence;
+        listeUrgences.add(new Urgence(tempsAvantDeclenchement));
     }
     
     public boolean ContientUrgenceDeclencheeNonTraitee()
@@ -136,6 +114,19 @@ public class Noeud {
     public void SupprimerUrgence(double tempsAvantDeclenchement)
     {
         
+    }
+    
+    public Statistiques ObtenirTempsMoyenTraitementUrgence(Statistiques donneesStatistiques)
+    {
+        for(Urgence uneUrgence: listeUrgences)
+        {
+            if(uneUrgence.UrgenceEstTerminee())
+            {
+                donneesStatistiques.AjouterStatistiquesUrgence(uneUrgence.GetTempsDepuisDeclenchement());
+            }
+        }
+        
+        return donneesStatistiques;
     }
     
     public void InitialiserValeursParcours()

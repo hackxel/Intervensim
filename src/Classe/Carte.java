@@ -325,5 +325,19 @@ public class Carte {
             g2.drawImage(img, ptAffiche1.x-12, ptAffiche1.y-12, 24, 24, null);
         }
        
-    } 
+    }
+    
+    public Statistiques ObtenirStatistiques()
+    {
+        Statistiques donneesStatistiques = new Statistiques();
+        
+        for(Noeud unNoeud: m_listeNoeuds)
+        {
+            donneesStatistiques = unNoeud.ObtenirTempsMoyenTraitementUrgence(donneesStatistiques);
+        }
+        
+        donneesStatistiques.DefinirDistanceParcourue(m_vehicule.ObtenirDistanceParcourue());
+        
+        return donneesStatistiques;
+    }
 }

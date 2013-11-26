@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class Vehicule {
     private float m_tempsTraitementUrgence;
     private float m_tempsEcouleSurUrgence;
+    private float m_distanceParcourue;
     
     Noeud m_noeudCourant;
     Noeud m_prochainNoeud;
@@ -32,10 +33,11 @@ public class Vehicule {
     
     public Vehicule (Point2D.Float p_point)
     {
-        m_Position=p_point;
+        m_Position = p_point;
         m_tempsTraitementUrgence = 10;
         m_portAttache = null;
         m_tempsEcouleSurUrgence = 0;
+        m_distanceParcourue = 0;
         
         DefinirStrategieAttente(0);
         DefinirStrategieTraitement(0);
@@ -163,6 +165,13 @@ public class Vehicule {
             m_noeudCourant = m_prochainNoeud;
             m_Position = new Point2D.Float(m_prochainNoeud.obtenir_posX(), m_prochainNoeud.obtenir_posY());
         }
+        
+        m_distanceParcourue += vitesse;
+    }
+    
+    public float ObtenirDistanceParcourue()
+    {
+        return m_distanceParcourue;
     }
 
 }

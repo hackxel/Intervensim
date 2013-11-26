@@ -53,6 +53,9 @@ public class Urgence {
     
     public void AvancerTemps()
     {
-        m_tempsEcoule++;
+        if(m_traitementTermine == false)
+        {
+           m_tempsEcoule++; 
+        }        
     }
 }
