@@ -25,7 +25,6 @@ public abstract class AlgorithmePlusCourtChemin {
            Noeud noeudCourant = ObtenirNoeudPlusPetiteDistance(listeNoeudsTraitement);
            
            listeNoeudsTraitement.remove(noeudCourant);
-           noeudCourant.SetVisite();
            
            for(Noeud noeudAdjacent: noeudCourant.ObtenirNoeudsAdjacents())
            {
@@ -33,6 +32,7 @@ public abstract class AlgorithmePlusCourtChemin {
                {
                    noeudAdjacent.RelacheNoeud(noeudCourant);
                    
+                   noeudAdjacent.SetVisite();
                    listeNoeudsTraitement.add(noeudAdjacent);
                }
            }
