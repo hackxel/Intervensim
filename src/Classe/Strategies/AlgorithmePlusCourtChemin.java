@@ -14,38 +14,43 @@ import java.util.ArrayList;
 public abstract class AlgorithmePlusCourtChemin {
     protected Noeud ProchainNoeud(Noeud noeudDepart, Noeud noeudDestination, ArrayList<Noeud> systemeRoutier)
     {
-       systemeRoutier = InitialiserParcours(noeudDepart,systemeRoutier);
-       
-       ArrayList<Noeud> listeNoeudsTraitement = new ArrayList<Noeud>();
-       
-       listeNoeudsTraitement.add(noeudDepart);
-       
-       while(listeNoeudsTraitement.size() > 0)
-       {
-           Noeud noeudCourant = ObtenirNoeudPlusPetiteDistance(listeNoeudsTraitement);
-           
-           listeNoeudsTraitement.remove(noeudCourant);
-           
-           for(Noeud noeudAdjacent: noeudCourant.ObtenirNoeudsAdjacents())
-           {
-               if(noeudAdjacent.DejaVisite() == false)
-               {
-                   noeudAdjacent.RelacheNoeud(noeudCourant);
-                   
-                   noeudAdjacent.SetVisite();
-                   listeNoeudsTraitement.add(noeudAdjacent);
-               }
-           }
+        Noeud prochainNoeudTrouve = null;
+                
+        if(noeudDepart.EstMemePosition(noeudDestination.obtenir_Position()) == false)
+        {
+            systemeRoutier = InitialiserParcours(noeudDepart,systemeRoutier);
+
+            ArrayList<Noeud> listeNoeudsTraitement = new ArrayList<Noeud>();
+
+            listeNoeudsTraitement.add(noeudDepart);
+
+            while(listeNoeudsTraitement.size() > 0)
+            {
+                Noeud noeudCourant = ObtenirNoeudPlusPetiteDistance(listeNoeudsTraitement);
+
+                listeNoeudsTraitement.remove(noeudCourant);
+
+                for(Noeud noeudAdjacent: noeudCourant.ObtenirNoeudsAdjacents())
+                {
+                    if(noeudAdjacent.DejaVisite() == false)
+                    {
+                        noeudAdjacent.RelacheNoeud(noeudCourant);
+
+                        noeudAdjacent.SetVisite();
+                        listeNoeudsTraitement.add(noeudAdjacent);
+                    }
+                }
+            }
+            
+            prochainNoeudTrouve = noeudDestination;
+            
+            while(prochainNoeudTrouve.GetPrecedent() != noeudDepart)
+            {
+                prochainNoeudTrouve = prochainNoeudTrouve.GetPrecedent();
+            }
        }
-       
-       Noeud noeudCourant = noeudDestination;
-       
-       while(noeudCourant.GetPrecedent() != noeudDepart)
-       {
-           noeudCourant = noeudCourant.GetPrecedent();
-       }
-       
-       return noeudCourant;
+        
+       return prochainNoeudTrouve;
     }
     
     private ArrayList<Noeud> InitialiserParcours(Noeud noeudDepart, ArrayList<Noeud> systemeRoutier)
