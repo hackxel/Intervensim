@@ -66,6 +66,19 @@ public class Carte {
         return ajoutReussi;
     }
     
+    public boolean SupprimerUrgence(Point2D.Float p_CoordUrg)
+    {
+        boolean suppressionReussie = false;
+        
+        Noeud ndCourant = ObtenirNoeud(p_CoordUrg);
+        if(ndCourant != null && (m_vehicule.m_portAttache == null || !ndCourant.EstMemePosition(m_vehicule.m_portAttache.obtenir_Position())))
+        {
+            suppressionReussie = ndCourant.SupprimerUrgence(); 
+        }
+        
+        return suppressionReussie;
+    }
+    
     public boolean SupprimerNoeud(Point2D.Float p_CoordNd)
     {
         Boolean suppressionReussie = false;
@@ -339,5 +352,15 @@ public class Carte {
         donneesStatistiques.DefinirDistanceParcourue(m_vehicule.ObtenirDistanceParcourue());
         
         return donneesStatistiques;
+    }
+    
+    public void DefinirStrategieAttente(int codeStrategie)
+    {
+        m_vehicule.DefinirStrategieAttente(codeStrategie);
+    }
+    
+    public void DefinirStrategieTraitement(int codeStrategie)
+    {
+        m_vehicule.DefinirStrategieTraitement(codeStrategie);
     }
 }

@@ -111,9 +111,17 @@ public class Noeud {
         return urgenceCourante;
     }
     
-    public void SupprimerUrgence(double tempsAvantDeclenchement)
+    public boolean SupprimerUrgence()
     {
+        boolean suppressionReussie = false;
         
+        if(listeUrgences.size() > 0)
+        {
+            listeUrgences.remove(listeUrgences.size() - 1);
+            suppressionReussie = true;
+        }
+        
+        return suppressionReussie;
     }
     
     public Statistiques ObtenirTempsMoyenTraitementUrgence(Statistiques donneesStatistiques)
