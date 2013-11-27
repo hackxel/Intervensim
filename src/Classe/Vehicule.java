@@ -95,7 +95,7 @@ public class Vehicule {
         //Verifie si véhicule est sur un noeud
         if(m_noeudCourant.EstMemePosition(m_Position))
         {
-            if(m_noeudCourant.ContientUrgenceDeclencheeNonTraitee())
+            if(m_noeudCourant.ContientUrgenceDeclencheeNonTraitee() && m_strategieTraitement.ObtenirProchainNoeud(m_noeudCourant, systemeRoutier) == null)
             {
                 AvancerTraitementUrgence(vitesse);
             }
