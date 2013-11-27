@@ -231,4 +231,12 @@ public class Noeud {
             urg.AvancerTemps();
         }
     }
+    
+    public void Reinitialiser()
+    {
+        for(Urgence urg: listeUrgences)
+        {
+            urg.Reinitialiser();
+        }
+    }
 }

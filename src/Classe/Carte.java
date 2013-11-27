@@ -363,4 +363,14 @@ public class Carte {
     {
         m_vehicule.DefinirStrategieTraitement(codeStrategie);
     }
+    
+    public void Reinitialiser()
+    {
+        for(Noeud unNoeud: m_listeNoeuds)
+        {
+            unNoeud.Reinitialiser();
+        }
+        
+        m_vehicule.Reinitialiser();
+    }
 }

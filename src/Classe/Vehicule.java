@@ -173,5 +173,12 @@ public class Vehicule {
     {
         return m_distanceParcourue;
     }
+    
+    public void Reinitialiser()
+    {
+        m_Position = new Point2D.Float(m_portAttache.obtenir_posX(), m_portAttache.obtenir_posY());
+        m_tempsEcouleSurUrgence = 0;
+        m_distanceParcourue = 0;
+    }
 
 }
