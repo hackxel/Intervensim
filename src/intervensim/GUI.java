@@ -7,6 +7,7 @@ package intervensim;
 //import com.sun.xml.internal.ws.api.message.Message;
 
 import Classe.Controleur.Simulateur;
+import Classe.Statistiques;
 import java.awt.Color;
 import javax.swing.KeyStroke;
 import java.awt.Point;
@@ -684,6 +685,8 @@ public class GUI extends javax.swing.JFrame {
         m_timer.stop();
         lblErreur.setText("Simulation arreter");
         m_simulateur.ReinitilialiserSimulation();
+        Statistiques stats=m_simulateur.AfficherStatistique();
+        lblErreur.setText("Distance Parcourue: " +String.valueOf(stats.ObtenirDistanceParcourue()) +  " Temps moyen traitement: " + String.valueOf( stats.ObtenirMoyenneTraitement()));
         jPanelMap.repaint();
        
     }   

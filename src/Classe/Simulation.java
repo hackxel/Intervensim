@@ -38,7 +38,7 @@ public class Simulation {
     float           m_DistanceEntrePts;
     Point2D.Float   m_positionNouvSelection;
     Point2D.Float   m_positionSelection;
-    
+    Statistiques    m_statistiques;
     Timer           m_timer;
    public Simulation()
     {
@@ -52,6 +52,7 @@ public class Simulation {
         m_positionSourisY=0;
         m_positionSelection=null;
         m_positionNouvSelection=null;
+        m_statistiques=null;
     }  
     //Méthodes publique
     public void DemarrerSimulation()
@@ -290,6 +291,10 @@ public class Simulation {
                 m_positionNouvSelection=null;
                break;     
         }
+    }
+    public Statistiques AfficherStatistique()
+    {
+        return m_Carte.ObtenirStatistiques();
     }
     public void ReinitilialiserSimulation()
     {

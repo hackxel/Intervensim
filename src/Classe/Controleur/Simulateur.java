@@ -3,6 +3,7 @@ package Classe.Controleur;
 import java.awt.Graphics;
 import java.awt.Point;
 import Classe.Simulation;
+import Classe.Statistiques;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,6 +30,10 @@ public class Simulateur {
     public void ReinitilialiserSimulation()
     {
         m_simulation.ReinitilialiserSimulation();
+    }
+    public Statistiques AfficherStatistique()
+    {
+        return m_simulation.AfficherStatistique();     
     }
     public void DefinirStrategie(int p_StrategieAttente,int p_StrategieDeplacement)
     {
