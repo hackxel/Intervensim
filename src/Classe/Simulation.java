@@ -291,6 +291,10 @@ public class Simulation {
                break;     
         }
     }
+    public void ReinitilialiserSimulation()
+    {
+        m_Carte.Reinitialiser();
+    }
     public void DefinirStrategie(int p_StrategieAttente,int p_StrategieDeplacement)
     {
         m_Carte.DefinirStrategieAttente(p_StrategieAttente);

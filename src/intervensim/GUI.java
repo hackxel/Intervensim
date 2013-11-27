@@ -683,6 +683,8 @@ public class GUI extends javax.swing.JFrame {
      // TODO add your handling code here:
         m_timer.stop();
         lblErreur.setText("Simulation arreter");
+        m_simulateur.ReinitilialiserSimulation();
+        jPanelMap.repaint();
        
     }   
      private void jBtnStartActionPerformed(java.awt.event.ActionEvent evt) {                                          

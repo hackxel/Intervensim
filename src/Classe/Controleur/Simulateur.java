@@ -26,6 +26,10 @@ public class Simulateur {
     {
         m_simulation.PortAttache(p_point);
     }
+    public void ReinitilialiserSimulation()
+    {
+        m_simulation.ReinitilialiserSimulation();
+    }
     public void DefinirStrategie(int p_StrategieAttente,int p_StrategieDeplacement)
     {
         m_simulation.DefinirStrategie(p_StrategieAttente,p_StrategieDeplacement);
