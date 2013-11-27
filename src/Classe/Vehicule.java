@@ -179,6 +179,8 @@ public class Vehicule {
         m_Position = new Point2D.Float(m_portAttache.obtenir_posX(), m_portAttache.obtenir_posY());
         m_tempsEcouleSurUrgence = 0;
         m_distanceParcourue = 0;
+        m_noeudCourant = m_portAttache;
+        m_prochainNoeud = m_portAttache;
     }
 
 }
