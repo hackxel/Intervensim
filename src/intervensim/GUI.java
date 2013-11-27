@@ -683,10 +683,10 @@ public class GUI extends javax.swing.JFrame {
     private void jBtnStopActionPerformed(java.awt.event.ActionEvent evt) {                                          
      // TODO add your handling code here:
         m_timer.stop();
-        lblErreur.setText("Simulation arreter");
-        m_simulateur.ReinitilialiserSimulation();
-        Statistiques stats=m_simulateur.AfficherStatistique();
-        lblErreur.setText("Distance Parcourue: " +String.valueOf(stats.ObtenirDistanceParcourue()) +  " Temps moyen traitement: " + String.valueOf( stats.ObtenirMoyenneTraitement()));
+        lblErreur.setText("Simulation arretée");
+         // Statistiques stats=m_simulateur.AfficherStatistique();
+        //lblErreur.setText("Distance Parcourue: " +String.valueOf(stats.ObtenirDistanceParcourue()) +  " Temps moyen traitement: " + String.valueOf( stats.ObtenirMoyenneTraitement()));
+        m_simulateur.ReinitilialiserSimulation();  
         jPanelMap.repaint();
        
     }   
