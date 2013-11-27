@@ -291,4 +291,9 @@ public class Simulation {
                break;     
         }
     }
+    public void DefinirStrategie(int p_StrategieAttente,int p_StrategieDeplacement)
+    {
+        m_Carte.DefinirStrategieAttente(p_StrategieAttente);
+        m_Carte.DefinirStrategieTraitement(p_StrategieDeplacement);
+    }
 }

@@ -17,7 +17,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.Timer;
 
 /**
@@ -119,6 +121,7 @@ public class GUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
+        
         jSlidZoom = new javax.swing.JSlider();
         jSlidVitesse = new javax.swing.JSlider();
         jLabZoom = new javax.swing.JLabel();
@@ -150,13 +153,20 @@ public class GUI extends javax.swing.JFrame {
         jItemSauvegarder = new javax.swing.JMenuItem();
         jItemNouvelle = new javax.swing.JMenuItem();
         jItemQuitter = new javax.swing.JMenuItem();
+        jItemStrategieAttente = new javax.swing.JMenuItem();
+        jItemStrategieDeplacement = new javax.swing.JMenuItem();
         jMenuUrgence = new javax.swing.JMenu();
         jItemAjouterUrgence = new javax.swing.JMenuItem();
         jMenuOptions = new javax.swing.JMenu();
+        jMenuVehicule =  new javax.swing.JMenu();
         jCbAfficherGrille = new javax.swing.JCheckBoxMenuItem();
         jItemOptionAvance = new javax.swing.JMenuItem();
         jMenuAide = new javax.swing.JMenu();
         jMenuPropos = new javax.swing.JMenu();
+        jSousMenuAttenteItem1=new javax.swing.JRadioButtonMenuItem();
+        jSousMenuAttenteItem2=new javax.swing.JRadioButtonMenuItem();
+        jSousMenuDeplacementItem1=new javax.swing.JRadioButtonMenuItem();
+        jSousMenuDeplacementItem2=new javax.swing.JRadioButtonMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Intervensim");
@@ -421,7 +431,40 @@ public class GUI extends javax.swing.JFrame {
         jMenuBar.add(jMenuUrgence);
 
         jMenuOptions.setText("Options");
-
+        
+        jMenuVehicule.setText("Vehicule");
+        jMenuBar.add(jMenuVehicule);
+        
+        ButtonGroup groupAttente = new ButtonGroup();
+        ButtonGroup groupDeplacement = new ButtonGroup();
+        
+        javax.swing.JMenu sousMenuAttente= new javax.swing.JMenu();
+        javax.swing.JMenu sousMenuDeplacement= new javax.swing.JMenu();
+        
+        
+        sousMenuAttente.setText("Strategie Attente");   
+        jSousMenuAttenteItem1.setText("Attendre sur place");
+        groupAttente.add(jSousMenuAttenteItem1);
+        jSousMenuAttenteItem2.setText("Retourner port attache");
+        groupAttente.add(jSousMenuAttenteItem2);
+       
+        
+        sousMenuDeplacement.setText("Strategie Deplacement");
+        jSousMenuDeplacementItem1.setText("FIFO");
+        sousMenuDeplacement.add(jSousMenuDeplacementItem1);
+        jSousMenuDeplacementItem2.setText("LIFO");
+        groupDeplacement.add(jSousMenuDeplacementItem2);
+        
+        
+        sousMenuAttente.add(jSousMenuAttenteItem1);
+        sousMenuAttente.add(jSousMenuAttenteItem2);
+        
+        sousMenuDeplacement.add(jSousMenuDeplacementItem1);
+        sousMenuDeplacement.add(jSousMenuDeplacementItem2);
+        
+        jMenuVehicule.add(sousMenuAttente);
+        jMenuVehicule.add(sousMenuDeplacement);
+        
         jCbAfficherGrille.setSelected(true);
         jCbAfficherGrille.setText("Affichier la grille");
         jCbAfficherGrille.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G,java.awt.Event.CTRL_MASK));
@@ -581,6 +624,15 @@ public class GUI extends javax.swing.JFrame {
         //Initialisation grille
         jCbAfficherGrille.setState(false);
         jPanelMap.setAffichageGrille(jCbAfficherGrille.getState());
+        
+        jSousMenuAttenteItem1.setSelected(true);
+        jSousMenuAttenteItem2.setSelected(false);
+        int indiceAttente= (jSousMenuAttenteItem1.isSelected()?1:2);
+        jSousMenuDeplacementItem1.setSelected(true);
+        jSousMenuDeplacementItem2.setSelected(false);
+         int indiceDeplacement= (jSousMenuDeplacementItem1.isSelected()?1:2);
+         
+        m_simulateur.DefinirStrategie(indiceAttente,indiceDeplacement);
         //Initialisation zoom
         jSlidZoom.setValue(1);
         m_simulateur.ChangerZoom(jSlidZoom.getValue());
@@ -593,7 +645,7 @@ public class GUI extends javax.swing.JFrame {
                     jPanelMap.repaint();
                 }
         });   
-
+        lblErreur.setText("Simulation en arret");
         //Initialisation variable
         reinitialisationVar();
         m_etatBoutonClique="";
@@ -740,6 +792,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem jCbAfficherGrille;
     private javax.swing.JMenuItem jItemAjouterUrgence;
     private javax.swing.JMenuItem jItemNouvelle;
+    private javax.swing.JMenuItem jItemStrategieAttente;
+    private javax.swing.JMenuItem jItemStrategieDeplacement;
     private javax.swing.JMenuItem jItemImporter;
     private javax.swing.JMenuItem jItemOptionAvance;
     private javax.swing.JMenuItem jItemQuitter;
@@ -752,6 +806,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuOptions;
     private javax.swing.JMenu jMenuPropos;
     private javax.swing.JMenu jMenuUrgence;
+    private javax.swing.JMenu jMenuVehicule;
     private javax.swing.JSlider jSlidVitesse;
     private javax.swing.JSlider jSlidZoom;
     private java.awt.Label label1;
@@ -763,5 +818,10 @@ public class GUI extends javax.swing.JFrame {
     private java.awt.Label label7;
     private java.awt.Label label8;
     private java.awt.Label lblErreur;
+    private javax.swing.JRadioButtonMenuItem jSousMenuAttenteItem1;
+    private javax.swing.JRadioButtonMenuItem jSousMenuAttenteItem2;
+    private javax.swing.JRadioButtonMenuItem jSousMenuDeplacementItem1;
+    private javax.swing.JRadioButtonMenuItem jSousMenuDeplacementItem2;
+    
     // End of variables declaration                   
 }
