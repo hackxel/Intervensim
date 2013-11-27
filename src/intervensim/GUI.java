@@ -153,8 +153,6 @@ public class GUI extends javax.swing.JFrame {
         jItemSauvegarder = new javax.swing.JMenuItem();
         jItemNouvelle = new javax.swing.JMenuItem();
         jItemQuitter = new javax.swing.JMenuItem();
-        jItemStrategieAttente = new javax.swing.JMenuItem();
-        jItemStrategieDeplacement = new javax.swing.JMenuItem();
         jMenuUrgence = new javax.swing.JMenu();
         jItemAjouterUrgence = new javax.swing.JMenuItem();
         jMenuOptions = new javax.swing.JMenu();
@@ -445,16 +443,41 @@ public class GUI extends javax.swing.JFrame {
         sousMenuAttente.setText("Strategie Attente");   
         jSousMenuAttenteItem1.setText("Attendre sur place");
         groupAttente.add(jSousMenuAttenteItem1);
+        jSousMenuAttenteItem1.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jItemStrategieActionPerformed(evt);
+            }
+        });
         jSousMenuAttenteItem2.setText("Retourner port attache");
         groupAttente.add(jSousMenuAttenteItem2);
+        jSousMenuAttenteItem2.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jItemStrategieActionPerformed(evt);
+            }
+        });
        
         
         sousMenuDeplacement.setText("Strategie Deplacement");
-        jSousMenuDeplacementItem1.setText("FIFO");
-        sousMenuDeplacement.add(jSousMenuDeplacementItem1);
-        jSousMenuDeplacementItem2.setText("LIFO");
-        groupDeplacement.add(jSousMenuDeplacementItem2);
         
+        jSousMenuDeplacementItem1.setText("FIFO");
+        groupDeplacement.add(jSousMenuDeplacementItem1);
+        jSousMenuDeplacementItem1.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jItemStrategieActionPerformed(evt);
+            }
+        });
+       
+        jSousMenuDeplacementItem2.setText("Plus pret en premier");
+        groupDeplacement.add(jSousMenuDeplacementItem2);
+          jSousMenuDeplacementItem2.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jItemStrategieActionPerformed(evt);
+            }
+        });
         
         sousMenuAttente.add(jSousMenuAttenteItem1);
         sousMenuAttente.add(jSousMenuAttenteItem2);
@@ -675,7 +698,15 @@ public class GUI extends javax.swing.JFrame {
         m_timer.stop();
             lblErreur.setText("Simulation en pause");
     }                                         
-
+    private void jItemStrategieActionPerformed(java.awt.event.ActionEvent evt) {
+       
+        int strategieAttente,strategieDeplacement;
+        
+        strategieAttente= (jSousMenuAttenteItem1.isSelected()?1:2);
+        strategieDeplacement= (jSousMenuAttenteItem2.isSelected()?1:2);
+        m_simulateur.DefinirStrategie(strategieAttente, strategieDeplacement);
+        
+    }
     private void jSlidZoomStateChanged(javax.swing.event.ChangeEvent evt) {                                       
         // TODO add your handling code here:
         jLabZoom.setText("Zoom: " + String.valueOf(jSlidZoom.getValue()) + "x");
@@ -792,8 +823,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem jCbAfficherGrille;
     private javax.swing.JMenuItem jItemAjouterUrgence;
     private javax.swing.JMenuItem jItemNouvelle;
-    private javax.swing.JMenuItem jItemStrategieAttente;
-    private javax.swing.JMenuItem jItemStrategieDeplacement;
     private javax.swing.JMenuItem jItemImporter;
     private javax.swing.JMenuItem jItemOptionAvance;
     private javax.swing.JMenuItem jItemQuitter;
