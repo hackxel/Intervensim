@@ -39,7 +39,7 @@ public class Simulation {
     Point2D.Float   m_positionNouvSelection;
     Point2D.Float   m_positionSelection;
     Statistiques    m_statistiques;
-    Timer           m_timer;
+
    public Simulation()
     {
         m_RectVisible=new Rectangle.Float(0, 0, 560, 360);
