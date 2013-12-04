@@ -27,6 +27,7 @@ import javax.swing.Timer;
 
 public class Simulation {
    
+    boolean         m_Etat;
     Carte           m_Carte;
     float           m_Zoom;
     Rectangle.Float m_RectVisible; //Coordonnée du coin en haut à gauche, pour affichage
@@ -39,6 +40,7 @@ public class Simulation {
     Point2D.Float   m_positionNouvSelection;
     Point2D.Float   m_positionSelection;
     Statistiques    m_statistiques;
+    int             m_temps;
 
    public Simulation()
     {
@@ -53,11 +55,13 @@ public class Simulation {
         m_positionSelection=null;
         m_positionNouvSelection=null;
         m_statistiques=null;
+        m_Etat = false;
+        m_temps = 0;
     }  
     //Méthodes publique
     public void DemarrerSimulation()
     {
-       
+       m_Etat = true;
     }
     public void SupprimerNoeud(Point p_Coordonnee)
     {
@@ -116,7 +120,7 @@ public class Simulation {
         
         CoordNoeud = CoordonneeGrillePoint(p_Coordonnee);
         
-        m_Carte.AjouterUrgence(CoordNoeud, p_TempsDeclenchement);
+        m_Carte.AjouterUrgence(CoordNoeud, m_temps, m_Etat);
     }
     
     public void AjouterSegment(Point p_CoordNd1, Point p_CoordNd2)
@@ -196,7 +200,8 @@ public class Simulation {
     }
     public void TimerTick()
     {
-        m_Carte.TimerTick();    
+        m_Carte.TimerTick();
+        m_temps++;
     }
     public boolean SimulationEstPrete()
     {

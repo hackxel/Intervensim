@@ -13,13 +13,6 @@ public class Urgence {
     private double m_tempsAvantDeclenchement;
     private boolean m_traitementTermine;
     
-    Urgence(double tempsDeclenchement)
-    {
-        m_tempsAvantDeclenchement = tempsDeclenchement;
-        m_tempsEcoule = 0 - tempsDeclenchement;
-        m_traitementTermine = false;
-    }
-    
     Urgence(double tempsDeclenchement, boolean declencherImmediatement)
     {
         m_tempsAvantDeclenchement = tempsDeclenchement;

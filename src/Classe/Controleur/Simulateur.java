@@ -27,6 +27,10 @@ public class Simulateur {
     {
         m_simulation.PortAttache(p_point);
     }
+    public void Demarrer()
+    {
+        m_simulation.DemarrerSimulation();
+    }
     public void ReinitilialiserSimulation()
     {
         m_simulation.ReinitilialiserSimulation();

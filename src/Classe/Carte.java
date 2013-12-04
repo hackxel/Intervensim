@@ -51,7 +51,7 @@ public class Carte {
         return ajoutReussi;
     }
     
-    public boolean AjouterUrgence(Point2D.Float p_CoordUrg, double p_TempsDeclenchement)
+    public boolean AjouterUrgence(Point2D.Float p_CoordUrg, double p_TempsDeclenchement, boolean p_etat)
     {
         boolean ajoutReussi = false;
         
@@ -59,7 +59,7 @@ public class Carte {
         //Vérifier si le Noeud existe et temps de déclenchement, *impossible ajouter urg sur port attache
         if(ndCourant != null && p_TempsDeclenchement >= 0 && (m_vehicule.m_portAttache == null || !ndCourant.EstMemePosition(m_vehicule.m_portAttache.obtenir_Position()) ))
         {
-            ndCourant.AjouterUrgence(p_TempsDeclenchement);
+            ndCourant.AjouterUrgence(p_TempsDeclenchement, p_etat);
             ajoutReussi = true;    
         }
         

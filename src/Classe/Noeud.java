@@ -69,9 +69,9 @@ public class Noeud {
         }
     }
     
-    public void AjouterUrgence(double tempsAvantDeclenchement)
+    public void AjouterUrgence(double tempsAvantDeclenchement, boolean p_etat)
     {
-        listeUrgences.add(new Urgence(tempsAvantDeclenchement));
+        listeUrgences.add(new Urgence(tempsAvantDeclenchement, p_etat));
     }
     
     public boolean ContientUrgenceDeclencheeNonTraitee()

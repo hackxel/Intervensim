@@ -684,8 +684,8 @@ public class GUI extends javax.swing.JFrame {
      // TODO add your handling code here:
         m_timer.stop();
         lblErreur.setText("Simulation arretée");
-         // Statistiques stats=m_simulateur.AfficherStatistique();
-        //lblErreur.setText("Distance Parcourue: " +String.valueOf(stats.ObtenirDistanceParcourue()) +  " Temps moyen traitement: " + String.valueOf( stats.ObtenirMoyenneTraitement()));
+        Statistiques stats=m_simulateur.AfficherStatistique();
+        lblErreur.setText("Distance Parcourue: " +String.valueOf(stats.ObtenirDistanceParcourue()) +  " Temps moyen traitement: " + String.valueOf( stats.ObtenirMoyenneTraitement()));
         m_simulateur.ReinitilialiserSimulation();  
         jPanelMap.repaint();
        
@@ -695,6 +695,7 @@ public class GUI extends javax.swing.JFrame {
         if(m_simulateur.SimulationEstPrete())
         {
             m_timer.start();
+            m_simulateur.Demarrer();
             lblErreur.setText("Simulation en Court");
         }
     }   
