@@ -104,6 +104,7 @@ public class Vehicule {
                 if(SystemeContientUrgenceRestante(systemeRoutier))
                 {
                     m_prochainNoeud = m_strategieTraitement.ObtenirProchainNoeud(m_noeudCourant, systemeRoutier);
+                    Avancer(vitesse);
                 }
                 else
                 {
@@ -112,8 +113,11 @@ public class Vehicule {
                     {
                         m_prochainNoeud = m_noeudCourant;
                     }
+                    else
+                    {
+                        Avancer(vitesse);
+                    }
                 }
-                Avancer(vitesse);
             }
         }
         else
