@@ -20,6 +20,22 @@ public class Urgence {
         m_traitementTermine = false;
     }
     
+    Urgence(double tempsDeclenchement, boolean declencherImmediatement)
+    {
+        m_tempsAvantDeclenchement = tempsDeclenchement;
+        
+        if(declencherImmediatement == true)
+        {
+            m_tempsEcoule = 0;
+        }
+        else
+        {
+            m_tempsEcoule = 0 - tempsDeclenchement;
+        }
+        
+        m_traitementTermine = false;
+    }
+    
     public double GetTempsAvantDeclenchement()
     {
         return m_tempsAvantDeclenchement;
