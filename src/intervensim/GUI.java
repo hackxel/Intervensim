@@ -76,6 +76,7 @@ public class GUI extends javax.swing.JFrame {
     Graphics m_graphics;
     PanelMap jPanelMap;
     Timer m_timer;
+    boolean m_etatSimulation;
     
     
     public GUI() {
@@ -670,6 +671,7 @@ public class GUI extends javax.swing.JFrame {
                 }
         });   
         lblErreur.setText("Simulation en arret");
+        m_etatSimulation=false;
         //Initialisation variable
         reinitialisationVar();
         m_etatBoutonClique="";
@@ -682,27 +684,41 @@ public class GUI extends javax.swing.JFrame {
     }   
     private void jBtnStopActionPerformed(java.awt.event.ActionEvent evt) {                                          
      // TODO add your handling code here:
-        m_timer.stop();
-        lblErreur.setText("Simulation arretée");
-        Statistiques stats=m_simulateur.AfficherStatistique();
-        lblErreur.setText("Distance Parcourue: " +String.valueOf(stats.ObtenirDistanceParcourue()) +  " Temps moyen traitement: " + String.valueOf( stats.ObtenirMoyenneTraitement()));
-        m_simulateur.ReinitilialiserSimulation();  
-        jPanelMap.repaint();
-       
+        
+        if(m_simulateur.SimulationEstPrete())
+        {
+            DesactiverEtat();
+            m_timer.stop();
+            lblErreur.setText("Simulation arretée");
+            Statistiques stats=m_simulateur.AfficherStatistique();
+            lblErreur.setText("Distance Parcourue: " +String.valueOf(stats.ObtenirDistanceParcourue()) +  " Temps moyen traitement: " + String.valueOf( stats.ObtenirMoyenneTraitement()));
+            m_simulateur.ReinitilialiserSimulation();  
+            jPanelMap.repaint();    
+        }
+            
+           
     }   
      private void jBtnStartActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // TODO add your handling code here:
-        if(m_simulateur.SimulationEstPrete())
+        if(m_simulateur.SimulationEstPrete() && m_etatSimulation==false)
         {
+            activerEtat();
             m_timer.start();
             m_simulateur.Demarrer();
             lblErreur.setText("Simulation en Court");
+            
         }
     }   
     private void jBtnPauseActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // TODO add your handling code here:
-        m_timer.stop();
+        
+        
+        if(m_etatSimulation==true)
+        {
+            DesactiverEtat();
+            m_timer.stop();
             lblErreur.setText("Simulation en pause");
+        }
     }                                         
     private void jItemStrategieActionPerformed(java.awt.event.ActionEvent evt) {
        
@@ -784,6 +800,29 @@ public class GUI extends javax.swing.JFrame {
         m_PremierPoint=null;
         m_DeuxiemePoint=null;
         
+    }
+    private void activerEtat()
+    {
+        m_etatSimulation=true;
+        jBtnAjoutRapide.setEnabled(false);
+        jBtnAjouterNoeud.setEnabled(false);
+        jBtnAjouterPortAttache.setEnabled(false);
+        jBtnAjouterSegment.setEnabled(false);
+        jBtnSupprimerNoeud.setEnabled(false);
+        jBtnSupprimerSegment.setEnabled(false);
+        jBtnSlection.setEnabled(false);
+    }
+    private void DesactiverEtat()
+    {
+        m_etatSimulation=false;
+         jBtnAjoutRapide.setEnabled(true);
+        jBtnAjouterNoeud.setEnabled(true);
+        jBtnAjouterPortAttache.setEnabled(true);
+        jBtnAjouterSegment.setEnabled(true);
+        jBtnSupprimerNoeud.setEnabled(true);
+        jBtnSupprimerSegment.setEnabled(true);
+        jBtnSlection.setEnabled(true);
+            
     }
     /**
      * @param args the command line arguments
