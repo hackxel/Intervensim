@@ -17,6 +17,31 @@ public class AllerNoeudPlusPret extends AlgorithmePlusCourtChemin implements ISt
     @Override
     public Noeud ObtenirProchainNoeud(Noeud noeudCourant, ArrayList<Noeud> systemeRoutier)
     {
-        return null;
+        Noeud noeudUrgencePlusProche = null;
+        double distanceUrgencePlusProche = 9999;
+        
+        for(Noeud unNoeud: systemeRoutier)
+        {
+            
+            if(unNoeud.ContientUrgenceDeclencheeNonTraitee())
+            {
+                double distanceNoeud = ObtenirDistance(noeudCourant, unNoeud, systemeRoutier);
+                
+                if(noeudUrgencePlusProche == null || distanceUrgencePlusProche > distanceNoeud)
+                {
+                    noeudUrgencePlusProche = unNoeud;
+                    distanceUrgencePlusProche = distanceNoeud;
+                }
+            }
+        }
+        
+        Noeud prochainNoeudUrgencePlusProche = null;
+        
+        if(noeudUrgencePlusProche != null)
+        {
+            prochainNoeudUrgencePlusProche = ProchainNoeud(noeudCourant, noeudUrgencePlusProche, systemeRoutier);
+        }
+        
+        return prochainNoeudUrgencePlusProche;
     }
 }

@@ -53,6 +53,42 @@ public abstract class AlgorithmePlusCourtChemin {
        return prochainNoeudTrouve;
     }
     
+    protected double ObtenirDistance(Noeud noeudDepart, Noeud noeudDestination, ArrayList<Noeud> systemeRoutier)
+    {
+        double distance = 0;
+                
+        if(noeudDepart.EstMemePosition(noeudDestination.obtenir_Position()) == false)
+        {
+            systemeRoutier = InitialiserParcours(noeudDepart,systemeRoutier);
+
+            ArrayList<Noeud> listeNoeudsTraitement = new ArrayList<Noeud>();
+
+            listeNoeudsTraitement.add(noeudDepart);
+
+            while(listeNoeudsTraitement.size() > 0)
+            {
+                Noeud noeudCourant = ObtenirNoeudPlusPetiteDistance(listeNoeudsTraitement);
+
+                listeNoeudsTraitement.remove(noeudCourant);
+
+                for(Noeud noeudAdjacent: noeudCourant.ObtenirNoeudsAdjacents())
+                {
+                    if(noeudAdjacent.DejaVisite() == false)
+                    {
+                        noeudAdjacent.RelacheNoeud(noeudCourant);
+
+                        noeudAdjacent.SetVisite();
+                        listeNoeudsTraitement.add(noeudAdjacent);
+                    }
+                }
+            }
+            
+            distance = noeudDestination.GetDistance();
+       }
+        
+       return distance;
+    }
+    
     private ArrayList<Noeud> InitialiserParcours(Noeud noeudDepart, ArrayList<Noeud> systemeRoutier)
     {
         for(Noeud noeudCourant : systemeRoutier)
