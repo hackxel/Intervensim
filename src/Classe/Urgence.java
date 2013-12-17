@@ -44,6 +44,11 @@ public class Urgence {
         return m_tempsEcoule >= 0 && m_traitementTermine == true;
     }
     
+    public boolean UrgenceNonDeclenchee()
+    {
+        return m_tempsEcoule < 0;
+    }
+    
     public void DefinirTerminee()
     {
         m_traitementTermine = true;

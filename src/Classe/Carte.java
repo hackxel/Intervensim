@@ -326,7 +326,15 @@ public class Carte {
                 }
                 else
                 {
-                     g2.fillOval(ptAffiche1.x-8, ptAffiche1.y-8, 16, 16);
+                    if(ndCourant.ContientUrgenceNonDeclenchee())
+                    {
+                        img = new ImageIcon(getClass().getResource("/image/emergencyGris.png")).getImage();
+                        g2.drawImage(img, ptAffiche1.x-12, ptAffiche1.y-12, 24, 24, null);
+                    }
+                    else
+                    {
+                        g2.fillOval(ptAffiche1.x-8, ptAffiche1.y-8, 16, 16);
+                    }
                 }
             }
         }

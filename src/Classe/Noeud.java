@@ -93,6 +93,25 @@ public class Noeud {
         return contientUrgence;
     }
     
+    public boolean ContientUrgenceNonDeclenchee()
+    {
+        boolean contientUrgence = false;
+                
+        int compteur = 0;
+        
+        while(contientUrgence == false && compteur < listeUrgences.size())
+        {
+            if(listeUrgences.get(compteur).UrgenceNonDeclenchee())
+            {
+                contientUrgence = true;
+            }
+            
+            compteur++;
+        }
+        
+        return contientUrgence;
+    }
+    
     public Urgence ObtenirUrgenceCouranteDeclenchee()
     {
         Urgence urgenceCourante = null;
