@@ -39,9 +39,13 @@ public class Simulateur {
     {
         return m_simulation.AfficherStatistique();     
     }
-    public void DefinirStrategie(int p_StrategieAttente,int p_StrategieDeplacement)
+    public void DefinirStrategieAttente(int p_StrategieAttente)
     {
-        m_simulation.DefinirStrategie(p_StrategieAttente,p_StrategieDeplacement);
+        m_simulation.DefinirStrategieAttente(p_StrategieAttente);
+    }
+     public void DefinirStrategieDeplacement(int p_StrategieDeplacement)
+    {
+        m_simulation.DefinirStrategieDeplacement(p_StrategieDeplacement);
     }
     public boolean SimulationEstPrete()
     {
@@ -104,5 +108,9 @@ public class Simulateur {
     public void Selection(Point p_point,String p_mode)
     {
         m_simulation.Selection(p_point,p_mode);
+    }
+    public void DefinirTempsTraimentUrgence(float p_temps)
+    {
+        m_simulation.DefinirTempsTraimentUrgence(p_temps);
     }
 }
