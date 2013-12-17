@@ -303,6 +303,7 @@ public class Simulation {
     }
     public void ReinitilialiserSimulation()
     {
+        m_temps = 0;
         m_Carte.Reinitialiser();
     }
     public void DefinirStrategie(int p_StrategieAttente,int p_StrategieDeplacement)
