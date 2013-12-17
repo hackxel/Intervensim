@@ -683,6 +683,7 @@ public class GUI extends javax.swing.JFrame {
          
         m_simulateur.DefinirStrategieAttente(indiceAttente);
         m_simulateur.DefinirStrategieDeplacement(indiceDeplacement);
+        m_simulateur.DefinirTempsTraimentUrgence((float) 10.5);
         //Initialisation zoom
         jSlidZoom.setValue(1);
         m_simulateur.ChangerZoom(jSlidZoom.getValue());
