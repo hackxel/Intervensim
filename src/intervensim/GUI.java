@@ -9,6 +9,7 @@ package intervensim;
 import Classe.Controleur.Simulateur;
 import Classe.Statistiques;
 import java.awt.Color;
+import java.awt.Dimension;
 import javax.swing.KeyStroke;
 import java.awt.Point;
 import java.awt.Graphics;
@@ -20,7 +21,14 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.Timer;
 
 /**
@@ -167,6 +175,7 @@ public class GUI extends javax.swing.JFrame {
         jSousMenuAttenteItem2=new javax.swing.JRadioButtonMenuItem();
         jSousMenuDeplacementItem1=new javax.swing.JRadioButtonMenuItem();
         jSousMenuDeplacementItem2=new javax.swing.JRadioButtonMenuItem();
+        jItemTempsTraitement=new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Intervensim");
@@ -402,13 +411,13 @@ public class GUI extends javax.swing.JFrame {
         jItemNouvelle.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N,java.awt.Event.CTRL_MASK));
         jMenuFichier.add(jItemNouvelle);
         
-        jItemImporter.setText("Importer une simulation");
+       /* jItemImporter.setText("Importer une simulation");
         jItemImporter.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I,java.awt.Event.CTRL_MASK));
         jMenuFichier.add(jItemImporter);
 
         jItemSauvegarder.setText("Sauvegarder une simulation");
         jItemSauvegarder.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S,java.awt.Event.CTRL_MASK));
-        jMenuFichier.add(jItemSauvegarder);
+        jMenuFichier.add(jItemSauvegarder);*/
 
         jItemQuitter.setText("Quitter");
         jItemQuitter.setActionCommand("jMenuQuitter");
@@ -435,6 +444,20 @@ public class GUI extends javax.swing.JFrame {
         jMenuVehicule.setText("Vehicule");
         jMenuBar.add(jMenuVehicule);
         
+        
+        
+        jItemTempsTraitement.setText("Definir temps de traitement");
+        jItemTempsTraitement.setActionCommand("jMenuQuitter");
+        jItemTempsTraitement.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jItemTempsTraitementActionPerformed(evt);
+            }
+        });
+        jItemNouvelle.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T,java.awt.Event.CTRL_MASK));
+        
+        jMenuVehicule.add(jItemTempsTraitement);
+        
         ButtonGroup groupAttente = new ButtonGroup();
         ButtonGroup groupDeplacement = new ButtonGroup();
         
@@ -448,7 +471,7 @@ public class GUI extends javax.swing.JFrame {
         jSousMenuAttenteItem1.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jItemStrategieActionPerformed(evt);
+                jItemStrategieActionAttentePerformed(evt);
             }
         });
         jSousMenuAttenteItem2.setText("Retourner port attache");
@@ -456,7 +479,7 @@ public class GUI extends javax.swing.JFrame {
         jSousMenuAttenteItem2.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jItemStrategieActionPerformed(evt);
+                jItemStrategieActionAttentePerformed(evt);
             }
         });
        
@@ -468,7 +491,7 @@ public class GUI extends javax.swing.JFrame {
         jSousMenuDeplacementItem1.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jItemStrategieActionPerformed(evt);
+                jItemStrategieActionDeplacementPerformed(evt);
             }
         });
        
@@ -477,7 +500,7 @@ public class GUI extends javax.swing.JFrame {
           jSousMenuDeplacementItem2.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jItemStrategieActionPerformed(evt);
+                jItemStrategieActionDeplacementPerformed(evt);
             }
         });
         
@@ -489,6 +512,7 @@ public class GUI extends javax.swing.JFrame {
         
         jMenuVehicule.add(sousMenuAttente);
         jMenuVehicule.add(sousMenuDeplacement);
+     
         
         jCbAfficherGrille.setSelected(true);
         jCbAfficherGrille.setText("Affichier la grille");
@@ -503,7 +527,7 @@ public class GUI extends javax.swing.JFrame {
         
         jMenuOptions.add(jCbAfficherGrille);
 
-        jItemOptionAvance.setText("Options avancés");
+       /* jItemOptionAvance.setText("Options avancés");
         jItemOptionAvance.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -511,11 +535,11 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         jItemOptionAvance.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O,java.awt.Event.CTRL_MASK));
-        jMenuOptions.add(jItemOptionAvance);
+        jMenuOptions.add(jItemOptionAvance);*/
 
         jMenuBar.add(jMenuOptions);
 
-        jMenuAide.setText("Aide");
+       /* jMenuAide.setText("Aide");
 
         //jMenuAide.setMnemonic(KeyEvent.VK_A);
 
@@ -525,7 +549,7 @@ public class GUI extends javax.swing.JFrame {
 
         //jMenuPropos.setMnemonic(KeyEvent.VK_F);
 
-        jMenuBar.add(jMenuPropos);
+        jMenuBar.add(jMenuPropos);*/
 
         setJMenuBar(jMenuBar);
 
@@ -655,9 +679,10 @@ public class GUI extends javax.swing.JFrame {
         int indiceAttente= (jSousMenuAttenteItem1.isSelected()?1:2);
         jSousMenuDeplacementItem1.setSelected(true);
         jSousMenuDeplacementItem2.setSelected(false);
-         int indiceDeplacement= (jSousMenuDeplacementItem1.isSelected()?1:2);
+        int indiceDeplacement= (jSousMenuDeplacementItem1.isSelected()?1:2);
          
-        m_simulateur.DefinirStrategie(indiceAttente,indiceDeplacement);
+        m_simulateur.DefinirStrategieAttente(indiceAttente);
+        m_simulateur.DefinirStrategieDeplacement(indiceDeplacement);
         //Initialisation zoom
         jSlidZoom.setValue(1);
         m_simulateur.ChangerZoom(jSlidZoom.getValue());
@@ -720,13 +745,17 @@ public class GUI extends javax.swing.JFrame {
             lblErreur.setText("Simulation en pause");
         }
     }                                         
-    private void jItemStrategieActionPerformed(java.awt.event.ActionEvent evt) {
+    private void jItemStrategieActionAttentePerformed(java.awt.event.ActionEvent evt) {
        
-        int strategieAttente,strategieDeplacement;
+        int strategieAttente= (jSousMenuAttenteItem1.isSelected()?1:2);  
+        m_simulateur.DefinirStrategieAttente(strategieAttente);
         
-        strategieAttente= (jSousMenuAttenteItem1.isSelected()?1:2);
-        strategieDeplacement= (jSousMenuAttenteItem2.isSelected()?1:2);
-        m_simulateur.DefinirStrategie(strategieAttente, strategieDeplacement);
+    }
+    private void jItemStrategieActionDeplacementPerformed(java.awt.event.ActionEvent evt) {
+
+
+        int strategieDeplacement= (jSousMenuAttenteItem2.isSelected()?1:2);
+        m_simulateur.DefinirStrategieDeplacement(strategieDeplacement);
         
     }
     private void jSlidZoomStateChanged(javax.swing.event.ChangeEvent evt) {                                       
@@ -795,7 +824,28 @@ public class GUI extends javax.swing.JFrame {
        reinitialisationVar();
        m_etatBoutonClique="AjouterUrgence";
     }
-
+    
+    private void jItemTempsTraitementActionPerformed(java.awt.event.ActionEvent evt) {   
+         
+         JFrame frame = new JFrame();
+         Object result = JOptionPane.showInputDialog(frame, "Temps traitement urgence:","Temps Traitement",JOptionPane.PLAIN_MESSAGE);
+         Float temps=null;
+         try
+         {
+           temps=  Float.parseFloat(result.toString());
+             
+         }
+         catch(Exception ex)
+         {
+             
+         }
+        
+         if(temps!=null)
+         {
+            m_simulateur.DefinirTempsTraimentUrgence(temps);
+         }
+          
+    }
     private void reinitialisationVar() {  
         m_PremierPoint=null;
         m_DeuxiemePoint=null;
@@ -896,6 +946,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JRadioButtonMenuItem jSousMenuAttenteItem2;
     private javax.swing.JRadioButtonMenuItem jSousMenuDeplacementItem1;
     private javax.swing.JRadioButtonMenuItem jSousMenuDeplacementItem2;
+    private javax.swing.JMenuItem jItemTempsTraitement;
     
     // End of variables declaration                   
 }

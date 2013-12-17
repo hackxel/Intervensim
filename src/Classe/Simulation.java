@@ -305,9 +305,16 @@ public class Simulation {
     {
         m_Carte.Reinitialiser();
     }
-    public void DefinirStrategie(int p_StrategieAttente,int p_StrategieDeplacement)
+    public void DefinirStrategieAttente(int p_StrategieAttente)
     {
         m_Carte.DefinirStrategieAttente(p_StrategieAttente);
+    }
+    public void DefinirStrategieDeplacement(int p_StrategieDeplacement)
+    {
         m_Carte.DefinirStrategieTraitement(p_StrategieDeplacement);
+    }
+    public void DefinirTempsTraimentUrgence(float p_temps)
+    {
+        m_Carte.m_vehicule.DefinirTempsTraitement(p_temps);
     }
 }
