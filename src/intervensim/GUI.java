@@ -486,7 +486,7 @@ public class GUI extends javax.swing.JFrame {
         
         sousMenuDeplacement.setText("Strategie Deplacement");
         
-        jSousMenuDeplacementItem1.setText("FIFO");
+        jSousMenuDeplacementItem1.setText("Plus ancienne en premier");
         groupDeplacement.add(jSousMenuDeplacementItem1);
         jSousMenuDeplacementItem1.addActionListener(new java.awt.event.ActionListener() {
             @Override
@@ -656,6 +656,11 @@ public class GUI extends javax.swing.JFrame {
     }  
      private void jItemNouvelleActionPerformed(java.awt.event.ActionEvent evt) {                                             
         // TODO add your handling code here:
+          if(m_timer.isRunning())
+          {
+            m_timer.stop();
+            DesactiverEtat();
+          }
          initilialisationSimulation();
           //final JFileChooser fc = new JFileChooser();
         //  int returnVal = fc.showOpenDialog(this);
@@ -689,6 +694,7 @@ public class GUI extends javax.swing.JFrame {
         m_simulateur.ChangerZoom(jSlidZoom.getValue());
         //Initialisation timer et vitesse
         jSlidVitesse.setValue(1);
+       
         m_timer= new Timer(100/jSlidVitesse.getValue(), new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -745,6 +751,13 @@ public class GUI extends javax.swing.JFrame {
             m_timer.stop();
             lblErreur.setText("Simulation en pause");
         }
+        jBtnAjoutRapide.setEnabled(false);
+        jBtnAjouterNoeud.setEnabled(false);
+        jBtnAjouterPortAttache.setEnabled(false);
+        jBtnAjouterSegment.setEnabled(false);
+        jBtnSupprimerNoeud.setEnabled(false);
+        jBtnSupprimerSegment.setEnabled(false);
+        jBtnSlection.setEnabled(false);
     }                                         
     private void jItemStrategieActionAttentePerformed(java.awt.event.ActionEvent evt) {
        
@@ -755,7 +768,7 @@ public class GUI extends javax.swing.JFrame {
     private void jItemStrategieActionDeplacementPerformed(java.awt.event.ActionEvent evt) {
 
 
-        int strategieDeplacement= (jSousMenuAttenteItem2.isSelected()?1:2);
+        int strategieDeplacement= ( jSousMenuDeplacementItem1.isSelected()?1:2);
         m_simulateur.DefinirStrategieDeplacement(strategieDeplacement);
         
     }
